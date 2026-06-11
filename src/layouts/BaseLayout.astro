@@ -1,0 +1,69 @@
+---
+// SECCIÓN DE COMPILACIÓN (FRONTMATTER)
+// Código ejecutado en el servidor durante la construcción (Build Time)
+import '../styles/global.css'
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-white text-slate-900 transition-colors duration-500 ease-in-out" id="portfolio-body">
+    
+    <slot />
+
+    <script>
+      // SCRIPT DEL CLIENTE (EVALUACIÓN DINÁMICA)
+      // Este código se ejecuta en el navegador del usuario final.
+      
+      // Intentamos capturar el elemento body de forma segura
+      const bodyElement = document.getElementById('portfolio-body');
+      
+      if (bodyElement) {
+        // Configuramos un Intersection Observer para rastrear en qué sección está el usuario
+        const observerOptions: IntersectionObserverInit = {
+          root: null, // Usa el viewport del navegador
+          rootMargin: '0px',
+          threshold: 0.3 // Se activa cuando el 30% de la sección es visible
+        };
+
+        const handleIntersection: IntersectionObserverCallback = (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Capturamos el tema definido en el atributo de datos HTML5 (data-theme)
+              const targetTheme = entry.target.getAttribute('data-theme');
+              
+              if (targetTheme === 'dark') {
+                // Modificación del DOM: Transición a Modo Ciberseguridad / Código
+                bodyElement.classList.remove('bg-white', 'text-slate-900');
+                bodyElement.classList.add('bg-slate-950', 'text-slate-50');
+              } else {
+                // Modificación del DOM: Transición a Modo Diseño Gráfico
+                bodyElement.classList.remove('bg-slate-950', 'text-slate-50');
+                bodyElement.classList.add('bg-white', 'text-slate-900');
+              }
+            }
+          });
+        };
+
+        const observer = new IntersectionObserver(handleIntersection, observerOptions);
+        
+        // Buscamos todas las secciones que tengan el atributo de control de tema
+        const sections = document.querySelectorAll('[data-theme]');
+        sections.forEach((section) => observer.observe(section));
+      }
+    </script>
+  </body>
+</html>
