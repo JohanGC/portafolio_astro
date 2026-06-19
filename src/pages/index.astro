@@ -3,6 +3,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 // 1. Importamos el componente reutilizable de forma segura
 import ProjectCard from '../components/ProjectCard.astro';
+import AboutMe from '../components/AboutMe.astro';
 ---
 
 <BaseLayout 
@@ -11,6 +12,63 @@ import ProjectCard from '../components/ProjectCard.astro';
 >
   <main>
     
+    <section 
+      id="intro-design" 
+      data-theme="light" 
+      class="min-h-screen flex flex-col justify-center px-6 max-w-5xl mx-auto transition-opacity"
+    >
+      <div class="space-y-4">
+        <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full font-bold">
+          [ 9no Semestre Ingeniería de Software + Experto Preprensa ]
+        </span>
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight">
+          Diseño interfaces de alta fidelidad, <br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+            programo código robusto
+          </span> 
+          y audito su seguridad.
+        </h1>
+        <p class="text-lg text-slate-600 max-w-2xl font-light">
+          Especializado en optimizar flujos de producción digital, desarrollar formularios interactivos avanzados y mitigar vulnerabilidades críticas en la experiencia del usuario.
+        </p>
+      </div>
+    </section>
+
+    <section 
+      id="security-core" 
+      data-theme="dark" 
+      class="min-h-screen flex flex-col justify-center px-6 py-20 transition-all"
+    >
+      <div class="max-w-5xl mx-auto w-full space-y-12">
+        <div class="space-y-4">
+          <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 bg-emerald-950/50 border border-emerald-800/60 px-3 py-1 rounded-full">
+            $ cd /home/kali/auditoria_ui
+          </span>
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">
+            Defensa en Profundidad desde la Interfaz
+          </h2>
+          <p class="text-slate-400 max-w-2xl font-light">
+            No asumo que los datos del cliente son seguros. Utilizo metodologías de OWASP y análisis técnico con herramientas como Burp Suite y Kali Linux para garantizar que la experiencia visual no comprometa los datos del backend.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
+          <div class="p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500/40 transition-colors">
+            <div class="text-emerald-400 mb-2">⚡ AWS & Cloud</div>
+            <p class="text-xs text-slate-400 font-sans">Estructuración y despliegue de soluciones seguras en la nube bajo arquitecturas escalables.</p>
+          </div>
+          <div class="p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500/40 transition-colors">
+            <div class="text-emerald-400 mb-2">🛡️ Fortinet NSE</div>
+            <p class="text-xs text-slate-400 font-sans">Comprensión sistémica de perímetros de red, políticas de seguridad y análisis de amenazas.</p>
+          </div>
+          <div class="p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500/40 transition-colors">
+            <div class="text-emerald-400 mb-2">🔍 OWASP & Pentesting</div>
+            <p class="text-xs text-slate-400 font-sans">Detección temprana de vulnerabilidades web como XSS, inyecciones de datos y fallos lógicos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="intro-design" data-theme="light" class="min-h-screen py-20 px-6">
       <div class="max-w-5xl mx-auto space-y-16">
         
@@ -70,6 +128,14 @@ import ProjectCard from '../components/ProjectCard.astro';
 
       </div>
     </section>
+
+    <section id="intro-design" data-theme="light" class="min-h-screen py-20 px-6">
+       </section>
+
+    <AboutMe />
+
+    <section id="security-core" data-theme="dark" class="min-h-screen py-20 px-6 transition-colors">
+       </section>
 
   </main>
 </BaseLayout>
