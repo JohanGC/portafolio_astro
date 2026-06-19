@@ -17,14 +17,14 @@ const isDesign = category === 'design';
 
 const cardStyles = isDesign
     ? "bg-slate-50 border-slate-200 hover:shadow-xl hover:border-indigo-500/30"
-    : "bg-slate-900 border-slate-800 hover:shadow-2xl hover:shadow-esmerald-500/5 hover:border-esmerald-500/40";
+    : "bg-slate-900 border-slate-800 hover:shadow-2xl hover:shadow-emerald-500/5 hover:border-emerald-500/40";
 
 const titleStyles = isDesign ? "text-slate-900" : "text-slate-100";
 const textStyles = isDesign ? "text-slate-600" : "text-slate-400";
 
 const tagStyles = isDesign
     ? "bg-indigo-50 text-indigo-700 border-indigo-100"
-    : "bg-esmerald-950/40 text-esmerald-400 border-esmerald-900/50";
+    : "bg-emerald-950/40 text-esmerald-400 border-emerald-900/50";
 
 ---
 
@@ -44,7 +44,7 @@ const tagStyles = isDesign
         </p>
     </div>
 
-    <div class="mt-8" space-y-6>
+    <div class="mt-8 space-y-6">
         <div class="flex flex-wrap gap-2">
             {tags.map((tag) => (
                 <span class={`text-xs font-mono px-2 py-0.5 rounded ${isDesign ? 'bg-slate-200/60 text-slate-700' : 'bg-slate-800 text-slate-300'}`}>
@@ -60,7 +60,6 @@ const tagStyles = isDesign
             >
                 Ver caso de estudio
                     <span class="transform group-hover:translate-x-1 transition-transform inline-block">→</span>
-                </span>
             </a>
         </div>
     </div>
