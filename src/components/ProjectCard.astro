@@ -1,0 +1,67 @@
+---
+//SECCIÓN DE COMPILACIÓN (FRONMATTER)
+//Definimos contractualmente las propiedades que este componente exige para renderizarse
+
+interface Props {
+    title: string;
+    description: string;
+    tags: string[];
+    link?: string; // El signo ? significa que este dato es opcional
+    category: 'design' | 'security'; // unión de tipos: solo permite uno de estos dos valores estrictos
+}
+
+const { title, description, tags, link = "#", category } = Astro.props;
+
+// Lógica de diseño: definimos clases condicionales según la categoría del proyecto
+const isDesign = category === 'design';
+
+const cardStyles = isDesign
+    ? "bg-slate-50 border-slate-200 hover:shadow-xl hover:border-indigo-500/30"
+    : "bg-slate-900 border-slate-800 hover:shadow-2xl hover:shadow-esmerald-500/5 hover:border-esmerald-500/40";
+
+const titleStyles = isDesign ? "text-slate-900" : "text-slate-100";
+const textStyles = isDesign ? "text-slate-600" : "text-slate-400";
+
+const tagStyles = isDesign
+    ? "bg-indigo-50 text-indigo-700 border-indigo-100"
+    : "bg-esmerald-950/40 text-esmerald-400 border-esmerald-900/50";
+
+---
+
+<div class={`p-8 rounded-2xl border transition-all duration-300 flex flex-col justify-between ${cardStyles}`}>
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <span class={`text-xs font-mono px-2.5 py-1 rounded-md border uppercase tracking-wider font-bold ${tagStyles}`}>
+                {category}
+            </span>
+        </div>
+
+        <h3 class={`text-2xl font-bold tracking-tight transition-colors ${titleStyles}`}>
+            {title}
+        </h3>
+        <p class={`text-sm leading-relaxed font-light ${textStyles}`}>
+            {description}
+        </p>
+    </div>
+
+    <div class="mt-8" space-y-6>
+        <div class="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+                <span class={`text-xs font-mono px-2 py-0.5 rounded ${isDesign ? 'bg-slate-200/60 text-slate-700' : 'bg-slate-800 text-slate-300'}`}>
+                    {tag}
+                </span>            
+            ))}
+        </div>
+
+        <div class="pt-2">
+            <a
+                href={link}
+                class={`text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-1 group transition-transform`}
+            >
+                Ver caso de estudio
+                    <span class="transform group-hover:translate-x-1 transition-transform inline-block">→</span>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
