@@ -1,0 +1,338 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+
+// DATA DE LABORATORIOS TÉCNICOS (WRITEUPS DE CIBERSEGURIDAD)
+const securityLabs = [
+  {
+    id: "appsec-owasp",
+    title: "Auditoría de Vulnerabilidades Web (OWASP Top 10)",
+    category: "AppSec / Pentesting",
+    shortDesc: "Detección y mitigación de fallos XSS y manipulación de parámetros mediante análisis interceptivo.",
+    badge: "OWASP A03:2021",
+    tools: ["Burp Suite", "OWASP ZAP", "Kali Linux", "Regex"],
+    scenario: "Se desplegó un entorno controlado local con formularios interactivos propensos a fallos de sanitización en el cliente para simular vectores de inyección críticos.",
+    recon: "Utilizando OWASP ZAP y mapeo manual, se identificaron puntos de entrada donde los datos del usuario se renderizaban directamente en el DOM sin codificación previa. Con Burp Suite Proxy se interceptaron las peticiones HTTP salientes.",
+    pocCommand: "$ burp-suite --intercept --target https://laboratorio.local/api/v1/update",
+    pocText: "Al manipular el parámetro 'username' e inyectar un payload de Cross-Site Scripting (XSS) reflejado, se logró evadir la validación básica de frontend de Adobe Acrobat / JavaScript e inyectar scripts arbitrarios en la sesión.",
+    mitigationCode: `// ANTES (Vulnerable): el elemento procesaba el string crudo
+// element.innerHTML = userInput;
+
+// DESPUÉS (Seguro): Sanitización estricta y codificación de entidades HTML
+function sanitizeInput(input) {
+  const temp = document.createElement('div');
+  temp.textContent = input;
+  return temp.innerHTML;
+}
+
+// Implementación de Content Security Policy (CSP) en servidor:
+// Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-rAnd0m';`,
+    solution: "Se reemplazó el uso de propiedades vulnerables en la manipulación del DOM, aplicando sanitización estricta de inputs antes de cualquier renderizado y se propuso una política CSP robusta."
+  },
+  {
+    id: "cloud-hardening",
+    title: "Arquitectura Cloud Segura e Infraestructura AWS",
+    category: "Cloud Security",
+    shortDesc: "Diseño de un entorno de red aislado aplicando el principio de menor privilegio (IAM) y hardening de instancias.",
+    badge: "Cloud Hardening",
+    tools: ["AWS IAM", "VPC Security", "EC2 Linux", "CloudWatch"],
+    scenario: "Simulación de una infraestructura empresarial multi-capa expuesta a riesgos de filtración de datos debido a políticas laxas de accesos y puertos públicos innecesarios.",
+    recon: "Auditoría exhaustiva mediante AWS IAM Policy Simulator e inspección de Security Groups activos. Se detectaron roles asignados con la política 'AdministratorAccess' a microservicios específicos y puertos SSH (22) abiertos a cualquier IP (0.0.0.0/0).",
+    pocCommand: "# aws iam simulate-principal-policy --policy-source-arn arn:aws:iam::... --action-names ec2:DescribeInstances",
+    pocText: "A través del compromiso simulado de una instancia EC2 perimetral, un atacante pudo listar y mapear toda la topología de la red interna de AWS debido a la excesiva confianza asignada al rol de la instancia.",
+    mitigationCode: `# Configuración de menor privilegio en políticas de IAM (Ejemplo JSON)
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::bucket-produccion-seguro/*"
+    }
+  ]
+}`,
+    solution: "Aislamiento completo de la base de datos RDS en subredes privadas, restricción del puerto 22 exclusivamente a la IP de la VPN corporativa mediante Security Groups, e implementación de roles IAM granulares acotados por recurso."
+  },
+  {
+    id: "secops-automation",
+    title: "Automatización de Defensa Activa y Parsing de Logs",
+    category: "SecOps / Scripting",
+    shortDesc: "Scripting en Python para el análisis automatizado de archivos de log Nginx/Apache y bloqueo reactivo de atacantes.",
+    badge: "Automation / Def",
+    tools: ["Python", "Linux Bash", "UFW / Iptables", "Regex"],
+    scenario: "Un servidor expuesto a la red pública sufre escaneos automatizados de directorios (Dirbusting) y ataques repetitivos de fuerza bruta sobre endpoints críticos.",
+    recon: "Análisis del archivo 'access.log' revelando picos masivos de peticiones HTTP con códigos de respuesta 404 (Not Found) y 401 (Unauthorized) procedentes de una misma dirección IP en ráfagas de milisegundos.",
+    pocCommand: "$ python3 log_analyzer.py --file /var/log/nginx/access.log --threshold 50",
+    pocText: "El script detecta patrones secuenciales de ataque que superan el umbral seguro de 50 peticiones erróneas por minuto. Al ejecutarse de forma pasiva, genera una alerta inmediata e identifica la dirección IP de origen malicioso.",
+    mitigationCode: `# Implementación del bloqueo reactivo en Python usando el subsistema de Linux
+import os
+import re
+
+def block_ip(ip_address):
+    # Validar formato IP para prevenir inyección de comandos en la shell
+    if re.match(r"^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$", ip_address):
+        # Ejecutar orden de bloqueo a nivel de Firewall del Sistema Operativo
+        os.system(f"sudo ufw deny from {ip_address} to any")
+        print(f"[!] IP Bloqueada de forma reactiva: {ip_address}")`,
+    solution: "Desarrollo de un demonio automatizado en Python acoplado a cron/systemd que analiza flujos de logs, extrae atacantes vía Expresiones Regulares (Regex) e inyecta reglas dinámicas de bloqueo en el Firewall de Linux (UFW)."
+  }
+];
+---
+
+<BaseLayout 
+  title="Laboratorio de Ciberseguridad | Johan GC" 
+  description="Writeups técnicos y auditorías de seguridad ofensiva, AppSec y hardening de infraestructura cloud."
+>
+  <nav class="fixed top-0 left-0 w-full z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-900 px-6 py-4">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <a href="/" class="font-mono text-xs font-bold text-slate-400 hover:text-emerald-400 transition-colors uppercase tracking-wider">
+        ← Volver al Index
+      </a>
+      <span class="font-mono text-[10px] text-emerald-500/70 animate-pulse bg-emerald-950/30 border border-emerald-900/50 px-2.5 py-0.5 rounded-md">
+        ● SOC_STATUS: ACTIVE
+      </span>
+    </div>
+  </nav>
+
+  <main class="bg-slate-950 text-slate-100 min-h-screen pt-28 pb-20 px-6">
+    <div class="max-w-5xl mx-auto space-y-16">
+      
+      <header class="border border-slate-900 rounded-2xl bg-slate-900/20 p-8 relative overflow-hidden shadow-2xl">
+        <div class="absolute top-0 right-0 p-4 font-mono text-[10px] text-slate-700 select-none">
+          SEC_SHELL_V4.0
+        </div>
+        <div class="space-y-4 max-w-3xl">
+          <div class="flex items-center gap-2 font-mono text-xs text-emerald-400">
+            <span>$ whoami</span>
+            <span class="w-2 h-4 bg-emerald-400 animate-pulse inline-block"></span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-100">
+            Auditoría de Seguridad en Interfaces & Cloud Hardening
+          </h1>
+          <p class="text-sm md:text-base text-slate-400 leading-relaxed font-light">
+            Enfoque híbrido centrado en <strong class="text-slate-200 font-medium">AppSec (Seguridad en Aplicaciones)</strong> y <strong class="text-slate-200 font-medium">DevSecOps</strong>. Desarrollo metodologías ofensivas controladas para blindar el software desde su arquitectura lógica y diseño de interfaces, mitigando vulnerabilidades críticas antes del despliegue en producción.
+          </p>
+
+          <div class="pt-4 flex flex-wrap gap-3 items-center">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-slate-400 block mr-2">Certificaciones:</span>
+            <span class="text-[11px] font-mono font-bold bg-slate-900 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-md">
+              Fortinet NSE 1
+            </span>
+            <span class="text-[11px] font-mono font-bold bg-slate-900 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-md">
+              Fortinet NSE 2
+            </span>
+            <span class="text-[11px] font-mono font-bold bg-slate-900 text-slate-300 border border-slate-800 px-3 py-1 rounded-md">
+              Talento Tech Certification
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <section class="space-y-8">
+        <div class="border-b border-slate-900 pb-2">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-widest text-slate-500">
+            [ /var/log/laboratorios_activos ]
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {securityLabs.map((lab) => (
+            <div 
+              class="bg-slate-900/40 border border-slate-900 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/30 transition-all duration-300 group shadow-lg"
+            >
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-mono uppercase bg-emerald-950/50 border border-emerald-900/60 text-emerald-400 px-2 py-0.5 rounded">
+                    {lab.badge}
+                  </span>
+                  <span class="text-[10px] font-mono text-slate-500">
+                    {lab.category}
+                  </span>
+                </div>
+                <h3 class="text-xl font-bold tracking-tight text-slate-200 group-hover:text-emerald-400 transition-colors">
+                  {lab.title}
+                </h3>
+                <p class="text-xs text-slate-400 font-light leading-relaxed">
+                  {lab.shortDesc}
+                </p>
+              </div>
+
+              <div class="mt-6 space-y-4">
+                <div class="flex flex-wrap gap-1.5">
+                  {lab.tools.map((tool) => (
+                    <span class="text-[9px] font-mono bg-slate-900 text-slate-400 px-2 py-0.5 rounded border border-slate-800/60">
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+                
+                <button
+                  data-lab-id={lab.id}
+                  class="w-full text-center font-mono text-[10px] font-bold uppercase tracking-wider py-2.5 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900 text-slate-300 hover:text-emerald-400 hover:bg-slate-950/80 transition-all duration-300 cursor-pointer"
+                >
+                  Analizar Reporte Completo ➔
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div 
+    id="sec-modal-overlay" 
+    class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 md:p-6 opacity-0 pointer-events-none transition-opacity duration-300"
+  >
+    <div 
+      id="sec-modal-card" 
+      class="bg-slate-900 border border-slate-800 w-full max-w-3xl rounded-2xl max-h-[85vh] overflow-y-auto shadow-2xl flex flex-col transition-transform duration-300 scale-95"
+    >
+      <div class="p-6 border-b border-slate-800 flex justify-between items-center sticky top-0 bg-slate-900 z-10">
+        <div>
+          <span id="modal-lab-category" class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest block mb-1">
+            REPORT_LOADED
+          </span>
+          <h3 id="modal-lab-title" class="text-lg md:text-xl font-black text-slate-100 tracking-tight">
+            Cargando especificaciones...
+          </h3>
+        </div>
+        <button 
+          id="sec-modal-close"
+          class="p-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors font-mono text-xs cursor-pointer"
+        >
+          [ ESC_CLOSE ]
+        </button>
+      </div>
+
+      <div id="modal-lab-content" class="p-6 space-y-6 font-sans text-sm text-slate-300 leading-relaxed">
+        </div>
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Traemos la data cruda de Astro al ámbito del cliente de forma segura
+  const labsData = [
+    {
+      id: "appsec-owasp",
+      title: "Auditoría de Vulnerabilidades Web (OWASP Top 10)",
+      category: "AppSec / Pentesting",
+      scenario: "Se desplegó un entorno controlado local con formularios interactivos propensos a fallos de sanitización en el cliente para simular vectores de inyección críticos.",
+      recon: "Utilizando OWASP ZAP y mapeo manual, se identificaron puntos de entrada donde los datos del usuario se renderizaban directamente en el DOM sin codificación previa. Con Burp Suite Proxy se interceptaron las peticiones HTTP salientes de control.",
+      pocCommand: "$ burp-suite --intercept --target https://laboratorio.local/api/v1/update",
+      pocText: "Al manipular el parámetro 'username' e inyectar un payload de Cross-Site Scripting (XSS) reflejado, se logró evadir la validación básica de frontend de Adobe Acrobat / JavaScript e inyectar scripts arbitrarios en la sesión activa del usuario.",
+      solution: "Se reemplazó el uso de propiedades vulnerables en la manipulación del DOM, aplicando sanitización estricta de inputs antes de cualquier renderizado y se propuso una política CSP robusta.",
+      mitigationCode: `// SOLUCIÓN IMPLEMENTADA: Sanitización de Entidades HTML\nfunction sanitizeInput(input) {\n  const temp = document.createElement('div');\n  temp.textContent = input;\n  return temp.innerHTML;\n}\n\n// Content-Security-Policy añadido en cabeceras:\n// Content-Security-Policy: default-src 'self';`
+    },
+    {
+      id: "cloud-hardening",
+      title: "Arquitectura Cloud Segura e Infraestructura AWS",
+      category: "Cloud Security",
+      scenario: "Simulación de una infraestructura empresarial multi-capa expuesta a riesgos de filtración de datos debido a políticas laxas de accesos y puertos públicos innecesarios.",
+      recon: "Auditoría exhaustiva mediante AWS IAM Policy Simulator e inspección de Security Groups activos. Se detectaron roles asignados con la política 'AdministratorAccess' a microservicios específicos y puertos SSH (22) abiertos a cualquier IP (0.0.0.0/0).",
+      pocCommand: "# aws iam simulate-principal-policy --policy-source-arn arn:aws:iam::...",
+      pocText: "A través del compromiso simulado de una instancia EC2 perimetral, un atacante pudo listar y mapear toda la topología de la red interna de AWS debido a la excesiva confianza asignada al rol de la instancia.",
+      solution: "Aislamiento completo de la base de datos RDS en subredes privadas, restricción del puerto 22 exclusivamente a la IP de la VPN corporativa mediante Security Groups, e implementación de roles IAM granulares acotados por recurso.",
+      mitigationCode: `// Hardening de Políticas de Confianza (IAM Restringido)\n{\n  "Version": "2012-10-17",\n  "Statement": [\n    {\n      "Effect": "Allow",\n      "Action": ["s3:GetObject", "s3:PutObject"],\n      "Resource": "arn:aws:s3:::bucket-produccion-seguro/*"\n    }\n  ]\n}`
+    },
+    {
+      id: "secops-automation",
+      title: "Automatización de Defensa Activa y Parsing de Logs",
+      category: "SecOps / Scripting",
+      scenario: "Un servidor expuesto a la red pública sufre escaneos automatizados de directorios (Dirbusting) y ataques repetitivos de fuerza bruta sobre endpoints críticos.",
+      recon: "Análisis del archivo 'access.log' revelando picos masivos de peticiones HTTP con códigos de respuesta 404 (Not Found) y 401 (Unauthorized) procedentes de una misma dirección IP en ráfagas de milisegundos.",
+      pocCommand: "$ python3 log_analyzer.py --file /var/log/nginx/access.log --threshold 50",
+      pocText: "El script detecta patrones secuenciales de ataque que superan el umbral seguro de 50 peticiones erróneas por minuto. Al ejecutarse de forma pasiva, genera una alerta inmediata e identifica la dirección IP de origen malicioso.",
+      solution: "Desarrollo de un demonio automatizado en Python acoplado a cron/systemd que analiza flujos de logs, extrae atacantes vía Expresiones Regulares (Regex) e inyecta reglas dinámicas de bloqueo en el Firewall de Linux (UFW).",
+      mitigationCode: `# Control Temprano y Regla Anti-Inyección de Comandos\nimport os\nimport re\n\ndef block_ip(ip_address):\n    if re.match(r"^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$", ip_address):\n        os.system(f"sudo ufw deny from {ip_address} to any")`
+    }
+  ];
+
+  // Referencias del DOM
+  const openButtons = document.querySelectorAll('button[data-lab-id]');
+  const overlay = document.getElementById('sec-modal-overlay');
+  const card = document.getElementById('sec-modal-card');
+  const closeButton = document.getElementById('sec-modal-close');
+  
+  const mTitle = document.getElementById('modal-lab-title');
+  const mCategory = document.getElementById('modal-lab-category');
+  const mContent = document.getElementById('modal-lab-content');
+  const htmlBody = document.body;
+
+  openButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-lab-id');
+      const lab = labsData.find(l => l.id === id);
+
+      if (lab && overlay && mTitle && mCategory && mContent && card) {
+        // Mapear cabecera
+        mTitle.textContent = lab.title;
+        mCategory.textContent = `[ WRITEUP // ${lab.category} ]`;
+
+        // Inyectar bloques estructurados con estética de consola
+        mContent.innerHTML = `
+          <div class="space-y-2">
+            <h4 class="font-mono text-xs text-slate-400 font-bold uppercase tracking-wider">// 01. ESCENARIO DEL ENTORNO</h4>
+            <p class="font-light text-slate-300 bg-slate-950/40 p-4 border border-slate-800/60 rounded-xl">${lab.scenario}</p>
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="font-mono text-xs text-slate-400 font-bold uppercase tracking-wider">// 02. RECONOCIMIENTO Y ANÁLISIS</h4>
+            <p class="font-light text-slate-300 bg-slate-950/40 p-4 border border-slate-800/60 rounded-xl">${lab.recon}</p>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="font-mono text-xs text-slate-400 font-bold uppercase tracking-wider">// 03. PRUEBA DE CONCEPTO (PoC) EXPLOITATION</h4>
+            <div class="bg-slate-950 rounded-xl p-4 font-mono text-xs border border-slate-800 space-y-2 shadow-inner">
+              <span class="text-emerald-500">${lab.pocCommand}</span>
+              <p class="text-slate-400 font-sans mt-2 leading-relaxed">${lab.pocText}</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            <div class="space-y-2">
+              <h4 class="font-mono text-xs text-emerald-400 font-bold uppercase tracking-wider">// 04. MITIGACIÓN APLICADA</h4>
+              <p class="font-light text-slate-300 bg-emerald-950/10 p-4 border border-emerald-900/30 rounded-xl h-full">${lab.solution}</p>
+            </div>
+            <div class="space-y-2">
+              <h4 class="font-mono text-xs text-slate-400 font-bold uppercase tracking-wider">// 05. CÓDIGO SEGURO / HARDENING</h4>
+              <pre class="bg-slate-950 text-slate-300 p-4 rounded-xl border border-slate-800 font-mono text-[11px] overflow-x-auto shadow-inner leading-relaxed"><code>${lab.mitigationCode}</code></pre>
+            </div>
+          </div>
+        `;
+
+        // Ejecutar apertura fluida
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100', 'pointer-events-auto');
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+        htmlBody.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  // Evento de cierre
+  const closeModal = () => {
+    if (overlay && card) {
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      card.classList.add('scale-95');
+      card.classList.remove('scale-100');
+      htmlBody.style.overflow = '';
+    }
+  };
+
+  if (closeButton) closeButton.addEventListener('click', closeModal);
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+  }
+</script>
