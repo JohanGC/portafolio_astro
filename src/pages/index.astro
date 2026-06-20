@@ -6,6 +6,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import AboutMe from '../components/AboutMe.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
+import DesignGallery from '../components/DesignGallery.astro';
 ---
 
 <BaseLayout 
@@ -96,6 +97,46 @@ import Footer from '../components/Footer.astro';
             tags={['Figma', 'UX Research', 'Design Systems', 'Prototyping']}
             category="design"
           />
+        </div>
+
+      </div>
+    </section>
+    
+    <section 
+      id="intro-design" 
+      data-theme="light" 
+      class="min-h-screen flex flex-col justify-center py-24 px-6 max-w-5xl mx-auto transition-colors duration-500"
+    >
+      <div class="space-y-12">
+        
+        <div class="space-y-4">
+          <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900blue">
+            Diseño, Preprensa. <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">
+              diseño interfaces de código robusto
+            </span> 
+          </h1>
+          <p class="text-lg text-slate-600 max-w-2xl font-light">
+            Especializado en optimizar flujos de producción digital, desarrollar formularios interactivos avanzados y mitigar vulnerabilidades críticas en la experiencia del usuario.
+          </p>
+        </div>
+
+        <div class="space-y-8">
+          <h2 class="text-xs font-mono uppercase tracking-wider text-slate-400 block border-b border-slate-100 pb-2">
+            Casos de Estudio Destacados
+          </h2>
+          
+          <DesignGallery limit={3} />
+
+          <div class="pt-4 flex justify-end">
+            <a 
+              href="/diseno" 
+              class="group inline-flex items-center gap-3 px-6 py-3 border-2 border-slate-900 text-slate-900 font-mono text-xs font-bold uppercase tracking-wider rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-300 shadow-sm"
+            >
+              <span>Explorar Laboratorio Completo</span>
+              <span class="transform group-hover:translate-x-1.5 transition-transform inline-block">➔</span>
+            </a>
+          </div>
         </div>
 
       </div>

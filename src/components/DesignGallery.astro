@@ -1,0 +1,194 @@
+---
+// SECCIÓN DE COMPILACIÓN: Centralizamos los datos y soportamos límites dinámicos
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+
+const allProjects = [
+  {
+    id: "prepress-auto",
+    title: "Automatización de Preprensa Digital",
+    category: "Ingeniería Gráfica",
+    shortDesc: "Optimización de flujos de trabajo masivos para impresión industrial.",
+    fullDesc: "Desarrollo de un ecosistema de formularios inteligentes en Adobe Acrobat que automatizan el cálculo de tintas y marcas de corte, reduciendo el error humano en un 40%.",
+    image: "/diseño1.jpg",
+    processImages: [
+      "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860", 
+      "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
+    ],
+    tags: ["Acrobat", "JavaScript", "Industrial Printing"],
+    challenge: "Los operarios de producción perdían valioso tiempo de máquina configurando manualmente especificaciones mecánicas propensas a errores.",
+    solution: "Implementación de lógica condicional incrustada y scripts en PDF para ocultar pares directos de control redundantes y asegurar un estándar de salida exacto."
+  },
+  {
+    id: "ui-ux-app",
+    title: "Plataforma de Gestión de Servicios",
+    category: "UX / UI Design",
+    shortDesc: "Diseño de interfaz moderna y escalable para aplicaciones móviles.",
+    fullDesc: "Creación de un sistema de diseño atómico para una aplicación de servicios bajo demanda, enfocada en la accesibilidad, jerarquías claras y la reducción de la carga cognitiva del usuario final.",
+    image: "/diseño2.jpg",
+    processImages: [
+      "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461", 
+      "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860"
+    ],
+    tags: ["Figma", "UI Design", "Prototyping"],
+    challenge: "La interfaz original saturada generaba confusión y elevaba las tasas de abandono crítico de usuarios durante los flujos de registro.",
+    solution: "Rediseño completo basado en flujos de onboarding atómicos utilizando principios de contraste cromático y layouts fluidos probados en entornos reales."
+  },
+  {
+    id: "fujifilm-automation",
+    title: "Flujos en Fujifilm XMF Client",
+    category: "Workflow Automation",
+    shortDesc: "Automatización robótica de procesos en cliente XMF vía scripts distribuidos.",
+    fullDesc: "Modelado e investigación de flujos de trabajo automatizados para el procesamiento masivo de archivos de empaques comerciales, garantizando pre-vuelos de color óptimos.",
+    image: "/diseño3.jpg",
+    processImages: [
+      "http://googleusercontent.com/image_collection/image_retrieval/5646046964315808759",
+      "http://googleusercontent.com/image_collection/image_retrieval/7387261808054460524"
+    ],
+    tags: ["Fujifilm XMF", "Python Automation", "PDF/X-4 Standards"],
+    challenge: "Cuellos de botella recurrentes en la recepción y validación de vectores gráficos retrasaban los flujos de impresión masivos.",
+    solution: "Estructuración de Hot Folders enlazados con scripts perimetrales automatizados para la estandarización y corrección inmediata de perfiles de color ICC."
+  }
+];
+
+const designProjects = limit ? allProjects.slice(0, limit) : allProjects;
+---
+
+<div class="space-y-12">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+    {designProjects.map((project) => (
+      <div 
+        class="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-white border border-slate-200 cursor-pointer transition-all duration-500 hover:shadow-2xl hover:border-indigo-500/30"
+        data-project-id={project.id}
+      >
+        <div>
+          <div class="aspect-[16/10] overflow-hidden bg-slate-100 relative">
+            <img 
+              src={project.image} 
+              alt={project.title}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-slate-950/5 group-hover:opacity-0 transition-opacity duration-300"></div>
+          </div>
+          
+          <div class="p-6 space-y-3">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-indigo-600 font-bold block">
+              {project.category}
+            </span>
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+              {project.title}
+            </h3>
+            <p class="text-slate-600 font-light text-sm leading-relaxed">
+              {project.shortDesc}
+            </p>
+          </div>
+        </div>
+        
+        <div class="p-6 pt-0 flex flex-wrap gap-1.5 mt-auto">
+          {project.tags.map(tag => (
+            <span class="text-[9px] font-mono font-bold bg-slate-50 px-2 py-0.5 rounded border border-slate-200 uppercase text-slate-500">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <div class="absolute inset-0 bg-indigo-600/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <span class="text-white font-mono font-bold uppercase tracking-wider text-xs border-2 border-white px-5 py-2 rounded-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            Explorar Proceso →
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div 
+    id="project-modal" 
+    class="fixed inset-0 z-[200] bg-white/98 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 overflow-y-auto"
+  >
+    <div class="max-w-4xl mx-auto py-20 px-6 relative">
+      <button 
+        id="close-modal" 
+        class="fixed top-8 right-8 z-[210] bg-slate-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-indigo-600 hover:rotate-90 transition-all duration-300 shadow-xl"
+      >
+        ✕
+      </button>
+      
+      <div id="modal-content" class="space-y-16">
+        </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ designProjects }}>
+  // LÓGICA DE INTERACCIÓN CLIENT-SIDE SEGURA
+  const modal = document.getElementById('project-modal');
+  const modalContent = document.getElementById('modal-content');
+  const closeBtn = document.getElementById('close-modal');
+  const htmlBody = document.body;
+
+  document.querySelectorAll('[data-project-id]').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.getAttribute('data-project-id');
+      const project = designProjects.find(p => p.id === id);
+      
+      if (project && modal && modalContent) {
+        modalContent.innerHTML = `
+          <div class="space-y-4">
+            <span class="text-xs font-mono font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full inline-block">
+              ${project.category}
+            </span>
+            <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">${project.title}</h2>
+            <p class="text-lg text-slate-600 font-light max-w-2xl leading-relaxed">${project.fullDesc}</p>
+          </div>
+
+          <div class="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-100">
+            <img src="${project.image}" class="w-full h-auto" />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="p-8 bg-slate-50 rounded-2xl border border-slate-200">
+              <h4 class="font-mono font-bold text-xs uppercase text-slate-400 mb-3">[ El Desafío ]</h4>
+              <p class="text-sm text-slate-700 leading-relaxed font-light">${project.challenge}</p>
+            </div>
+            <div class="p-8 bg-indigo-950 text-indigo-100 rounded-2xl shadow-xl">
+              <h4 class="font-mono font-bold text-xs uppercase text-indigo-400 mb-3">[ Solución de Ingeniería ]</h4>
+              <p class="text-sm text-indigo-200 leading-relaxed font-light">${project.solution}</p>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div class="text-center">
+              <h4 class="font-mono font-bold text-xs uppercase text-slate-400 tracking-[0.25em]">Evidencias Técnicas del Proceso</h4>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              ${project.processImages.map((img, i) => `
+                <div class="space-y-2">
+                  <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm">
+                    <img src="${img}" class="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
+                  </div>
+                  <span class="text-[10px] font-mono text-slate-400 block text-center">Fase de Validación ${i + 1}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100', 'pointer-events-auto');
+        htmlBody.style.overflow = 'hidden'; // Bloquea scroll trasero
+      }
+    });
+  });
+
+  if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100', 'pointer-events-auto');
+      htmlBody.style.overflow = 'auto'; // Devuelve scroll natural
+    });
+  }
+</script>
