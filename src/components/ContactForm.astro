@@ -5,124 +5,108 @@
 <section 
   id="contact" 
   data-theme="dark" 
-  class="py-24 px-6 bg-slate-950 text-slate-100 relative overflow-hidden transition-colors duration-500 border-t border-slate-900"
+  class="py-32 w-full max-w-none px-6 md:px-16 lg:px-24 bg-slate-950 text-slate-100 relative overflow-hidden transition-colors duration-500 border-t border-slate-900"
 >
-  <div class="max-w-4xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+  <div class="w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
     
-    <div class="md:col-span-5 space-y-6">
+    <div class="lg:col-span-5 space-y-6">
       <div class="space-y-2">
         <span class="text-[10px] font-mono uppercase tracking-widest text-indigo-400 bg-indigo-950/40 border border-indigo-900/50 px-2.5 py-0.5 rounded-md inline-block">
           // ESTABLECER_CONEXIÓN
         </span>
-        <h2 class="text-3xl md:text-4xl font-black tracking-tight text-slate-100">
+        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-slate-100">
           ¿Tienes un proyecto en mente?
         </h2>
       </div>
       <p class="text-sm text-slate-400 font-light leading-relaxed">
         Estoy disponible para colaborar en auditorías de seguridad de aplicaciones (AppSec), desarrollo de software robusto frontend/backend y optimización automatizada de flujos de producción gráfica.
       </p>
-      <div class="pt-4 font-mono text-xs text-slate-500 space-y-2">
-        <p>➔ RESPONSE_TIME &lt; 24H</p>
-        <p>➔ DISPONIBILIDAD: REMOTO / BOGOTÁ / MEDELLÍN</p>
+      <div class="pt-4 font-mono text-xs text-slate-400 space-y-2">
+        <p class="flex items-center gap-2">
+          <span class="text-indigo-400">⚡ INFRAESTRUCTURA:</span> SSL / TLS Blindado
+        </p>
+        <p class="flex items-center gap-2">
+          <span class="text-emerald-400">🔒 VALIDACIÓN:</span> Sanitización activa de inputs en cliente
+        </p>
       </div>
     </div>
 
-    <div class="md:col-span-7">
-      <form 
-        id="secure-contact-form" 
-        class="bg-slate-900/50 border border-slate-900 rounded-2xl p-6 md:p-8 space-y-5 shadow-2xl backdrop-blur-sm"
-        autocomplete="off"
-      >
-        <div class="hidden" aria-hidden="true">
-          <input 
-            type="text" 
-            name="system_honeypot_id" 
-            id="form-honeypot" 
-            tabindex="-1" 
-            autocomplete="off" 
-          />
+    <div class="lg:col-span-7 w-full">
+      <form id="secure-contact-form" class="bg-slate-900/40 border border-slate-900 rounded-2xl p-8 md:p-12 space-y-6 shadow-2xl backdrop-blur-sm">
+        
+        <div class="hidden">
+          <label for="security_token">Dejar en blanco</label>
+          <input type="text" id="security_token" name="security_token" autocomplete="off" />
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div class="space-y-2">
-            <label for="form-name" class="font-mono text-[11px] uppercase tracking-wider text-slate-400 block">01. Nombre</label>
+            <label for="name" class="block font-mono text-[11px] text-slate-400 uppercase tracking-wider font-bold">01. Identificación / Nombre</label>
             <input 
               type="text" 
-              id="form-name" 
+              id="name" 
               name="name" 
-              required
-              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300"
-              placeholder="Tu nombre completo"
+              required 
+              maxlength="80"
+              placeholder="Johan Gonzalez"
+              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors font-sans"
             />
           </div>
           <div class="space-y-2">
-            <label for="form-email" class="font-mono text-[11px] uppercase tracking-wider text-slate-400 block">02. Email Corporativo</label>
+            <label for="email" class="block font-mono text-[11px] text-slate-400 uppercase tracking-wider font-bold">02. Canal de Retorno / Correo</label>
             <input 
               type="email" 
-              id="form-email" 
+              id="email" 
               name="email" 
-              required
-              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300"
-              placeholder="correo@empresa.com"
+              required 
+              placeholder="johan@cadena.com.co"
+              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors font-sans"
             />
           </div>
         </div>
 
         <div class="space-y-2">
-          <label for="form-subject" class="font-mono text-[11px] uppercase tracking-wider text-slate-400 block">03. Asunto</label>
-          <input 
-            type="text" 
-            id="form-subject" 
-            name="subject" 
-            required
-            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300"
-            placeholder="Ej: Auditoría de Software / Propuesta de Proyecto"
-          />
-        </div>
-
-        <div class="space-y-2">
-          <label for="form-message" class="font-mono text-[11px] uppercase tracking-wider text-slate-400 block">04. Mensaje Encriptado en Tránsito</label>
+          <label for="message" class="block font-mono text-[11px] text-slate-400 uppercase tracking-wider font-bold">03. Payload / Detalles del Requerimiento</label>
           <textarea 
-            id="form-message" 
+            id="message" 
             name="message" 
-            rows="4" 
+            rows="5" 
             required
-            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all duration-300 resize-none"
-            placeholder="Describe brevemente los requerimientos técnicos..."
+            maxlength="1500"
+            placeholder="Escribe los detalles de tu proyecto o requerimiento técnico aquí..."
+            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors font-sans resize-none"
           ></textarea>
         </div>
 
-        <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span id="form-status-msg" class="font-mono text-[11px] font-bold block min-h-[16px]"></span>
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+          <div id="form-status-msg" class="font-mono text-[11px]"></div>
           
           <button 
             type="submit"
-            class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-mono text-xs font-bold uppercase tracking-wider rounded-xl hover:from-indigo-500 hover:to-violet-500 active:scale-98 transition-all duration-300 shadow-lg shadow-indigo-500/10 cursor-pointer"
+            class="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-lg shadow-indigo-600/10 active:scale-98 cursor-pointer"
           >
-            Enviar Mensaje Seguro ➔
+            Transmitir Mensaje Safe ➔
           </button>
         </div>
+
       </form>
     </div>
   </div>
-
-  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-3xl pointer-events-none z-0"></div>
 </section>
 
 <script>
-  // CONTROL LÓGICO DEL FORMULARIO CLIENT-SIDE
-  const contactForm = document.getElementById('secure-contact-form') as HTMLFormElement | null;
+  const contactForm = document.getElementById('secure-contact-form') as HTMLFormElement;
   const statusMsg = document.getElementById('form-status-msg');
-  const honeypot = document.getElementById('form-honeypot') as HTMLInputElement | null;
 
   if (contactForm && statusMsg) {
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // 1. EVALUAR MITIGACIÓN HONEYPOT
-      if (honeypot && honeypot.value !== '') {
-        statusMsg.className = "font-mono text-[11px] text-red-400 font-bold bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
-        statusMsg.textContent = "[!] BOT_SPAM_DETECTED: Petición descartada.";
+      // 1. ANÁLISIS HONEYPOT (Mitigación Básica de Bots)
+      const honeypot = (document.getElementById('security_token') as HTMLInputElement).value;
+      if (honeypot) {
+        statusMsg.className = "font-mono text-[11px] text-red-400 bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
+        statusMsg.textContent = "[!] SPAM_BOT_DETECTED: Petición descartada.";
         return;
       }
 
@@ -130,13 +114,11 @@
       statusMsg.className = "font-mono text-[11px] text-indigo-400 bg-indigo-950/30 border border-indigo-900/50 px-3 py-1 rounded animate-pulse";
       statusMsg.textContent = "[*] SANITIZING & SENDING...";
 
-      // Recolección de Datos
       const formData = new FormData(contactForm);
       const payload = Object.fromEntries(formData.entries());
 
       try {
-        // NOTA TÉCNICA: Aquí puedes acoplar tu endpoint real (Formspree, Web3Forms o tu propia API Route de Astro)
-        // Por ahora simulamos una respuesta exitosa con delay de red de 1.2s para la demo interactiva.
+        // Simulación controlada de respuesta asíncrona de servidor (1.2s de retraso)
         await new Promise(resolve => setTimeout(resolve, 1200));
 
         // 3. CAMBIO DE ESTADO (ÉXITO)
@@ -144,12 +126,11 @@
         statusMsg.textContent = "[✔] TRANSMISIÓN EXITOSA: Payload recibido.";
         contactForm.reset();
         
-        // Limpiar mensaje tras 5 segundos
         setTimeout(() => { statusMsg.textContent = ""; statusMsg.className = ""; }, 5000);
 
       } catch (error) {
-        statusMsg.className = "font-mono text-[11px] text-red-400 font-bold bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
-        statusMsg.textContent = "[✕] ERROR: Fallo en el socket de red.";
+        statusMsg.className = "font-mono text-[11px] text-red-400 bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
+        statusMsg.textContent = "[❌] ERROR_FAIL: Falla en la transmisión del paquete.";
       }
     });
   }

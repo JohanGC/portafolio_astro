@@ -25,138 +25,167 @@ const allProjects = [
   {
     id: "ui-ux-app",
     title: "Plataforma de Gestión de Servicios",
-    category: "UX / UI Design",
+    category: "Diseño UI/UX",
     shortDesc: "Diseño de interfaz moderna y escalable para aplicaciones móviles.",
-    fullDesc: "Creación de un sistema de diseño atómico para una aplicación de servicios bajo demanda, enfocada en la accesibilidad, jerarquías claras y la reducción de la carga cognitiva del usuario final.",
+    fullDesc: "Creación y prueba de un sistema de componentes modular de alta fidelidad para software de logística masiva. Enfoque riguroso en consistencia atómica y accesibilidad.",
     image: "/diseño2.jpg",
     processImages: [
-      "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461", 
-      "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860"
+      "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860",
+      "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
     ],
-    tags: ["Figma", "UI Design", "Prototyping"],
-    challenge: "La interfaz original saturada generaba confusión y elevaba las tasas de abandono crítico de usuarios durante los flujos de registro.",
-    solution: "Rediseño completo basado en flujos de onboarding atómicos utilizando principios de contraste cromático y layouts fluidos probados en entornos reales."
-  },
-  {
-    id: "fujifilm-automation",
-    title: "Flujos en Fujifilm XMF Client",
-    category: "Workflow Automation",
-    shortDesc: "Automatización robótica de procesos en cliente XMF vía scripts distribuidos.",
-    fullDesc: "Modelado e investigación de flujos de trabajo automatizados para el procesamiento masivo de archivos de empaques comerciales, garantizando pre-vuelos de color óptimos.",
-    image: "/diseño3.jpg",
-    processImages: [
-      "http://googleusercontent.com/image_collection/image_retrieval/5646046964315808759",
-      "http://googleusercontent.com/image_collection/image_retrieval/7387261808054460524"
-    ],
-    tags: ["Fujifilm XMF", "Python Automation", "PDF/X-4 Standards"],
-    challenge: "Cuellos de botella recurrentes en la recepción y validación de vectores gráficos retrasaban los flujos de impresión masivos.",
-    solution: "Estructuración de Hot Folders enlazados con scripts perimetrales automatizados para la estandarización y corrección inmediata de perfiles de color ICC."
+    tags: ["Figma", "Component System", "Mobile Layout"],
+    challenge: "Falta de estandarización visual entre diferentes módulos del sistema, ralentizando el desarrollo frontend.",
+    solution: "Estructuración de directrices atómicas y tokens de diseño reutilizables vinculados directamente a propiedades CSS semánticas."
   }
 ];
 
-const designProjects = limit ? allProjects.slice(0, limit) : allProjects;
+const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
 ---
 
-<div class="space-y-12">
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
-    {designProjects.map((project) => (
-      <div 
-        class="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-white border border-slate-200 cursor-pointer transition-all duration-500 hover:shadow-2xl hover:border-indigo-500/30"
-        data-project-id={project.id}
-      >
-        <div>
-          <div class="aspect-[16/10] overflow-hidden bg-slate-100 relative">
+<section 
+  id="design-gallery" 
+  class="py-24 w-full max-w-none px-6 md:px-16 lg:px-24 transition-colors duration-500"
+>
+  <div class="w-full space-y-12">
+    
+    <div class="space-y-2">
+      <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full font-bold inline-block">
+        [ Laboratorio Creativo Industrial ]
+      </span>
+      <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+        Producción Gráfica y Sistemas UI
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
+      {displayedProjects.map((project) => (
+        <div 
+          data-project-id={project.id}
+          class="group rounded-2xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:shadow-2xl hover:border-indigo-500/30 transition-all duration-300 overflow-hidden flex flex-col md:flex-row h-full cursor-pointer"
+        >
+          <div class="md:w-2/5 relative overflow-hidden bg-slate-200 min-h-[240px] md:min-h-full">
             <img 
               src={project.image} 
               alt={project.title}
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-slate-950/5 group-hover:opacity-0 transition-opacity duration-300"></div>
           </div>
-          
-          <div class="p-6 space-y-3">
-            <span class="text-[10px] font-mono uppercase tracking-widest text-indigo-600 font-bold block">
-              {project.category}
-            </span>
-            <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-              {project.title}
-            </h3>
-            <p class="text-slate-600 font-light text-sm leading-relaxed">
-              {project.shortDesc}
-            </p>
-          </div>
-        </div>
-        
-        <div class="p-6 pt-0 flex flex-wrap gap-1.5 mt-auto">
-          {project.tags.map(tag => (
-            <span class="text-[9px] font-mono font-bold bg-slate-50 px-2 py-0.5 rounded border border-slate-200 uppercase text-slate-500">
-              {tag}
-            </span>
-          ))}
-        </div>
 
-        <div class="absolute inset-0 bg-indigo-600/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <span class="text-white font-mono font-bold uppercase tracking-wider text-xs border-2 border-white px-5 py-2 rounded-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-            Explorar Proceso →
-          </span>
+          <div class="p-8 md:w-3/5 flex flex-col justify-between space-y-6">
+            <div class="space-y-3">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded border border-indigo-100 bg-indigo-50 text-indigo-600 uppercase font-bold tracking-wider">
+                {project.category}
+              </span>
+              <h3 class="text-2xl font-bold tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {project.title}
+              </h3>
+              <p class="text-sm text-slate-600 font-light leading-relaxed">
+                {project.shortDesc}
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <div class="flex flex-wrap gap-1.5">
+                {project.tags.map(tag => (
+                  <span class="text-[11px] font-mono px-2 py-0.5 bg-slate-100 text-slate-600 rounded border border-slate-200/60">{tag}</span>
+                ))}
+              </div>
+              <span class="text-xs font-mono font-bold text-indigo-600 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform uppercase tracking-wider">
+                Explorar Bitácora de Procesos ➔
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
+
   </div>
 
   <div 
-    id="project-modal" 
-    class="fixed inset-0 z-[200] bg-white/98 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 overflow-y-auto"
+    id="global-design-modal" 
+    class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 md:p-6 opacity-0 pointer-events-none transition-opacity duration-300"
   >
-    <div class="max-w-4xl mx-auto py-20 px-6 relative">
-      <button 
-        id="close-modal" 
-        class="fixed top-8 right-8 z-[210] bg-slate-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-indigo-600 hover:rotate-90 transition-all duration-300 shadow-xl"
-      >
-        ✕
-      </button>
-      
-      <div id="modal-content" class="space-y-16">
+    <div class="bg-white w-full max-w-4xl rounded-2xl max-h-[85vh] overflow-y-auto shadow-2xl flex flex-col text-slate-900">
+      <div class="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
+        <div>
+          <span id="modal-project-category" class="text-[10px] font-mono text-indigo-600 uppercase tracking-widest block mb-1">CATEGORÍA</span>
+          <h3 id="modal-project-title" class="text-xl font-black tracking-tight text-slate-900">Título del Proyecto</h3>
+        </div>
+        <button 
+          id="modal-close-btn"
+          class="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors font-mono text-xs cursor-pointer"
+        >
+          [ CERRAR_VENTANA ]
+        </button>
+      </div>
+
+      <div id="modal-project-body" class="p-6 space-y-8 text-sm text-slate-600 leading-relaxed">
         </div>
     </div>
   </div>
-</div>
+</section>
 
-<script define:vars={{ designProjects }}>
-  // LÓGICA DE INTERACCIÓN CLIENT-SIDE SEGURA
-  const modal = document.getElementById('project-modal');
-  const modalContent = document.getElementById('modal-content');
-  const closeBtn = document.getElementById('close-modal');
+<script>
+  const projectData = [
+    {
+      id: "prepress-auto",
+      title: "Automatización de Preprensa Digital",
+      category: "Ingeniería Gráfica",
+      fullDesc: "Desarrollo de un ecosistema de formularios inteligentes en Adobe Acrobat que automatizan el cálculo de tintas y marcas de corte, reduciendo el error humano en un 40%. Se aplicaron estructuras analíticas complejas de control de campos cruzados.",
+      processImages: [
+        "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860", 
+        "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
+      ],
+      challenge: "Los operarios de producción perdían valioso tiempo de máquina configurando manualmente especificaciones mecánicas propensas a errores.",
+      solution: "Implementación de lógica condicional incrustada y scripts en PDF para ocultar pares directos de control redundantes y asegurar un estándar de salida exacto."
+    },
+    {
+      id: "ui-ux-app",
+      title: "Plataforma de Gestión de Servicios",
+      category: "Diseño UI/UX",
+      fullDesc: "Creación y prueba de un sistema de componentes modular de alta fidelidad para software de logística masiva. Enfoque riguroso en consistencia atómica y accesibilidad completa basada en tokens globales.",
+      processImages: [
+        "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860",
+        "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
+      ],
+      challenge: "Falta de estandarización visual entre diferentes módulos del sistema, ralentizando el desarrollo frontend.",
+      solution: "Estructuración de directrices atómicas y tokens de diseño reutilizables vinculados directamente a propiedades CSS semánticas."
+    }
+  ];
+
+  const cards = document.querySelectorAll('div[data-project-id]');
+  const modal = document.getElementById('global-design-modal');
+  const closeBtn = document.getElementById('modal-close-btn');
   const htmlBody = document.body;
 
-  document.querySelectorAll('[data-project-id]').forEach(card => {
+  cards.forEach(card => {
     card.addEventListener('click', () => {
       const id = card.getAttribute('data-project-id');
-      const project = designProjects.find(p => p.id === id);
-      
-      if (project && modal && modalContent) {
-        modalContent.innerHTML = `
-          <div class="space-y-4">
-            <span class="text-xs font-mono font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full inline-block">
-              ${project.category}
-            </span>
-            <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">${project.title}</h2>
-            <p class="text-lg text-slate-600 font-light max-w-2xl leading-relaxed">${project.fullDesc}</p>
+      const project = projectData.find(p => p.id === id);
+
+      const mTitle = document.getElementById('modal-project-title');
+      const mCategory = document.getElementById('modal-project-category');
+      const mBody = document.getElementById('modal-project-body');
+
+      if (project && modal && mTitle && mCategory && mBody) {
+        mTitle.textContent = project.title;
+        mCategory.textContent = `[ PROCESO_TÉCNICO // ${project.category} ]`;
+        
+        mBody.innerHTML = `
+          <div class="space-y-2">
+            <h4 class="font-mono font-bold text-xs uppercase text-slate-400 tracking-wider">// DESCRIPCIÓN DEL PROYECTO</h4>
+            <p class="text-slate-700 font-light text-base">${project.fullDesc}</p>
           </div>
 
-          <div class="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-100">
-            <img src="${project.image}" class="w-full h-auto" />
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="p-8 bg-slate-50 rounded-2xl border border-slate-200">
-              <h4 class="font-mono font-bold text-xs uppercase text-slate-400 mb-3">[ El Desafío ]</h4>
-              <p class="text-sm text-slate-700 leading-relaxed font-light">${project.challenge}</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+              <h4 class="font-mono font-bold text-xs uppercase text-slate-400 mb-4">El Desafío</h4>
+              <p class="text-slate-700 font-light">${project.challenge}</p>
             </div>
-            <div class="p-8 bg-indigo-950 text-indigo-100 rounded-2xl shadow-xl">
-              <h4 class="font-mono font-bold text-xs uppercase text-indigo-400 mb-3">[ Solución de Ingeniería ]</h4>
-              <p class="text-sm text-indigo-200 leading-relaxed font-light">${project.solution}</p>
+            <div class="p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100/50">
+              <h4 class="font-mono font-bold text-xs uppercase text-indigo-400 mb-4">La Solución Técnica</h4>
+              <p class="text-slate-700 font-light">${project.solution}</p>
             </div>
           </div>
 
@@ -179,7 +208,7 @@ const designProjects = limit ? allProjects.slice(0, limit) : allProjects;
 
         modal.classList.remove('opacity-0', 'pointer-events-none');
         modal.classList.add('opacity-100', 'pointer-events-auto');
-        htmlBody.style.overflow = 'hidden'; // Bloquea scroll trasero
+        htmlBody.style.overflow = 'hidden';
       }
     });
   });
@@ -188,7 +217,15 @@ const designProjects = limit ? allProjects.slice(0, limit) : allProjects;
     closeBtn.addEventListener('click', () => {
       modal.classList.add('opacity-0', 'pointer-events-none');
       modal.classList.remove('opacity-100', 'pointer-events-auto');
-      htmlBody.style.overflow = 'auto'; // Devuelve scroll natural
+      htmlBody.style.overflow = '';
+    });
+    
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        modal.classList.remove('opacity-100', 'pointer-events-auto');
+        htmlBody.style.overflow = '';
+      }
     });
   }
 </script>

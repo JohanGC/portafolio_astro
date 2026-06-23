@@ -3,180 +3,170 @@
 // Aquí podríamos traer datos de una API o CMS si fuera necesario. Por ahora la estructura está lista.
 ---
 
-<section id="about-section" data-theme="light" class="min-h-screen py-24 px-6 flex flex-col justify-center transition-colors duration-700">
-    <div class="max-w-5xl mx-auto w-full space-y-12">
+<section 
+  id="about-section" 
+  data-theme="light" 
+  class="min-h-screen py-32 w-full max-w-none px-6 md:px-16 lg:px-24 flex flex-col justify-center transition-colors duration-700"
+>
+  <div class="w-full space-y-12">
 
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 transition-colors duration-500" id="about-header-border">
-            <div class="space-y-2">
-                <span class="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold">[ El Humano Detrás del Código ]</span>
-                <h2 class="text-4xl md:text-5xl font-black tracking-tight" id="about-title">Sobre Mí</h2>
-            </div>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 transition-colors duration-500" id="about-header-border">
+      <div class="space-y-2">
+        <span class="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold">[ El Humano Detrás del Código ]</span>
+        <h2 class="text-4xl md:text-6xl font-black tracking-tight" id="about-title">Sobre Mí</h2>
+      </div>
 
-            <div class="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 shadow-inner transition-colors duration-500" id="perspective-toggle-container">
-                <button
-                    id="btn-designer"
-                    class="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 shadow-sm bg-white text-indigo-600"
-                    aria-label="Ver perfil de Diseño Gráfico"
-                >Diseñador
-                </button>
-                <button
-                    id="btn-engineer"
-                    class="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800"
-                    aria-label="Ver perfil de Ingeniería de Software"
-                    >Ingeniero
-                    </button>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-12 items-center">
-            
-            <div class="md:col-span-7 space-y-6">
-                <h3 class="text-2xl md:text-3xl font-bold tracking-light transition-colors duration-500" id="dynamic-headline">
-                    7 años optimizando la producción gráfica y digital
-                </h3>
-
-                <div class="space-y-4 text-base font-light leading-relaxed transition-colors duration-500" id="dynamic-text">
-                    <p id="p-1">
-                        Mi trayectoria profesional consolidada en el diseño gráfico me ha otorgado una atención implacable al detalle y una profunda comprensión de la experiencia del usuario. Me especializo en sistemas de preprensa digital y en el desarrollo lógico de formulatios interactivos con Adobe Acrobat.
-                    </p>
-                    <p id="p-2">
-                        Entiendo el diseño no como ornamentación, sino como arquitectura funcional: resolver problemas complejos mediante interfaces limpias, intuitivas y eficientes para el usuario final.
-                    </p>
-                </div>
-            </div>
-
-            <div class="md:col-span-5 p-8 rounded-2xl border transition-all duration-500" id="tech-spec-box">
-                <div class="space-y-4" id="spec-content">
-                    <div class="text-xs font-mono uppercase tracking-widest text-indigo-600 font-bold" id="spec-subtitle">
-                        Core Competencies
-                    </div>
-                    <ul class="space-y-3 font-mono text-xs" id="spec-list">
-                        <li class="flex items-center gap-2">Gestión Documental PDF Avanzada</li>
-                        <li class="flex items-center gap-2">Automatización de Pre-prensa</li>
-                        <li class="flex items-center gap-2">Diseño de Interfaces de Usuario (UI)</li>
-                        <li class="flex items-center gap-2">Prototipado Atómico en Figma</li>
-                    </ul>
-                </div>
-            </div>
-            
-        </div>
-
+      <div class="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 shadow-inner transition-colors duration-500" id="perspective-toggle-container">
+        <button
+          id="btn-designer"
+          class="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 shadow-sm bg-white text-indigo-600"
+        >
+          Diseñador Gráfico
+        </button>
+        <button
+          id="btn-engineer"
+          class="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800"
+        >
+          Ingeniero de Software
+        </button>
+      </div>
     </div>
 
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start w-full">
+      <div class="lg:col-span-5 space-y-6">
+        <p class="text-base md:text-lg leading-relaxed font-light text-slate-700 transition-colors duration-500" id="about-description">
+          Durante más de siete años he ejercido la producción gráfica digital avanzada, especializándome en la automatización de flujos de pre-prensa y empaques industriales mediante scripts e interfaces lógicas interactivas. Mi transición natural hacia la ingeniería de software me permite estructurar aplicaciones web óptimas, limpias y metodológicamente blindadas contra fallos lógicos.
+        </p>
+        
+        <div class="pt-2">
+          <p class="text-xs font-mono text-slate-400 uppercase tracking-widest">[ Enfoque Profesional Actual ]</p>
+          <p class="text-sm font-semibold text-slate-800 mt-1 transition-colors duration-500" id="focus-text">Fusión Estética-Estructural, Automatización Gráfica y Sistemas Interactivos Avanzados.</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="p-8 md:p-12 rounded-2xl border border-slate-200 bg-slate-50 transition-all duration-500 space-y-6" id="tech-spec-box">
+          <div>
+            <h3 class="text-xs font-mono font-bold uppercase tracking-[0.2em] text-indigo-600 transition-colors duration-500" id="spec-subtitle">
+              Stack de Producción y Diseño Visual
+            </h3>
+            <p class="text-2xl font-black tracking-tight mt-1">Herramientas Avanzadas</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 font-mono text-xs text-slate-600 transition-colors duration-500" id="skills-grid">
+            <div class="space-y-2">
+              <p class="font-bold text-slate-900 border-b border-slate-200 pb-1 flex justify-between"><span>Adobe Creative Suite</span> <span>[90%]</span></p>
+              <p class="text-[11px] font-light">Especialista en flujos vectoriales masivos e interactividad en Acrobat.</p>
+            </div>
+            <div class="space-y-2">
+              <p class="font-bold text-slate-900 border-b border-slate-200 pb-1 flex justify-between"><span>Pre-Prensa Industrial</span> <span>[95%]</span></p>
+              <p class="text-[11px] font-light">Control estricto de tintas directas, sangrados y trapping automatizado.</p>
+            </div>
+            <div class="space-y-2">
+              <p class="font-bold text-slate-900 border-b border-slate-200 pb-1 flex justify-between"><span>UI/UX Prototyping</span> <span>[85%]</span></p>
+              <p class="text-[11px] font-light">Estructuración de componentes de alta fidelidad centrados en la usabilidad.</p>
+            </div>
+            <div class="space-y-2">
+              <p class="font-bold text-slate-900 border-b border-slate-200 pb-1 flex justify-between"><span>Layout Semántico</span> <span>[90%]</span></p>
+              <p class="text-[11px] font-light">Maquetación adaptativa robusta enfocada en la consistencia de marca.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <script>
-    // SCRIPT DEL CLINETE (LÓGICA DE INTERACCIÓN DE PERSPECTIVA)
+  const btnDesigner = document.getElementById('btn-designer');
+  const btnEngineer = document.getElementById('btn-engineer');
+  const aboutSection = document.getElementById('about-section');
+  const aboutHeaderBorder = document.getElementById('about-header-border');
+  const toggleContainer = document.getElementById('perspective-toggle-container');
+  const techSpecBox = document.getElementById('tech-spec-box');
+  const specSubtitle = document.getElementById('spec-subtitle');
+  const aboutTitle = document.getElementById('about-title');
+  const aboutDescription = document.getElementById('about-description');
+  const focusText = document.getElementById('focus-text');
+  const skillsGrid = document.getElementById('skills-grid');
 
-    // 1. MAPEO seguro de nodos del DOM
-    const btnDesigner = document.getElementById('btn-designer');
-    const btnEngineer = document.getElementById('btn-engineer');
-    const aboutSection = document.getElementById('about-section');
-    const aboutHeaderBorder = document.getElementById('about-header-border');
-    const toggleContainer = document.getElementById('perspective-toggle-container');
-
-    const dynamicHeadline = document.getElementById('dynamic-headline');
-    const p1 = document.getElementById('p-1');
-    const p2 = document.getElementById('p-2');
-    const techSpecBox = document.getElementById('tech-spec-box');
-    const specSubtitle = document.getElementById('spec-subtitle');
-    const specList = document.getElementById('spec-list');
-
-    // 2. Base de datos local interna para mutación de textos
-    const profileData = {
-        designer: {
-      headline: "7 años optimizando la producción gráfica y la interacción digital.",
-      p1: "Mi trayectoria profesional consolidada en el diseño gráfico me ha otorgado una atención implacable al detalle y una profunda comprensión de la experiencia del usuario. Me especializo en sistemas de pre-prensa digital y en el desarrollo lógico de formularios interactivos con Adobe Acrobat.",
-      p2: "Entiendo el diseño no como ornamentación, sino como arquitectura funcional: resolver problemas complejos mediante interfaces limpias, intuitivas y eficientes para el usuario final.",
-      subtitle: "Especialidades de Diseño",
-      list: `
-        <li class="flex items-center gap-2">🔹 Gestión Documental PDF Avanzada</li>
-        <li class="flex items-center gap-2">🔹 Automatización de Pre-prensa</li>
-        <li class="flex items-center gap-2">🔹 Diseño de Interfaces de Usuario (UI)</li>
-        <li class="flex items-center gap-2">🔹 Prototipado Atómico en Figma</li>
-      `
-    },
-    engineer: {
-      headline: "Escribiendo software seguro y resiliente con mentalidad ofensiva.",
-      p1: "Como estudiante de noveno semestre de Ingeniería de Software próximo a graduarme, combino las bases de las ciencias de la computación con mi pasión por la ciberseguridad. Cuento con formación en seguridad ofensiva mediante metodologías OWASP, auditorías con Kali Linux y Burp Suite.",
-      p2: "Complemento mi perfil con certificaciones Fortinet (NSE 1 y 2) y conocimientos en infraestructura cloud con certificación de AWS, permitiéndome diseñar soluciones estéticas que nacen blindadas desde su arquitectura.",
-      subtitle: "Ecosistema Tecnológico",
-      list: `
-        <li class="flex items-center gap-2"><span class="text-emerald-400">#</span> Pentesting y OWASP Top 10</li>
-        <li class="flex items-center gap-2"><span class="text-emerald-400">#</span> Perímetros de Red Fortinet NSE</li>
-        <li class="flex items-center gap-2"><span class="text-emerald-400">#</span> Arquitectura Cloud Segura (AWS)</li>
-        <li class="flex items-center gap-2"><span class="text-emerald-400">#</span> Tipado Estricto con TypeScript</li>
-      `
-        }
-    };
-
-    // 3. Funciones de mutación estructural
-    if (btnDesigner && btnEngineer && aboutSection && dynamicHeadline && p1 && p2 && techSpecBox && specSubtitle && specList && aboutHeaderBorder && toggleContainer) {
+  if (btnDesigner && btnEngineer && aboutSection && aboutHeaderBorder && toggleContainer && techSpecBox && specSubtitle && aboutTitle && aboutDescription && focusText && skillsGrid) {
     
-        btnEngineer.addEventListener('click', () => {
-        // Cambio de estado de botones (Estilo UI)
-        btnDesigner.classList.remove('bg-white', 'text-indigo-600', 'shadow-sm');
-        btnDesigner.classList.add('text-slate-400', 'hover:text-slate-200');
-        
-        btnEngineer.classList.remove('text-slate-500', 'hover:text-slate-800');
-        btnEngineer.classList.add('bg-slate-800', 'text-emerald-400', 'shadow-sm');
+    btnDesigner.addEventListener('click', () => {
+      btnDesigner.className = "px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 shadow-sm bg-white text-indigo-600";
+      btnEngineer.className = "px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800";
+      
+      aboutSection.setAttribute('data-theme', 'light');
+      aboutSection.className = "min-h-screen py-32 w-full max-w-none px-6 md:px-16 lg:px-24 flex flex-col justify-center transition-colors duration-700 bg-white text-slate-900";
+      
+      aboutHeaderBorder.className = "flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 transition-colors duration-500";
+      toggleContainer.className = "inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 shadow-inner transition-colors duration-500";
+      
+      techSpecBox.className = "p-8 md:p-12 rounded-2xl border border-slate-200 bg-slate-50 transition-all duration-500 space-y-6";
+      specSubtitle.className = "text-xs font-mono font-bold uppercase tracking-[0.2em] text-indigo-600 transition-colors duration-500";
+      
+      aboutTitle.className = "text-4xl md:text-6xl font-black tracking-tight text-slate-900";
+      aboutDescription.className = "text-base md:text-lg leading-relaxed font-light text-slate-700 transition-colors duration-500";
+      focusText.className = "text-sm font-semibold text-slate-800 mt-1 transition-colors duration-500";
+      
+      skillsGrid.className = "grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 font-mono text-xs text-slate-600 transition-colors duration-500";
+      skillsGrid.innerHTML = `
+        <div class="space-y-2">
+          <p class="font-bold text-slate-900 border-b border-slate-200 pb-1 flex justify-between"><span>Adobe Creative Suite</span> <span>[90%]</span></p>
+          <p class="text-[11px] font-light">Especialista en flujos vectoriales masivos e interactividad en Acrobat.</p>
+        </div>
+        <div class="space-y-2">
+          <p class="font-bold text-slate-900 border-b border-slate-200 pb-1 flex justify-between"><span>Pre-Prensa Industrial</span> <span>[95%]</span></p>
+          <p class="text-[11px] font-light">Control estricto de tintas directas, sangrados y trapping automatizado.</p>
+        </div>
+        <div class="space-y-2">
+          <p class="font-bold text-slate-900 border-b border-slate-200 pb-1 flex justify-between"><span>UI/UX Prototyping</span> <span>[85%]</span></p>
+          <p class="text-[11px] font-light">Estructuración de componentes de alta fidelidad centrados en la usabilidad.</p>
+        </div>
+        <div class="space-y-2">
+          <p class="font-bold text-slate-900 border-b border-slate-200 pb-1 flex justify-between"><span>Layout Semántico</span> <span>[90%]</span></p>
+          <p class="text-[11px] font-light">Maquetación adaptativa robusta enfocada en la consistencia de marca.</p>
+        </div>
+      `;
+    });
 
-        // Mutación cromática de la sección (Modo Ingeniero/Hacker)
-        aboutSection.setAttribute('data-theme', 'dark'); // Forzar comportamiento oscuro
-        aboutSection.classList.remove('bg-white', 'text-slate-900');
-        aboutSection.classList.add('bg-slate-950', 'text-slate-100');
-        
-        aboutHeaderBorder.classList.remove('border-slate-200');
-        aboutHeaderBorder.classList.add('border-slate-800');
-        
-        toggleContainer.classList.remove('bg-slate-100', 'border-slate-200');
-        toggleContainer.classList.add('bg-slate-900', 'border-slate-800');
-
-        techSpecBox.classList.remove('bg-slate-50', 'border-slate-200');
-        techSpecBox.classList.add('bg-slate-900/50', 'border-slate-800', 'shadow-2xl', 'shadow-emerald-500/5');
-        
-        specSubtitle.classList.remove('text-indigo-600');
-        specSubtitle.classList.add('text-emerald-400');
-
-      // Transición e inyección de datos semánticos
-        dynamicHeadline.textContent = profileData.engineer.headline;
-        p1.textContent = profileData.engineer.p1;
-        p2.textContent = profileData.engineer.p2;
-        specSubtitle.textContent = profileData.engineer.subtitle;
-        specList.innerHTML = profileData.engineer.list;
-        });
-
-        btnDesigner.addEventListener('click', () => {
-        // Restauración de estado de botones
-        btnEngineer.classList.remove('bg-slate-800', 'text-emerald-400', 'shadow-sm');
-        btnEngineer.classList.add('text-slate-500', 'hover:text-slate-800');
-        
-        btnDesigner.classList.remove('text-slate-400', 'hover:text-slate-200');
-        btnDesigner.classList.add('bg-white', 'text-indigo-600', 'shadow-sm');
-
-        // Mutación cromática de la sección (Modo Diseñador)
-        aboutSection.setAttribute('data-theme', 'light');
-        aboutSection.classList.remove('bg-slate-950', 'text-slate-100');
-        aboutSection.classList.add('bg-white', 'text-slate-900');
-        
-        aboutHeaderBorder.classList.remove('border-slate-800');
-        aboutHeaderBorder.classList.add('border-slate-200');
-        
-        toggleContainer.classList.remove('bg-slate-900', 'border-slate-800');
-        toggleContainer.classList.add('bg-slate-100', 'border-slate-200');
-
-        techSpecBox.classList.remove('bg-slate-900/50', 'border-slate-800', 'shadow-2xl', 'shadow-emerald-500/5');
-        techSpecBox.classList.add('bg-slate-50', 'border-slate-200');
-        
-        specSubtitle.classList.remove('text-emerald-400');
-        specSubtitle.classList.add('text-indigo-600');
-
-        // Inyección de datos semánticos
-        dynamicHeadline.textContent = profileData.designer.headline;
-        p1.textContent = profileData.designer.p1;
-        p2.textContent = profileData.designer.p2;
-        specSubtitle.textContent = profileData.designer.subtitle;
-        specList.innerHTML = profileData.designer.list;
+    btnEngineer.addEventListener('click', () => {
+      btnEngineer.className = "px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 shadow-sm bg-slate-800 text-emerald-400";
+      btnDesigner.className = "px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-slate-400 hover:text-slate-200";
+      
+      aboutSection.setAttribute('data-theme', 'dark');
+      aboutSection.className = "min-h-screen py-32 w-full max-w-none px-6 md:px-16 lg:px-24 flex flex-col justify-center transition-colors duration-700 bg-slate-950 text-slate-100";
+      
+      aboutHeaderBorder.className = "flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-8 transition-colors duration-500";
+      toggleContainer.className = "inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-inner transition-colors duration-500";
+      
+      techSpecBox.className = "p-8 md:p-12 rounded-2xl border border-slate-800 bg-slate-900/50 transition-all duration-500 space-y-6 shadow-2xl shadow-emerald-500/5";
+      specSubtitle.className = "text-xs font-mono font-bold uppercase tracking-[0.2em] text-emerald-400 transition-colors duration-500";
+      
+      aboutTitle.className = "text-4xl md:text-6xl font-black tracking-tight text-slate-100";
+      aboutDescription.className = "text-base md:text-lg leading-relaxed font-light text-slate-400 transition-colors duration-500";
+      focusText.className = "text-sm font-semibold text-emerald-400 mt-1 transition-colors duration-500";
+      
+      skillsGrid.className = "grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 font-mono text-xs text-slate-400 transition-colors duration-500";
+      skillsGrid.innerHTML = `
+        <div class="space-y-2">
+          <p class="font-bold text-slate-200 border-b border-slate-800 pb-1 flex justify-between"><span>Desarrollo Web Fullstack</span> <span>[85%]</span></p>
+          <p class="text-[11px] font-light">Ecosistemas interactivos escalables con Astro, Tailwind y TypeScript.</p>
+        </div>
+        <div class="space-y-2">
+          <p class="font-bold text-slate-200 border-b border-slate-800 pb-1 flex justify-between"><span>Seguridad Ofensiva</span> <span>[80%]</span></p>
+          <p class="text-[11px] font-light">Análisis de vulnerabilidades web (OWASP), interceptación con Burp Suite y Kali Linux.</p>
+        </div>
+        <div class="space-y-2">
+          <p class="font-bold text-slate-200 border-b border-slate-800 pb-1 flex justify-between"><span>Métodos Numéricos</span> <span>[75%]</span></p>
+          <p class="text-[11px] font-light">Resolución e interpolación matemática computacional aplicada en hojas de cálculo.</p>
+        </div>
+        <div class="space-y-2">
+          <p class="font-bold text-slate-200 border-b border-slate-800 pb-1 flex justify-between"><span>Arquitectura de Sistemas</span> <span>[80%]</span></p>
+          <p class="text-[11px] font-light">Diseño modular de software, patrones arquitectónicos y control con Git/GitHub.</p>
+        </div>
+      `;
     });
   }
 </script>
