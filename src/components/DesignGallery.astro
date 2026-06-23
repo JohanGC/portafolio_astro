@@ -82,7 +82,7 @@ const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
             <img 
               src={project.image} 
               alt={project.title}
-              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              class="absolute inset-0 w-full grayscale hover:grayscale-0 h-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
           </div>
@@ -109,6 +109,10 @@ const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
               <span class="text-xs font-mono font-bold text-indigo-600 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform uppercase tracking-wider">
                 Explorar Bitácora de Procesos ➔
               </span>
+              <div class="absolute inset-0 bg-indigo-600/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span class="text-white font-mono font-bold uppercase tracking-wider text-xs border-2 border-white px-5 py-2 rounded-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                Explorar Proceso →
+              </span></div>
             </div>
           </div>
         </div>
