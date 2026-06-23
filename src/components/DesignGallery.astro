@@ -36,7 +36,22 @@ const allProjects = [
     tags: ["Figma", "Component System", "Mobile Layout"],
     challenge: "Falta de estandarización visual entre diferentes módulos del sistema, ralentizando el desarrollo frontend.",
     solution: "Estructuración de directrices atómicas y tokens de diseño reutilizables vinculados directamente a propiedades CSS semánticas."
-  }
+  },
+    {
+    id: "ui-ux-app",
+    title: "Plataforma de Gestión de Servicios",
+    category: "Diseño UI/UX",
+    shortDesc: "Diseño de interfaz moderna y escalable para aplicaciones móviles.",
+    fullDesc: "Creación y prueba de un sistema de componentes modular de alta fidelidad para software de logística masiva. Enfoque riguroso en consistencia atómica y accesibilidad.",
+    image: "/diseño2.jpg",
+    processImages: [
+      "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860",
+      "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
+    ],
+    tags: ["Figma", "Component System", "Mobile Layout"],
+    challenge: "Falta de estandarización visual entre diferentes módulos del sistema, ralentizando el desarrollo frontend.",
+    solution: "Estructuración de directrices atómicas y tokens de diseño reutilizables vinculados directamente a propiedades CSS semánticas."
+  },
 ];
 
 const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
@@ -44,7 +59,7 @@ const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
 
 <section 
   id="design-gallery" 
-  class="py-24 w-full max-w-none px-6 md:px-16 lg:px-24 transition-colors duration-500"
+  class="py-10 w-full max-w-none px-6 md:px-16 lg:px-24 transition-colors duration-500"
 >
   <div class="w-full space-y-12">
     
