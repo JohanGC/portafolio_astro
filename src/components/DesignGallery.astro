@@ -54,7 +54,7 @@ const allProjects = [
   },
 ];
 
-const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
+const designProjects = limit ? allProjects.slice(0, limit) : allProjects;
 ---
 
 <section 
@@ -73,12 +73,12 @@ const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0.5">
-      {displayedProjects.map((project) => (
+      {designProjects.map((project) => (
         <div 
           data-project-id={project.id}
           class="group relative flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-2xl"
         >
-          <div class="aspect-[16/10] overflow-hidden bg-slate-100 relative">
+          <div class="aspect-16/10 overflow-hidden bg-slate-100 relative">
             <img 
               src={project.image} 
               alt={project.title}
@@ -122,7 +122,7 @@ const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
   </div>
 
   <div 
-    id="global-design-modal" 
+    id="design-modal" 
     class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 md:p-6 opacity-0 pointer-events-none transition-opacity duration-300"
   >
     <div class="bg-white w-full max-w-4xl rounded-2xl max-h-[85vh] overflow-y-auto shadow-2xl flex flex-col text-slate-900">
@@ -130,81 +130,55 @@ const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
         <div>
           <span id="modal-project-category" class="text-[10px] font-mono text-indigo-600 uppercase tracking-widest block mb-1">CATEGORÍA</span>
           <h3 id="modal-project-title" class="text-xl font-black tracking-tight text-slate-900">Título del Proyecto</h3>
-        </div>
+        </div>        
         <button 
-          id="modal-close-btn"
-          class="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors font-mono text-xs cursor-pointer"
+          id="close-modal" 
+          class="fixed top-8 right-8 z-[210] bg-slate-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-indigo-600 hover:rotate-90 transition-all duration-300 shadow-xl"
         >
-          [ CERRAR_VENTANA ]
-        </button>
+        ✕
+      </button>
       </div>
 
-      <div id="modal-project-body" class="p-6 space-y-8 text-sm text-slate-600 leading-relaxed">
+      <div id="modal-content" class="p-6 space-y-8 text-sm text-slate-600 leading-relaxed">
         </div>
     </div>
   </div>
 </section>
 
-<script>
-  const projectData = [
-    {
-      id: "prepress-auto",
-      title: "Automatización de Preprensa Digital",
-      category: "Ingeniería Gráfica",
-      fullDesc: "Desarrollo de un ecosistema de formularios inteligentes en Adobe Acrobat que automatizan el cálculo de tintas y marcas de corte, reduciendo el error humano en un 40%. Se aplicaron estructuras analíticas complejas de control de campos cruzados.",
-      processImages: [
-        "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860", 
-        "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
-      ],
-      challenge: "Los operarios de producción perdían valioso tiempo de máquina configurando manualmente especificaciones mecánicas propensas a errores.",
-      solution: "Implementación de lógica condicional incrustada y scripts en PDF para ocultar pares directos de control redundantes y asegurar un estándar de salida exacto."
-    },
-    {
-      id: "ui-ux-app",
-      title: "Plataforma de Gestión de Servicios",
-      category: "Diseño UI/UX",
-      fullDesc: "Creación y prueba de un sistema de componentes modular de alta fidelidad para software de logística masiva. Enfoque riguroso en consistencia atómica y accesibilidad completa basada en tokens globales.",
-      processImages: [
-        "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860",
-        "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
-      ],
-      challenge: "Falta de estandarización visual entre diferentes módulos del sistema, ralentizando el desarrollo frontend.",
-      solution: "Estructuración de directrices atómicas y tokens de diseño reutilizables vinculados directamente a propiedades CSS semánticas."
-    }
-  ];
-
-  const cards = document.querySelectorAll('div[data-project-id]');
-  const modal = document.getElementById('global-design-modal');
-  const closeBtn = document.getElementById('modal-close-btn');
+<script define:vars={{ designProjects }}>
+  // LÓGICA DE INTERACCIÓN CLIENT-SIDE SEGURA
+  const modal = document.getElementById('design-modal');
+  const modalContent = document.getElementById('modal-content');
+  const closeBtn = document.getElementById('close-modal');
   const htmlBody = document.body;
 
-  cards.forEach(card => {
+  document.querySelectorAll('[data-project-id]').forEach(card => {
     card.addEventListener('click', () => {
       const id = card.getAttribute('data-project-id');
-      const project = projectData.find(p => p.id === id);
-
-      const mTitle = document.getElementById('modal-project-title');
-      const mCategory = document.getElementById('modal-project-category');
-      const mBody = document.getElementById('modal-project-body');
-
-      if (project && modal && mTitle && mCategory && mBody) {
-        mTitle.textContent = project.title;
-        mCategory.textContent = `[ PROCESO_TÉCNICO // ${project.category} ]`;
-        
-        mBody.innerHTML = `
-          <div class="space-y-2">
-            <h4 class="font-mono font-bold text-xs uppercase text-slate-400 tracking-wider">// DESCRIPCIÓN DEL PROYECTO</h4>
-            <p class="text-slate-700 font-light text-base">${project.fullDesc}</p>
+      const project = designProjects.find(p => p.id === id);
+      
+      if (project && modal && modalContent) {
+        modalContent.innerHTML = `
+          <div class="space-y-4">
+            <span class="text-xs font-mono font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full inline-block">
+              ${project.category}
+            </span>
+            <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">${project.title}</h2>
+            <p class="text-lg text-slate-600 font-light max-w-2xl leading-relaxed">${project.fullDesc}</p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-              <h4 class="font-mono font-bold text-xs uppercase text-slate-400 mb-4">El Desafío</h4>
-              <p class="text-slate-700 font-light">${project.challenge}</p>
+          <div class="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-100">
+            <img src="${project.image}" class="w-full h-auto" />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="p-8 bg-slate-50 rounded-2xl border border-slate-200">
+              <h4 class="font-mono font-bold text-xs uppercase text-slate-400 mb-3">[ El Desafío ]</h4>
+              <p class="text-sm text-slate-700 leading-relaxed font-light">${project.challenge}</p>
             </div>
-            <div class="p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100/50">
-              <h4 class="font-mono font-bold text-xs uppercase text-indigo-400 mb-4">La Solución Técnica</h4>
-              <p class="text-slate-700 font-light">${project.solution}</p>
+            <div class="p-8 bg-indigo-950 text-indigo-100 rounded-2xl shadow-xl">
+              <h4 class="font-mono font-bold text-xs uppercase text-indigo-400 mb-3">[ Solución de Ingeniería ]</h4>
+              <p class="text-sm text-indigo-200 leading-relaxed font-light">${project.solution}</p>
             </div>
           </div>
 
@@ -227,24 +201,26 @@ const displayedProjects = limit ? allProjects.slice(0, limit) : allProjects;
 
         modal.classList.remove('opacity-0', 'pointer-events-none');
         modal.classList.add('opacity-100', 'pointer-events-auto');
-        htmlBody.style.overflow = 'hidden';
+        htmlBody.style.overflow = 'hidden'; // Bloquea scroll trasero
       }
     });
   });
 
   if (closeBtn && modal) {
-    closeBtn.addEventListener('click', () => {
+  // Cierre por botón
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modal.classList.remove('opacity-100', 'pointer-events-auto');
+    htmlBody.style.overflow = 'auto';
+  });
+
+  // ¡Recupera esto del primer bloque para una UX perfecta!
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
       modal.classList.add('opacity-0', 'pointer-events-none');
       modal.classList.remove('opacity-100', 'pointer-events-auto');
-      htmlBody.style.overflow = '';
-    });
-    
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.add('opacity-0', 'pointer-events-none');
-        modal.classList.remove('opacity-100', 'pointer-events-auto');
-        htmlBody.style.overflow = '';
+      htmlBody.style.overflow = 'auto';
       }
     });
   }
-</script>
+</script> 
