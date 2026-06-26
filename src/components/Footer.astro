@@ -3,12 +3,12 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-slate-950 border-t border-slate-900 py-12 px-6 md:px-16 lg:px-24 text-slate-500 font-mono text-[11px] w-full">
+<footer class="bg-slate-950 border-t border-slate-900 py-12 px-6 md:px-16 lg:px-24 text-slate-500 font-mono text-[11px] w-full mt-auto">
   <div class="w-full max-w-none flex flex-col sm:flex-row items-center justify-between gap-6">
     
-    <div class="space-y-1">
-      <p>© {currentYear} Johan Gonzalez Castaño. Todos los derechos reservados.</p>
-      <p class="text-[9px] text-slate-700">Construido de forma nativa con Astro, TypeScript & Tailwind CSS.</p>
+    <div class="space-y-1 text-center sm:text-left">
+      <p class="text-slate-400 font-medium">© {currentYear} Johan Gonzalez Castaño. Todos los derechos reservados.</p>
+      <p class="text-[9px] text-slate-600">Construido de forma nativa con Astro, TypeScript & Tailwind CSS.</p>
     </div>
 
     <div class="flex items-center gap-6 text-slate-400">
@@ -16,7 +16,7 @@ const currentYear = new Date().getFullYear();
         href="https://github.com" 
         target="_blank" 
         rel="noopener noreferrer" 
-        class="hover:text-indigo-400 transition-colors uppercase tracking-wider"
+        class="hover:text-indigo-400 transition-colors uppercase tracking-wider font-bold"
       >
         GitHub
       </a>
@@ -24,15 +24,15 @@ const currentYear = new Date().getFullYear();
         href="https://linkedin.com" 
         target="_blank" 
         rel="noopener noreferrer" 
-        class="hover:text-indigo-400 transition-colors uppercase tracking-wider"
+        class="hover:text-indigo-400 transition-colors uppercase tracking-wider font-bold"
       >
         LinkedIn
       </a>
-      <span class="text-slate-800">|</span>
-      <span class="text-emerald-500/60 text-[10px]">
-        [ INTEGRIDAD_OK ]
+      <span class="text-slate-800 select-none">|</span>
+      <span class="text-emerald-500/60 text-[10px] tracking-tight font-bold">
+        [ SYSTEM_STATUS: SECURE ]
       </span>
     </div>
-
+    
   </div>
 </footer>

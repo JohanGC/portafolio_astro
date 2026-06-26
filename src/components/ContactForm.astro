@@ -1,5 +1,5 @@
 ---
-// src/components/ContactForm.astro
+// Componente de Formulario Seguro e Interactivo
 ---
 
 <section 
@@ -19,119 +19,137 @@
         </h2>
       </div>
       <p class="text-sm text-slate-400 font-light leading-relaxed">
-        Estoy disponible para colaborar en auditorías de seguridad de aplicaciones (AppSec), desarrollo de software robusto frontend/backend y optimización automatizada de flujos de producción gráfica.
+        Estoy disponible para colaborar en auditorías de seguridad de aplicaciones (AppSec), desarrollo de software robusto frontend/backend y optimización automatizada de flujos de producción gráfica masiva.
       </p>
-      <div class="pt-4 font-mono text-xs text-slate-400 space-y-2">
+      <div class="pt-4 font-mono text-xs text-slate-500 space-y-2">
         <p class="flex items-center gap-2">
-          <span class="text-indigo-400">⚡ INFRAESTRUCTURA:</span> SSL / TLS Blindado
+          <span class="text-emerald-500">⚡ Available:</span> Freelance & Proyectos Contratados
         </p>
         <p class="flex items-center gap-2">
-          <span class="text-emerald-400">🔒 VALIDACIÓN:</span> Sanitización activa de inputs en cliente
+          <span class="text-indigo-400">📍 Ubicación:</span> Medellín, Colombia (GMT-5) / Remoto
         </p>
       </div>
     </div>
 
-    <div class="lg:col-span-7 w-full">
-      <form id="secure-contact-form" class="bg-slate-900/40 border border-slate-900 rounded-2xl p-8 md:p-12 space-y-6 shadow-2xl backdrop-blur-sm">
+    <div class="lg:col-span-7">
+      <form id="secure-contact-form" class="space-y-5 bg-slate-900/40 p-8 rounded-2xl border border-slate-900 shadow-2xl backdrop-blur-sm">
         
         <div class="hidden">
-          <label for="security_token">Dejar en blanco</label>
-          <input type="text" id="security_token" name="security_token" autocomplete="off" />
+          <label for="address_verification">No llenar este campo:</label>
+          <input type="text" id="address_verification" name="address_verification" tabindex="-1" autocomplete="off" />
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div class="space-y-2">
-            <label for="name" class="block font-mono text-[11px] text-slate-400 uppercase tracking-wider font-bold">01. Identificación / Nombre</label>
+            <label for="name" class="font-mono text-[10px] uppercase tracking-wider text-slate-400 font-bold">01. Identidad / Nombre</label>
             <input 
               type="text" 
               id="name" 
               name="name" 
               required 
-              maxlength="80"
-              placeholder="Johan Gonzalez"
-              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors font-sans"
+              placeholder="Ej. Ada Lovelace" 
+              class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm font-light text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 transition-colors shadow-inner"
             />
           </div>
           <div class="space-y-2">
-            <label for="email" class="block font-mono text-[11px] text-slate-400 uppercase tracking-wider font-bold">02. Canal de Retorno / Correo</label>
+            <label for="email" class="font-mono text-[10px] uppercase tracking-wider text-slate-400 font-bold">02. Canales / Correo</label>
             <input 
               type="email" 
               id="email" 
               name="email" 
               required 
-              placeholder="johan@cadena.com.co"
-              class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors font-sans"
+              placeholder="ada@dominio.com" 
+              class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm font-light text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 transition-colors shadow-inner"
             />
           </div>
         </div>
 
         <div class="space-y-2">
-          <label for="message" class="block font-mono text-[11px] text-slate-400 uppercase tracking-wider font-bold">03. Payload / Detalles del Requerimiento</label>
+          <label for="subject" class="font-mono text-[10px] uppercase tracking-wider text-slate-400 font-bold">03. Alcance / Asunto</label>
+          <input 
+            type="text" 
+            id="subject" 
+            name="subject" 
+            required 
+            placeholder="Ej. Auditoría Pentesting Web / Automatización Gráfica" 
+            class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm font-light text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 transition-colors shadow-inner"
+          />
+        </div>
+
+        <div class="space-y-2">
+          <label for="message" class="font-mono text-[10px] uppercase tracking-wider text-slate-400 font-bold">04. Requerimientos / Mensaje</label>
           <textarea 
             id="message" 
             name="message" 
-            rows="5" 
-            required
-            maxlength="1500"
-            placeholder="Escribe los detalles de tu proyecto o requerimiento técnico aquí..."
-            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors font-sans resize-none"
+            rows="4" 
+            required 
+            placeholder="Detalla las especificaciones técnicas o ideas base de tu propuesta..." 
+            class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm font-light text-slate-200 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 transition-colors shadow-inner resize-none leading-relaxed"
           ></textarea>
         </div>
 
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-          <div id="form-status-msg" class="font-mono text-[11px]"></div>
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div id="form-status-msg"></div>
           
           <button 
-            type="submit"
-            class="w-full sm:w-auto px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-lg shadow-indigo-600/10 active:scale-98 cursor-pointer"
+            type="submit" 
+            class="w-full sm:w-auto font-mono text-xs uppercase tracking-widest font-bold bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3.5 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/20 active:scale-[0.98]"
           >
-            Transmitir Mensaje Safe ➔
+            Transmitir Payload →
           </button>
         </div>
 
       </form>
     </div>
+
   </div>
 </section>
 
 <script>
-  const contactForm = document.getElementById('secure-contact-form') as HTMLFormElement;
-  const statusMsg = document.getElementById('form-status-msg');
+  const initContactForm = () => {
+    const contactForm = document.getElementById('secure-contact-form') as HTMLFormElement;
+    const statusMsg = document.getElementById('form-status-msg');
 
-  if (contactForm && statusMsg) {
-    contactForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    if (contactForm && statusMsg) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-      // 1. ANÁLISIS HONEYPOT (Mitigación Básica de Bots)
-      const honeypot = (document.getElementById('security_token') as HTMLInputElement).value;
-      if (honeypot) {
-        statusMsg.className = "font-mono text-[11px] text-red-400 bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
-        statusMsg.textContent = "[!] SPAM_BOT_DETECTED: Petición descartada.";
-        return;
-      }
+        // 1. Detección Preventiva del Honeypot
+        const honeypot = (document.getElementById('address_verification') as HTMLInputElement).value;
+        if (honeypot) {
+          statusMsg.className = "font-mono text-[11px] text-red-400 bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
+          statusMsg.textContent = "[!] SPAM_BOT_DETECTED: Petición descartada.";
+          return;
+        }
 
-      // 2. CAMBIO DE ESTADO VISUAL (PROCESANDO)
-      statusMsg.className = "font-mono text-[11px] text-indigo-400 bg-indigo-950/30 border border-indigo-900/50 px-3 py-1 rounded animate-pulse";
-      statusMsg.textContent = "[*] SANITIZING & SENDING...";
+        // 2. Cambio de Estado a Procesando
+        statusMsg.className = "font-mono text-[11px] text-indigo-400 bg-indigo-950/30 border border-indigo-900/50 px-3 py-1 rounded animate-pulse";
+        statusMsg.textContent = "[*] SANITIZING & SENDING...";
 
-      const formData = new FormData(contactForm);
-      const payload = Object.fromEntries(formData.entries());
+        const formData = new FormData(contactForm);
+        const payload = Object.fromEntries(formData.entries());
 
-      try {
-        // Simulación controlada de respuesta asíncrona de servidor (1.2s de retraso)
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        try {
+          // Simulación controlada de respuesta asíncrona de red (1.2s delay)
+          await new Promise(resolve => setTimeout(resolve, 1200));
 
-        // 3. CAMBIO DE ESTADO (ÉXITO)
-        statusMsg.className = "font-mono text-[11px] text-emerald-400 font-bold bg-emerald-950/30 border border-emerald-900/50 px-3 py-1 rounded animate-fade-in";
-        statusMsg.textContent = "[✔] TRANSMISIÓN EXITOSA: Payload recibido.";
-        contactForm.reset();
-        
-        setTimeout(() => { statusMsg.textContent = ""; statusMsg.className = ""; }, 5000);
+          // 3. Cambio de Estado a Éxito Completo
+          statusMsg.className = "font-mono text-[11px] text-emerald-400 font-bold bg-emerald-950/30 border border-emerald-900/50 px-3 py-1 rounded";
+          statusMsg.textContent = "[✔] TRANSMISIÓN EXITOSA: Payload recibido.";
+          contactForm.reset();
+          
+          setTimeout(() => { 
+            statusMsg.textContent = ""; 
+            statusMsg.className = ""; 
+          }, 5000);
 
-      } catch (error) {
-        statusMsg.className = "font-mono text-[11px] text-red-400 bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
-        statusMsg.textContent = "[❌] ERROR_FAIL: Falla en la transmisión del paquete.";
-      }
-    });
-  }
+        } catch (error) {
+          statusMsg.className = "font-mono text-[11px] text-red-400 bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
+          statusMsg.textContent = "[❌] FATAL ERROR: Falla de enlace en el nodo.";
+        }
+      });
+    }
+  };
+
+  document.addEventListener('astro:page-load', initContactForm);
 </script>

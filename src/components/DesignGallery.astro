@@ -1,239 +1,57 @@
 ---
-// SECCIÓN DE COMPILACIÓN: Centralizamos los datos y soportamos límites dinámicos
-interface Props {
-  limit?: number;
-}
-
-const { limit } = Astro.props;
-
-const allProjects = [
+// src/components/DesignGallery.astro
+const projects = [
   {
     id: "prepress-auto",
     title: "Automatización de Preprensa Digital",
     category: "Ingeniería Gráfica",
     shortDesc: "Optimización de flujos de trabajo masivos para impresión industrial.",
-    fullDesc: "Desarrollo de un ecosistema de formularios inteligentes en Adobe Acrobat que automatizan el cálculo de tintas y marcas de corte, reduciendo el error humano en un 40%.",
-    image: "/diseño1.jpg",
-    processImages: [
-      "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860", 
-      "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
-    ],
+    image: "https://images.unsplash.com/photo-1561070791-26c113006238?auto=format&fit=crop&w=800&q=80",
     tags: ["Acrobat", "JavaScript", "Industrial Printing"],
-    challenge: "Los operarios de producción perdían valioso tiempo de máquina configurando manualmente especificaciones mecánicas propensas a errores.",
-    solution: "Implementación de lógica condicional incrustada y scripts en PDF para ocultar pares directos de control redundantes y asegurar un estándar de salida exacto."
-  },
-  {
-    id: "ui-ux-app",
-    title: "Plataforma de Gestión de Servicios",
-    category: "Diseño UI/UX",
-    shortDesc: "Diseño de interfaz moderna y escalable para aplicaciones móviles.",
-    fullDesc: "Creación y prueba de un sistema de componentes modular de alta fidelidad para software de logística masiva. Enfoque riguroso en consistencia atómica y accesibilidad.",
-    image: "/diseño2.jpg",
-    processImages: [
-      "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860",
-      "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
-    ],
-    tags: ["Figma", "Component System", "Mobile Layout"],
-    challenge: "Falta de estandarización visual entre diferentes módulos del sistema, ralentizando el desarrollo frontend.",
-    solution: "Estructuración de directrices atómicas y tokens de diseño reutilizables vinculados directamente a propiedades CSS semánticas."
-  },
-    {
-    id: "ui-ux-app",
-    title: "Plataforma de Gestión de Servicios",
-    category: "Diseño UI/UX",
-    shortDesc: "Diseño de interfaz moderna y escalable para aplicaciones móviles.",
-    fullDesc: "Creación y prueba de un sistema de componentes modular de alta fidelidad para software de logística masiva. Enfoque riguroso en consistencia atómica y accesibilidad.",
-    image: "/diseño2.jpg",
-    processImages: [
-      "http://googleusercontent.com/image_collection/image_retrieval/15907027212277076860",
-      "http://googleusercontent.com/image_collection/image_retrieval/9267234012714260461"
-    ],
-    tags: ["Figma", "Component System", "Mobile Layout"],
-    challenge: "Falta de estandarización visual entre diferentes módulos del sistema, ralentizando el desarrollo frontend.",
-    solution: "Estructuración de directrices atómicas y tokens de diseño reutilizables vinculados directamente a propiedades CSS semánticas."
-  },
+  }
 ];
-
-const designProjects = limit ? allProjects.slice(0, limit) : allProjects;
 ---
 
-<section 
-  id="design-gallery" 
-  class="py-5 w-full max-w-none px-6 md:px-16 lg:px-0 transition-colors duration-500"
->
-  <div class="w-full space-y-12">
-    
-    <div class="space-y-2">
-      <span class="text-xs font-mono uppercase tracking-widest text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full font-bold inline-block">
-        [ Laboratorio Creativo Industrial ]
-      </span>
-      <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900">
-        Producción Gráfica y Sistemas UI
-      </h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0.5">
-      {designProjects.map((project) => (
-        <div 
-          data-project-id={project.id}
-          class="group relative flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-500 hover:shadow-2xl"
-        >
-          <div class="aspect-16/10 overflow-hidden bg-slate-100 relative">
-            <img 
-              src={project.image} 
-              alt={project.title}
-              class="absolute inset-0 w-full grayscale hover:grayscale-0 h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-          </div>
-
-          <div class="p-8 md:w-3/5 flex flex-col justify-between space-y-6">
-            <div class="space-y-3">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded border border-indigo-100 bg-indigo-50 text-indigo-600 uppercase font-bold tracking-wider">
-                {project.category}
-              </span>
-              <h3 class="text-2xl font-bold tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {project.title}
-              </h3>
-              <p class="text-sm text-slate-600 font-light leading-relaxed">
-                {project.shortDesc}
-              </p>
-            </div>
-
-            <div class="space-y-4">
-              <div class="flex flex-wrap gap-1.5">
-                {project.tags.map(tag => (
-                  <span class="text-[11px] font-mono px-2 py-0.5 bg-slate-100 text-slate-600 rounded border border-slate-200/60">{tag}</span>
-                ))}
-              </div>
-              <span class="text-xs font-mono font-bold text-indigo-600 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform uppercase tracking-wider">
-                Explorar Bitácora de Procesos ➔
-              </span>
-              <div class="absolute inset-0 bg-indigo-600/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <span class="text-white font-mono font-bold uppercase tracking-wider text-xs border-2 border-white px-5 py-2 rounded-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                Explorar Proceso →
-              </span></div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-
-  </div>
-
-  <div 
-    id="design-modal" 
-    class="fixed inset-0 z-50 bg-slate-400/50 backdrop-blur-md flex items-center justify-center p-4 md:p-6 opacity-0 pointer-events-none transition-all duration-300 ease-out"
-  >
-    <div id="modal-card" class="bg-white w-full max-w-[85vw] rounded-2xl max-h-[95vh] overflow-y-auto shadow-2xl flex flex-col text-slate-900 scale-95 opacity-0 transition-all duration-300 ease-out">
-      <div class="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
-        <div>
-          <span id="modal-project-category" class="text-[10px] font-mono text-indigo-600 uppercase tracking-widest block mb-1">CATEGORÍA</span>
-          <h3 id="modal-project-title" class="text-xl font-black tracking-tight text-slate-900">Título del Proyecto</h3>
-        </div>        
-        <button 
-          id="close-modal" 
-          class="fixed top-8 right-8 z-[210] bg-slate-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-indigo-600 hover:rotate-90 transition-all duration-300 shadow-xl"
-        >
-        ✕
-      </button>
-      </div>
-
-      <div id="modal-content" class="p-6 space-y-8 text-sm text-slate-600 leading-relaxed">
-        </div>
-    </div>
-  </div>
-</section>
-
-<script define:vars={{ designProjects }}>
-  // LÓGICA DE INTERACCIÓN CLIENT-SIDE SEGURA
-  const modal = document.getElementById('design-modal');
-  const modalCard = document.getElementById('modal-card');
-  const modalContent = document.getElementById('modal-content');
-  const closeBtn = document.getElementById('close-modal');
-  const htmlBody = document.body;
-
-  document.querySelectorAll('[data-project-id]').forEach(card => {
-    card.addEventListener('click', () => {
-      const id = card.getAttribute('data-project-id');
-      const project = designProjects.find(p => p.id === id);
-      
-      if (project && modal && modalContent && modalCard) {
-        modalContent.innerHTML = `
-          <div class="space-y-4">
-            <span class="text-xs font-mono font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full inline-block">
-              ${project.category}
+<div class="w-full space-y-12">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+    {projects.map((project) => (
+      <a 
+        href={`/projects/${project.id}`}
+        class="group bg-white rounded-3xl border border-slate-200 overflow-hidden transition-all duration-500 ease-in-out hover:shadow-md flex flex-col p-8 space-y-6 select-none"
+      >
+        {/* CORREGIDO: aspect-[16/10] cambiado por aspect-16/10 */}
+        <div class="aspect-16/10 rounded-2xl overflow-hidden bg-slate-100 border border-slate-100 relative">
+          <img 
+            src={project.image} 
+            alt={project.title}
+            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+            loading="lazy"
+          />
+          <div class="absolute top-4 left-4">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-indigo-700 bg-indigo-50/90 backdrop-blur-sm border border-indigo-100 px-2.5 py-1 rounded-md font-bold">
+              {project.category}
             </span>
-            <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">${project.title}</h2>
-            <p class="text-lg text-slate-600 font-light max-w-2xl leading-relaxed">${project.fullDesc}</p>
           </div>
+        </div>
 
-          <div class="rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-100">
-            <img src="${project.image}" class="w-full h-auto" />
-          </div>
+        <div class="space-y-2">
+          <h3 class="text-2xl font-bold tracking-tight text-slate-900 flex justify-between items-center">
+            {project.title}
+            <span class="text-xs font-mono text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              [ VER_PROYECTO -> ]
+            </span>
+          </h3>
+          <p class="text-sm text-slate-500 font-light leading-relaxed">{project.shortDesc}</p>
+        </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="p-8 bg-slate-50 rounded-2xl border border-slate-200">
-              <h4 class="font-mono font-bold text-xs uppercase text-slate-400 mb-3">[ El Desafío ]</h4>
-              <p class="text-sm text-slate-700 leading-relaxed font-light">${project.challenge}</p>
-            </div>
-            <div class="p-8 bg-indigo-950 text-indigo-100 rounded-2xl shadow-xl">
-              <h4 class="font-mono font-bold text-xs uppercase text-indigo-400 mb-3">[ Solución de Ingeniería ]</h4>
-              <p class="text-sm text-indigo-200 leading-relaxed font-light">${project.solution}</p>
-            </div>
-          </div>
-
-          <div class="space-y-6">
-            <div class="text-center">
-              <h4 class="font-mono font-bold text-xs uppercase text-slate-400 tracking-[0.25em]">Evidencias Técnicas del Proceso</h4>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              ${project.processImages.map((img, i) => `
-                <div class="space-y-2">
-                  <div class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm">
-                    <img src="${img}" class="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
-                  </div>
-                  <span class="text-[10px] font-mono text-slate-400 block text-center">Fase de Validación ${i + 1}</span>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-
-        // Activación del fondo oscuro
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        modal.classList.add('opacity-100', 'pointer-events-auto');
-        
-        // Activación de la tarjeta interna (Zoom + entrada fluida)
-        modalCard.classList.remove('scale-95', 'opacity-0');
-        modalCard.classList.add('scale-100', 'opacity-100');
-        
-        htmlBody.style.overflow = 'hidden'; 
-      }
-    });
-  });
-
-  // Función reutilizable para cerrar con animación limpia
-  const closeModalFn = () => {
-    if (modal && modalCard) {
-      // Revertimos el fondo
-      modal.classList.add('opacity-0', 'pointer-events-none');
-      modal.classList.remove('opacity-100', 'pointer-events-auto');
-      
-      // Revertimos la tarjeta interna
-      modalCard.classList.add('scale-95', 'opacity-0');
-      modalCard.classList.remove('scale-100', 'opacity-100');
-      
-      htmlBody.style.overflow = 'auto';
-    }
-  };
-
-  if (closeBtn && modal) {
-    closeBtn.addEventListener('click', closeModalFn);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        closeModalFn();
-      }
-    });
-  }
-</script>
+        <div class="flex flex-wrap gap-2 pt-2">
+          {project.tags.map((tag) => (
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200/60">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </a>
+    ))}
+  </div>
+</div>

@@ -1,8 +1,7 @@
 ---
-// SECCIÓN DE COMPILACIÓN (FRONTMATTER)
-// Este bloque se ejecuta en el servidor durante la construcción del sitio (Build Time)
 import '../styles/global.css'
 import { ClientRouter } from 'astro:transitions';
+
 
 interface Props {
   title: string;
@@ -20,7 +19,6 @@ const { title, description } = Astro.props;
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
-
     <ClientRouter />
   </head>
   <body class="bg-white text-slate-900 transition-colors duration-500 ease-in-out" id="portfolio-body">
@@ -28,32 +26,25 @@ const { title, description } = Astro.props;
     <slot />
 
     <script>
-      // SCRIPT DEL CLIENTE (EVALUACIÓN DINÁMICA)
-      // Se ejecuta de manera segura directamente en el navegador web del usuario final.
-      
       const initThemeObserver = () => {
         const bodyElement = document.getElementById('portfolio-body');
         
         if (bodyElement) {
-          // Configuración del observador con un umbral óptimo del 30% de visibilidad
-          const observerOptions: IntersectionObserverInit = {
-            root: null, 
+          const observerOptions = {
+            root: null,
             rootMargin: '0px',
-            threshold: 0.3 
+            threshold: 0.3
           };
 
           const handleIntersection: IntersectionObserverCallback = (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                // Capturamos el atributo semántico HTML5 (data-theme) de la sección activa
                 const targetTheme = entry.target.getAttribute('data-theme');
                 
                 if (targetTheme === 'dark') {
-                  // Transición hacia el Modo Código / Seguridad Ofensiva
                   bodyElement.classList.remove('bg-white', 'text-slate-900');
                   bodyElement.classList.add('bg-slate-950', 'text-slate-50');
                 } else {
-                  // Transición hacia el Modo Diseño Gráfico / Interfaces
                   bodyElement.classList.remove('bg-slate-950', 'text-slate-50');
                   bodyElement.classList.add('bg-white', 'text-slate-900');
                 }
@@ -61,15 +52,14 @@ const { title, description } = Astro.props;
             });
           };
 
-          const observer = new Observer(handleIntersection, observerOptions);
+          // CORREGIDO: Uso del constructor nativo IntersectionObserver
+          const observer = new IntersectionObserver(handleIntersection, observerOptions);
           
-          // Rastrear de forma masiva todas las secciones que controlan el estado visual
           const sections = document.querySelectorAll('[data-theme]');
           sections.forEach((section) => observer.observe(section));
         }
       };
 
-      // Escuchar tanto la carga inicial como los eventos de transición de Astro ClientRouter
       document.addEventListener('astro:page-load', initThemeObserver);
     </script>
   </body>

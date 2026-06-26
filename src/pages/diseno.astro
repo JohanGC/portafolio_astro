@@ -8,27 +8,35 @@ import DesignGallery from '../components/DesignGallery.astro';
   title="Laboratorio Creativo Gráfico | Johan GC" 
   description="Galería inmersiva y bitácoras de producción gráfica avanzada, pre-prensa y UI/UX."
 >
-  <main data-theme="light" class="bg-slate-50 min-h-screen text-slate-900 transition-colors duration-500">
+  <main data-theme="light" class="bg-slate-50 min-h-screen text-slate-900 transition-colors duration-500 w-full overflow-x-hidden">
     
-    <header class="py-20 px-6 max-w-6xl mx-auto border-b border-slate-200">
+    <header class="py-24 px-6 md:px-16 lg:px-24 max-w-none border-b border-slate-200 w-full bg-white">
       <div class="space-y-4">
-        <a href="/" class="text-xs font-mono text-indigo-600 hover:text-indigo-800 transition-colors inline-flex items-center gap-1">
+        <a href="/" class="text-xs font-mono text-indigo-600 hover:text-indigo-800 transition-colors inline-flex items-center gap-1 font-bold">
           ← Volver al Inicio Principal
         </a>
-        <h1 class="text-5xl md:text-6xl font-black tracking-tight text-slate-900 animate-fade-in">
-          Laboratorio <br class="hidden md:inline"/> Creativo Gráfico
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-900 animate-fade-in">
+          Laboratorio Creativo Gráfico
         </h1>
-        <p class="text-base text-slate-500 max-w-xl font-light font-mono">
+        <p class="text-sm text-slate-500 max-w-xl font-light font-mono">
           [ Exploración de procesos de diseño, maquetación técnica y control estructural del píxel a la tinta ]
         </p>
       </div>
     </header>
 
-    <section class="py-16 px-6 max-w-6xl mx-auto">
-      <DesignGallery />
+    <section class="py-16 px-6 md:px-16 lg:px-24 w-full max-w-none">
+      <div class="space-y-8">
+        <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm space-y-4 mb-12 max-w-3xl">
+          <h3 class="font-bold text-lg text-slate-900 tracking-tight font-mono">// MANIFIESTO_TÉCNICO_DE_PRODUCCIÓN</h3>
+          <p class="text-sm text-slate-600 font-light leading-relaxed">
+            Cada pieza producida en este laboratorio responde a especificaciones mecánicas rigurosas. No se trata solo de estética superficial, sino de la resolución estructural de variables físicas y digitales: optimización matricial industrial, cálculo predictivo de cobertura de tintas para sistemas pre-prensa y control atómico de interfaces de alta fidelidad.
+          </p>
+        </div>
+
+        <DesignGallery />
+      </div>
     </section>
 
+    <Footer />
   </main>
-  
-  <Footer />
 </BaseLayout>

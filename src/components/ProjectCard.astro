@@ -1,18 +1,14 @@
 ---
-//SECCIÓN DE COMPILACIÓN (FRONMATTER)
-//Definimos contractualmente las propiedades que este componente exige para renderizarse
-
 interface Props {
     title: string;
     description: string;
     tags: string[];
-    link?: string; // El signo ? significa que este dato es opcional
-    category: 'design' | 'security'; // unión de tipos: solo permite uno de estos dos valores estrictos
+    link?: string;
+    category: 'design' | 'security';
 }
 
 const { title, description, tags, link = "#", category } = Astro.props;
 
-// Lógica de diseño: definimos clases condicionales según la categoría del proyecto
 const isDesign = category === 'design';
 
 const cardStyles = isDesign
@@ -22,10 +18,10 @@ const cardStyles = isDesign
 const titleStyles = isDesign ? "text-slate-900" : "text-slate-100";
 const textStyles = isDesign ? "text-slate-600" : "text-slate-400";
 
+// CORREGIDO: "text-esmerald-400" cambiado por "text-emerald-400"
 const tagStyles = isDesign
     ? "bg-indigo-50 text-indigo-700 border-indigo-100"
-    : "bg-emerald-950/40 text-esmerald-400 border-emerald-900/50";
-
+    : "bg-emerald-950/40 text-emerald-400 border-emerald-900/50";
 ---
 
 <div class={`p-8 rounded-2xl border transition-all duration-300 flex flex-col justify-between ${cardStyles}`}>
@@ -56,10 +52,13 @@ const tagStyles = isDesign
         <div class="pt-2">
             <a
                 href={link}
-                class={`text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-1 group transition-transform`}
+                class={`text-xs font-mono font-bold uppercase tracking-wider border-b pb-0.5 transition-colors ${
+                    isDesign 
+                    ? 'text-indigo-600 border-indigo-200 hover:text-indigo-800 hover:border-indigo-500' 
+                    : 'text-emerald-400 border-emerald-900 hover:text-emerald-300 hover:border-emerald-500'
+                }`}
             >
-                Ver caso de estudio
-                    <span class="transform group-hover:translate-x-1 transition-transform inline-block">→</span>
+                Ver Proyecto →
             </a>
         </div>
     </div>
