@@ -1,12 +1,14 @@
 ---
 // src/components/DesignGallery.astro
+const { limit } = Astro.props;
+
 const projects = [
   {
     id: "prepress-auto",
     title: "Automatización de Preprensa Digital",
     category: "Ingeniería Gráfica",
     shortDesc: "Optimización de flujos de trabajo masivos para impresión industrial.",
-    image: "https://images.unsplash.com/photo-1561070791-26c113006238?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
     tags: ["Acrobat", "JavaScript", "Industrial Printing"],
   },
     {
@@ -26,11 +28,14 @@ const projects = [
     tags: ["Acrobat", "JavaScript", "Industrial Printing"],
   }
 ];
+
+const designProjects = limit ? projects.slice(0, limit) : projects;
+
 ---
 
 <div class="w-full space-y-12">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-    {projects.map((project) => (
+    {designProjects.map((project) => (
       <a 
         href={`/projects/${project.id}`}
         class="group bg-white rounded-3xl border border-slate-200 overflow-hidden transition-all duration-500 ease-in-out hover:shadow-md flex flex-col p-8 space-y-6 select-none"
