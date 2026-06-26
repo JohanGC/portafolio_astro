@@ -17,34 +17,69 @@ import DesignGallery from '../components/DesignGallery.astro';
       id="intro-design" 
       data-theme="light" 
       class="min-h-screen flex items-center justify-center relative overflow-hidden w-full max-w-none px-6 md:px-16 lg:px-24 bg-slate-50/50"
-      >
-      <div class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-size[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-70" />
+    >
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-60"></div>
       
-      <div class="w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-12 relative z-10">
-        <div class="lg:col-span-9 space-y-6">
-          <span class="text-xs font-mono uppercase tracking-widest text-emerald-500 bg-emerald-50 px-3 py-1 rounded-full font-bold inline-block">
-            [ 9no Semestre Ingeniería de Software + Experto Preprensa ]
-          </span>
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-indigo-200/40 blur-[100px] animate-pulse"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-emerald-200/30 blur-[100px]"></div>
+
+      <div class="w-full mx-auto grid grid-cols-1 lg:grid-cols-12 items-center gap-16 relative z-10 py-12">
         
-          <h1 class="text-4xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-none">
-            Diseño interfaces de alta fidelidad, <br/>
-            <span class="text-indigo-600">automatizo preprensa</span> y <br class="hidden md:inline"/> 
-            audito la seguridad de tu código.
+        <div class="lg:col-span-7 space-y-8 text-left animate-fade-in">
+          
+          <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-4 py-1.5 rounded-full font-bold shadow-sm">
+            <span class="flex h-2 w-2 relative">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            [ 9no Semestre Ingeniería de Software + Experto Preprensa ]
+          </div>      
+
+          <h1 class="text-5xl md:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 leading-[1.1]">          
+            Diseño interfaces de alta fidelidad, <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 drop-shadow-sm">
+              programo código robusto
+            </span> <br />
+            y audito su seguridad.
           </h1>
-          
-          <p class="text-base md:text-xl text-slate-500 font-light max-w-2xl leading-relaxed">
-            Un perfil híbrido enfocado en la convergencia entre el rigor algorítmico, el control estructural del pixel a la tinta y la mitigación proactiva de vulnerabilidades.
+
+          <p class="text-lg md:text-xl text-slate-600 max-w-xl font-light leading-relaxed">         
+            Especializado en optimizar flujos de producción digital, desarrollar sistemas de componentes atómicos y mitigar vulnerabilidades críticas en la experiencia del usuario.
           </p>
-          
-          <div class="pt-4 flex flex-wrap gap-4 font-mono text-xs">
-            <a href="#about-section" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-lg active:scale-[0.98]">
-              // DESPLEGAR_PERFIL
+
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a 
+              href="#design-gallery" 
+              class="px-6 py-3.5 rounded-xl bg-slate-900 text-white font-mono text-sm font-bold tracking-wide hover:bg-indigo-600 hover:shadow-xl hover:shadow-indigo-600/20 transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              EXPLORAR_PROYECTOS ➔
             </a>
-            <a href="#contact" class="bg-white border border-slate-200 hover:border-slate-300 text-slate-600 font-bold px-6 py-3.5 rounded-xl transition-all shadow-sm active:scale-[0.98]">
-              // CONTACTAR
+            <a 
+              href="#contacto" 
+              class="px-6 py-3.5 rounded-xl bg-white text-slate-700 border border-slate-200 font-mono text-sm font-semibold tracking-wide hover:bg-slate-50 hover:border-slate-300 transition-all duration-300"
+            >
+              [ Descargar_CV ]
             </a>
           </div>
         </div>
+
+        <div class="lg:col-span-5 flex items-center justify-center relative">
+          <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-emerald-400 rounded-3xl blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+            
+            <div class="relative bg-white p-3 rounded-3xl shadow-2xl border border-slate-100">
+              <img 
+                src="/foto-perfil.jpg" 
+                alt="Foto de perfil de Johan González" 
+                class="aspect-[4/5] w-full max-w-[340px] rounded-2xl object-cover grayscale contrast-115 hover:grayscale-0 transition-all duration-700 ease-out"
+              />
+              <div class="absolute bottom-6 left-6 bg-slate-900/90 backdrop-blur-md text-white font-mono text-[10px] tracking-widest uppercase py-1.5 px-3 rounded-lg border border-white/10 shadow-lg">
+                Dev // Security // Design
+              </div>
+            </div>
+          </div>
+        </div>
+          
       </div>
     </section>
 
