@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css'
 import { ClientRouter } from 'astro:transitions';
-
+import FloatingNav from '../components/FloatingNav.astro';
 
 interface Props {
   title: string;
@@ -24,7 +24,7 @@ const { title, description } = Astro.props;
   <body class="bg-white text-slate-900 transition-colors duration-500 ease-in-out" id="portfolio-body">
     
     <slot />
-
+    <FloatingNav />
     <script>
       const initThemeObserver = () => {
         const bodyElement = document.getElementById('portfolio-body');

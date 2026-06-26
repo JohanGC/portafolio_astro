@@ -2,6 +2,17 @@
 // src/pages/projects/[id].astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
+const miSlidePersonalizado = {
+  forwards: {
+    old: { name: 'astroSlideToLeft', duration: '500ms', easing: 'ease-out' },
+    new: { name: 'astroSlideFromRight', duration: '500ms', easing: 'ease-out' }
+  },
+  backwards: {
+    old: { name: 'astroSlideToRight', duration: '500ms', easing: 'ease-out' },
+    new: { name: 'astroSlideFromLeft', duration: '500ms', easing: 'ease-out' }
+  }
+};
+
 export function getStaticPaths() {
   return [
     { 
@@ -27,7 +38,7 @@ const { title, category, fullDesc, challenge, solution, processImages } = Astro.
 {/* CORREGIDO: Se pasan las Props requeridas por tu Layout */}
 <BaseLayout title={title} description={fullDesc}>
   <div 
-    transition:animate="slide" 
+    transition:animate={miSlidePersonalizado}
     class="min-h-screen w-full bg-slate-50/50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
   >
     {/* CORREGIDO: rounded-[2rem] cambiado por la clase canónica rounded-4xl */}
