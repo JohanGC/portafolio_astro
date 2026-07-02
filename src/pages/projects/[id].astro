@@ -16,34 +16,96 @@ const miSlidePersonalizado = {
 export function getStaticPaths() {
   return [
     { 
-      params: { id: 'prepress-auto' },
+      params: { id: 'cadena' },
       props: {
-        title: "Automatización de Preprensa Digital",
-        category: "Bitácora / Ingeniería Gráfica",
+        title: "Cadena S.A.",
+        category: "Preprensa & Diseño Gráfico",
+        fullDesc: "Los diseños expuestos a continuación en este protafolio fuero realizados bajo contrato laboral con la empresa Cadena S.A.",
+        challenge: "Se requería diseñar piezas impresas y digitales que cumplieran con los estándares de calidad y las necesidades del cliente acorde a sus procesos de comunicación a través de diversos canales de comunicación.",
+        solution: "Se diseñaron piezas que reflejaban la identidad de la marca y cumplían con los requisitos del cliente, además de las necesidades técnicas a nivel productivo como las coberturas de tinta y la distribución automática de gráficos visuales masivos.",
+        imgppl: "/images/cadena_0.png",
+        // No tiene imgppl de manera intencional
+        processImages2: [
+          "/images/cuponera1_1_.png",
+          "/images/cuponera1_2_.png",
+          "/images/cuponera_2_.png",
+          "/images/cuponera_3_.png",
+          "/images/cuponera_4_1_.png",
+          "/images/cuponera_4_2_.png",
+          "/images/factura_nav_1_1_.png",
+          "/images/factura_nav_1_2_.png",
+          "/images/factura_nav_2_1_.png",
+          "/images/factura_nav_2_2_.png",
+          "/images/factura_nav_3_1_.png",
+          "/images/factura_nav_3_2_.png",
+          "/images/rci_1.gif",
+          "/images/rci_2.gif"
+        ]
+      }
+    },
+    { 
+      params: { id: 'asaki' },
+      props: {
+        title: "Diseño de Marca ASAKI-FIT",
+        category: "Diseño Gráfico",
         fullDesc: "Desarrollo de un ecosistema de formularios inteligentes en Adobe Acrobat que automatizan el cálculo de tintas y marcas de corte, reduciendo el error humano en un 40%.",
         challenge: "Los operarios de producción perdían valioso tiempo de máquina configurando manualmente especificaciones mecánicas propensas a errores.",
         solution: "Implementación de lógica condicional incrustada y scripts en PDF para ocultar pares directos de control redundantes y asegurar un estándar de salida exacto.",
+        imgppl: "/images/Asaki-Fit_7.png",
+        // No tiene imgppl de manera intencional
         processImages: [
-          "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
-          "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600&q=80"
+          "/images/Asaki-Fit_2.png",
+          "/images/Asaki-Fit_3.png",
+          "/images/Asaki-Fit_5.png",
+          "/images/Asaki-Fit_6.png",
         ]
+      }
+    },
+        { 
+      params: { id: 'iamsterdam' },
+      props: {
+        title: "Diseño de Marca I Amsterdam",
+        category: "Diseño Gráfico",
+        fullDesc: "Diseño de logo para marca dedicada a fumadores en la ciudad de Medellín.",
+        challenge: "Se requiere una marca que refleje la identidad de la ciudad y resalte la calidad del producto.",
+        solution: "Se toma la idea del cliente para plasmar su logo de manera ilustrada adaptada a un público juvenil en la ciudad.",
+        imgppl: "/images/IAmsterdam_4.png",
+        // No tiene imgppl de manera intencional
+        processImages: [
+          "/images/IAmsterdam_0__.png",
+          "/images/IAmsterdam_1__.png",
+          "/images/IAmsterdam_2__.png",
+          "/images/IAmsterdam_3.png",
+        ]
+      }
+    },
+    { 
+      params: { id: 'web' },
+      props: {
+        title: "Construcción de Página Web X",
+        category: "Bitácora / Desarrollo Web",
+        fullDesc: "Maquetación de portafolio avanzado utilizando componentes limpios y transiciones fluidas de interfaz.",
+        challenge: "Se requería un diseño scannable y modular sin sacrificar los tiempos de carga en dispositivos móviles.",
+        solution: "Configuración de enrutamiento dinámico en Astro controlando de manera nativa los estados de las vistas.",
+        imgppl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+        processImages: [], // Lista vacía para probar flexibilidad
+        processImages2: [] // Lista vacía para probar flexibilidad
       }
     },
   ];
 }
 
-const { title, category, fullDesc, challenge, solution, processImages } = Astro.props;
+const { title, category, fullDesc, challenge, solution, processImages = [], processImages2 = [], imgppl } = Astro.props;
 ---
 
-{/* CORREGIDO: Se pasan las Props requeridas por tu Layout */}
 <BaseLayout title={title} description={fullDesc}>
   <div 
     transition:animate={miSlidePersonalizado}
     class="min-h-screen w-full bg-slate-50/50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
   >
-    {/* CORREGIDO: rounded-[2rem] cambiado por la clase canónica rounded-4xl */}
-    <div class="max-w-4xl w-full bg-white rounded-4xl border border-slate-200/80 shadow-xl p-8 md:p-12 space-y-10">
+    <div class="max-w-8xl w-full bg-white rounded-4xl border border-slate-200/80 shadow-xl p-8 md:p-12 space-y-10">
       
+      <!-- Encabezado -->
       <div class="flex items-center justify-between border-b border-slate-100 pb-6">
         <span class="text-[11px] font-mono uppercase tracking-widest text-indigo-600 font-bold">
           // {category}
@@ -56,6 +118,7 @@ const { title, category, fullDesc, challenge, solution, processImages } = Astro.
         </button>
       </div>
 
+      <!-- Título y Descripción -->
       <div class="space-y-6">
         <h1 class="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
           {title}
@@ -65,42 +128,86 @@ const { title, category, fullDesc, challenge, solution, processImages } = Astro.
         </p>
       </div>
 
+      <!-- Tarjetas de Desafío y Resolución (Condicionales por si acaso) -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-        <div class="space-y-3 p-6 rounded-2xl bg-slate-50/50 border border-slate-100">
-          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">// EL DESAFÍO</h3>
-          <p class="text-sm text-slate-600 font-light leading-relaxed">{challenge}</p>
-        </div>
+        {challenge && (
+          <div class="space-y-3 p-6 rounded-2xl bg-slate-50/50 border border-slate-100">
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">// EL DESAFÍO</h3>
+            <p class="text-sm text-slate-600 font-light leading-relaxed">{challenge}</p>
+          </div>
+        )}
         
-        <div class="space-y-3 p-6 rounded-2xl bg-indigo-50/30 border border-indigo-50/80">
-          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-indigo-500">// RESOLUCIÓN APLICADA</h3>
-          <p class="text-sm text-slate-600 font-light leading-relaxed">{solution}</p>
-        </div>
+        {solution && (
+          <div class="space-y-3 p-6 rounded-2xl bg-indigo-50/30 border border-indigo-50/80">
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-indigo-500">// RESOLUCIÓN APLICADA</h3>
+            <p class="text-sm text-slate-600 font-light leading-relaxed">{solution}</p>
+          </div>
+        )}
       </div>
 
-      <div class="space-y-4 pt-6 border-t border-slate-100">
-        <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 text-center">
-          EVIDENCIAS TÉCNICAS DEL PROCESO
-        </h3>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-          {processImages.map((img, idx) => (
-            <div class="group space-y-2">
-              <div class="rounded-2xl overflow-hidden border border-slate-200/80 bg-white shadow-sm transition-transform duration-500 group-hover:scale-[1.01]">
-                {/* CORREGIDO: aspect-[4/3] cambiado por la clase canónica aspect-4/3 */}
-                <img 
-                  src={img} 
-                  alt={`Validación Estructural ${idx + 1}`} 
-                  class="w-full h-auto object-cover aspect-4/3"
-                  loading="lazy" 
-                />
-              </div>
-              <span class="text-[10px] font-mono text-slate-400 block text-center">
-                Fase de Validación Estructural {idx + 1}
-              </span>
-            </div>
-          ))}
+      <!-- 1. CAMBIO IMPLEMENTADO: Imagen principal 100% Opcional -->
+      {imgppl && (
+        <div class=" grid grid-cols-1 sm:grid-cols-1 gap-6 pt-2">
+          <img 
+            src={imgppl} 
+            alt={`Imagen destacada del proyecto ${title}`} 
+            class="w-full h-auto object-cover rounded-2xl border border-slate-200/80 shadow-sm" 
+          />
         </div>
-      </div>
+      )}
+
+      <!-- 2. CAMBIO IMPLEMENTADO: Galería de evidencias flexible -->
+      {processImages && processImages.length > 0 && (
+        <div class="space-y-4 pt-6 border-t border-slate-100">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 text-center">
+            EVIDENCIAS TÉCNICAS DEL PROCESO
+          </h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+            {processImages.map((img, idx) => (
+              <div class="group space-y-2">
+                <div class="rounded-2xl overflow-hidden border border-slate-200/80 bg-white shadow-sm transition-transform duration-500 group-hover:scale-[1.01]">
+                  <img 
+                    src={img} 
+                    alt={`Validación Estructural ${idx + 1}`} 
+                    class="w-full h-auto object-cover aspect-4/3"
+                    loading="lazy" 
+                  />
+                </div>
+                <span class="text-[10px] font-mono text-slate-400 block text-center">
+                  Fase de Validación Estructural {idx + 1}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {processImages2 && processImages2.length > 0 && (
+        <div class="space-y-4 pt-6 border-t border-slate-100">
+          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 text-center">
+            EVIDENCIAS TÉCNICAS DEL PROCESO
+          </h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+            {processImages2.map((img, idx) => (
+              <div class="group space-y-2">
+                <div class=" overflow-hidden bg-white shadow-sm transition-transform duration-500 group-hover:scale-[1.01]">
+                  <img 
+                    src={img} 
+                    alt={`Ejemplo de piezas diseñadas y finalizadas ${idx + 1}`} 
+                    class="m-auto w-auto h-auto object-cover "
+                    loading="lazy" 
+                  />
+                </div>
+                <span class="text-[10px] font-mono text-slate-400 block text-center">
+                  Ejemplo de piezas diseñadas y finalizadas {idx + 1}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
     </div>
   </div>
