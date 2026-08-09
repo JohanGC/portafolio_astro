@@ -126,22 +126,7 @@ import DesignGallery from '../components/DesignGallery.astro';
           </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-          <ProjectCard 
-            title="Auditoría de Vulnerabilidades Web (OWASP Top 10)"
-            description="Detección, explotación controlada y parcheo estructural de fallos severos de inyección y fallos de sanitización en componentes frontend."
-            tags={['Burp Suite', 'OWASP ZAP', 'Kali Linux', 'AppSec']}
-            category="security"
-            link="/seguridad"
-          />
-          <ProjectCard 
-            title="Arquitectura de Nube Inmune"
-            description="Diseño e implementación de infraestructuras en AWS aplicando políticas estrictas de acceso (IAM), bases de datos relacionales seguras (RDS) y hardening de servidores EC2."
-            tags={['AWS', 'Cloud Security', 'IAM', 'Network Security']}
-            category="security"
-            link="/seguridad"
-          />
-        </div>
+        <ProjectCard limit={2} />
 
       </div>
     </section>

@@ -1,31 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
-
-const securityLabs = [
-  {
-    id: "appsec-owasp",
-    title: "Auditoría de Vulnerabilidades Web (OWASP Top 10)",
-    category: "AppSec / Pentesting",
-    shortDesc: "Detección y mitigación de fallos XSS y manipulación de parámetros mediante análisis interceptivo.",
-    badge: "OWASP A03:2021",
-    tools: ["Burp Suite", "OWASP ZAP", "Kali Linux", "Regex"],
-    scenario: "Se desplegó un entorno controlado local con formularios interactivos propensos a fallos de sanitización en el cliente para simular vectores de inyección críticos.",
-    recon: "Utilizando OWASP ZAP y mapeo manual, se identificaron puntos de entrada donde los datos del usuario se renderizaban directamente en el DOM sin codificación previa. Con Burp Suite Proxy se interceptaron las peticiones HTTP salientes.",
-    pocCommand: "$ burp-suite --intercept --target https://laboratorio.local/api/v1/update",
-    pocText: "Al manipular el parámetro 'username' e inyectar un payload de Cross-Site Scripting (XSS) reflejado, se logró evadir la validación básica de frontend de Adobe Acrobat / JavaScript e inyectar scripts arbitrarios en la sesión.",
-    solution: "Migración hacia un paradigma defensivo mediante escape contextual completo de entidades HTML y tipado estricto en el procesamiento de datos del lado del servidor.",
-    mitigationCode: `// ANTES (Vulnerable): el elemento procesaba el string crudo
-// el.innerHTML = input;
-
-// DESPUÉS (Seguro): Sanitización rigurosa mediante codificación textual
-function secureRender(input) {
-  const el = document.createElement('div');
-  el.textContent = input; // Fuerza al navegador a interpretarlo exclusivamente como texto plano
-  return el.innerHTML;
-}`
-  }
-];
+import ProjectCard from '../components/ProjectCard.astro';
 ---
 
 <BaseLayout 
@@ -37,7 +13,7 @@ function secureRender(input) {
     <header class="py-24 px-6 md:px-16 lg:px-24 max-w-none border-b border-slate-900 w-full bg-slate-950/60 backdrop-blur-md relative z-10">
       <div class="space-y-4">
         <a href="/" class="text-xs font-mono text-emerald-400 hover:text-emerald-300 transition-colors inline-flex items-center gap-1 font-bold">
-          ← Regresar al Nodo Principal
+          ← Volver al Nodo Principal
         </a>
         <h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-100 uppercase">
           Laboratorio <br class="hidden sm:inline" /> de Ciberseguridad
@@ -48,45 +24,16 @@ function secureRender(input) {
       </div>
     </header>
 
-    <section class="py-16 px-6 md:px-16 lg:px-24 w-full max-w-none relative z-10">
-      <div id="labs-container" data-labs={JSON.stringify(securityLabs)} class="grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
-        {securityLabs.map((lab) => (
-          <div 
-            data-lab-id={lab.id}
-            class="bg-slate-900/40 border border-slate-900 rounded-2xl p-8 hover:border-emerald-500/30 transition-all duration-300 flex flex-col justify-between h-full group cursor-pointer shadow-xl backdrop-blur-sm"
-          >
-            <div class="space-y-5">
-              <div class="flex items-center justify-between gap-4 flex-wrap">
-                <span class="text-[10px] font-mono px-2.5 py-1 rounded-md bg-emerald-950/30 text-emerald-400 border border-emerald-900/50 uppercase tracking-wider font-bold">
-                  {lab.category}
-                </span>
-                <span class="text-[10px] font-mono text-slate-500 font-bold bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
-                  {lab.badge}
-                </span>
-              </div>
+    <section class="py-16 px-6 md:px-16 lg:px-24 w-full max-w-none">
+      <div class="space-y-8">
+        <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm space-y-4 mb-12 max-w-3xl">
+          <h3 class="font-bold text-lg text-slate-900 tracking-tight font-mono">// MANIFIESTO_TÉCNICO_DE_PRODUCCIÓN</h3>
+          <p class="text-sm text-slate-600 font-light leading-relaxed">
+            Cada pieza producida en este laboratorio responde a especificaciones mecánicas rigurosas. No se trata solo de estética superficial, sino de la resolución estructural de variables físicas y digitales: optimización matricial industrial, cálculo predictivo de cobertura de tintas para sistemas pre-prensa y control atómico de interfaces de alta fidelidad.
+          </p>
+        </div>
 
-              <h3 class="text-2xl font-bold tracking-tight text-slate-100 group-hover:text-emerald-400 transition-colors">
-                {lab.title}
-              </h3>
-              <p class="text-sm leading-relaxed font-light text-slate-400">
-                {lab.shortDesc}
-              </p>
-            </div>
-
-            <div class="mt-8 space-y-6">
-              <div class="flex flex-wrap gap-1.5">
-                {lab.tools.map((tool) => (
-                  <span class="text-[10px] font-mono bg-slate-950 border border-slate-800 text-slate-400 px-2.5 py-0.5 rounded-md">
-                    {tool}
-                  </span>
-                ))}
-              </div>
-              <div class="pt-2 font-mono text-[11px] text-emerald-400 font-bold flex items-center gap-1">
-                EXEC_AUDIT_LOG_ANALYSIS →
-              </div>
-            </div>
-          </div>
-        ))}
+        <ProjectCard />
       </div>
     </section>
 
@@ -104,87 +51,4 @@ function secureRender(input) {
     </div>
 
   </main>
-</Layout>
-
-<script>
-  const initSecurityModal = () => {
-    const container = document.getElementById('labs-container');
-    const modal = document.getElementById('security-modal');
-    const modalCard = document.getElementById('security-modal-card');
-    const closeBtn = document.getElementById('close-security-modal');
-    const dynamicContent = document.getElementById('security-dynamic-content');
-    const htmlBody = document.body;
-
-    if (container && modal && modalCard && closeBtn && dynamicContent) {
-      const labs = JSON.parse(container.getAttribute('data-labs') || '[]');
-      const cards = container.querySelectorAll('[data-lab-id]');
-
-      cards.forEach((card) => {
-        card.addEventListener('click', () => {
-          const id = card.getAttribute('data-lab-id');
-          const lab = labs.find((l: any) => l.id === id);
-
-          if (lab) {
-            dynamicContent.innerHTML = `
-              <div class="space-y-2 border-b border-slate-800 pb-6">
-                <span class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">// REPORTE TÉCNICO DE VULNERABILIDAD / ${lab.badge}</span>
-                <h2 class="text-3xl font-black tracking-tight text-slate-100 uppercase">${lab.title}</h2>
-              </div>
-
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div class="lg:col-span-7 space-y-6">
-                  <div class="space-y-2">
-                    <h4 class="font-mono text-xs text-slate-400 font-bold uppercase tracking-wider">// 01. Fase de Reconocimiento</h4>
-                    <p class="leading-relaxed font-light">${lab.recon}</p>
-                  </div>
-                  <div class="space-y-2">
-                    <h4 class="font-mono text-xs text-slate-400 font-bold uppercase tracking-wider">// 02. Ejecución y Vector de Ataque</h4>
-                    <pre class="bg-slate-950 text-emerald-400 p-4 rounded-xl border border-slate-800 font-mono text-[11px] overflow-x-auto shadow-inner"><code>${lab.pocCommand}</code></pre>
-                    <p class="leading-relaxed pt-2 font-light">${lab.pocText}</p>
-                  </div>
-                </div>
-
-                <div class="lg:col-span-5 space-y-6">
-                  <div class="space-y-2">
-                    <h4 class="font-mono text-xs text-slate-400 font-bold uppercase tracking-wider">// 03. Entorno de Simulación</h4>
-                    <p class="leading-relaxed bg-slate-950 p-4 border border-slate-800 rounded-xl font-light">${lab.scenario}</p>
-                  </div>
-                  <div class="space-y-2">
-                    <h4 class="font-mono text-xs text-slate-400 font-bold uppercase tracking-wider">// 04. Remediación Estricta</h4>
-                    <p class="leading-relaxed bg-emerald-950/10 p-4 border border-emerald-900/30 rounded-xl text-slate-300 font-light">${lab.solution}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="space-y-3 pt-4 border-t border-slate-800">
-                <h4 class="font-mono text-xs text-slate-400 font-bold uppercase tracking-wider">// 05. Hardening Código Fuente</h4>
-                <pre class="bg-slate-950 text-slate-300 p-5 rounded-xl border border-slate-800 font-mono text-[11px] overflow-x-auto shadow-inner leading-relaxed"><code>${lab.mitigationCode}</code></pre>
-              </div>
-            `;
-
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            modal.classList.add('opacity-100', 'pointer-events-auto');
-            modalCard.classList.remove('scale-95', 'opacity-0');
-            modalCard.classList.add('scale-100', 'opacity-100');
-            htmlBody.style.overflow = 'hidden';
-          }
-        });
-      });
-
-      const closeModalFn = () => {
-        modal.classList.add('opacity-0', 'pointer-events-none');
-        modal.classList.remove('opacity-100', 'pointer-events-auto');
-        modalCard.classList.add('scale-95', 'opacity-0');
-        modalCard.classList.remove('scale-100', 'opacity-100');
-        htmlBody.style.overflow = 'auto';
-      };
-
-      closeBtn.addEventListener('click', closeModalFn);
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModalFn();
-      });
-    }
-  };
-
-  document.addEventListener('astro:page-load', () => initSecurityModal());
-</script>
+</BaseLayout>
