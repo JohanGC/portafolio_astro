@@ -61,7 +61,7 @@ export function getStaticPaths() {
         ]
       }
     },
-        { 
+    { 
       params: { id: 'iamsterdam' },
       props: {
         title: "Diseño de Marca I Amsterdam",
@@ -76,6 +76,26 @@ export function getStaticPaths() {
           "/images/IAmsterdam_1__.png",
           "/images/IAmsterdam_2__.png",
           "/images/IAmsterdam_3.png",
+        ]
+      }
+    },
+      { 
+      params: { id: 'otros-logos' },
+      props: {
+        title: "Logos Ilustrados",
+        category: "Diseño Gráfico",
+        fullDesc: "Diseño de logos para marca diversas marcas y grupos sin ánimo de lucro.",
+        challenge: "En el transcurso de mi profesión han resultado algunas solicitudes de privados en plasmar mis habilidades como ilustrador en diversas piezas.",
+        solution: "Como resultado, se han construido algunas propuestas interesantes en las que los usuarios se han sentido identificados con el resultado esperado, logrando reflejar el arte callejero y las tendencias urbanas en cada una de estas piezas.",
+        imgppl: "/images/Rabbit_0.png",
+        // No tiene imgppl de manera intencional
+        processImages: [
+          "/images/MachadoIndigente_3.png",
+          "/images/MachadoIndigente_4.png",
+          "/images/Onca_0.png",
+          "/images/Onca_1.png",
+          "/images/Rabbit_3.png",
+          "/images/Rabbit_4.png"
         ]
       }
     },
