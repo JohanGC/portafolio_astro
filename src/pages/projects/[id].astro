@@ -15,16 +15,19 @@ const miSlidePersonalizado = {
 
 export function getStaticPaths() {
   return [
+    // ==========================================
+    // PROYECTOS DE DISEÑO Y PREPRENSA (LIGHT MODE)
+    // ==========================================
     { 
       params: { id: 'cadena' },
       props: {
+        type: 'design',
         title: "Cadena S.A.",
         category: "Preprensa & Diseño Gráfico",
-        fullDesc: "Los diseños expuestos a continuación en este protafolio fuero realizados bajo contrato laboral con la empresa Cadena S.A.",
+        fullDesc: "Los diseños expuestos a continuación en este portafolio fueron realizados bajo contrato laboral con la empresa Cadena S.A.",
         challenge: "Se requería diseñar piezas impresas y digitales que cumplieran con los estándares de calidad y las necesidades del cliente acorde a sus procesos de comunicación a través de diversos canales de comunicación.",
         solution: "Se diseñaron piezas que reflejaban la identidad de la marca y cumplían con los requisitos del cliente, además de las necesidades técnicas a nivel productivo como las coberturas de tinta y la distribución automática de gráficos visuales masivos.",
         imgppl: "/images/cadena_0.png",
-        // No tiene imgppl de manera intencional
         processImages2: [
           "/images/cuponera1_1_.png",
           "/images/cuponera1_2_.png",
@@ -46,13 +49,13 @@ export function getStaticPaths() {
     { 
       params: { id: 'asaki' },
       props: {
+        type: 'design',
         title: "Diseño de Marca ASAKI-FIT",
         category: "Diseño Gráfico",
         fullDesc: "Desarrollo de un ecosistema de formularios inteligentes en Adobe Acrobat que automatizan el cálculo de tintas y marcas de corte, reduciendo el error humano en un 40%.",
         challenge: "Los operarios de producción perdían valioso tiempo de máquina configurando manualmente especificaciones mecánicas propensas a errores.",
         solution: "Implementación de lógica condicional incrustada y scripts en PDF para ocultar pares directos de control redundantes y asegurar un estándar de salida exacto.",
         imgppl: "/images/Asaki-Fit_7.png",
-        // No tiene imgppl de manera intencional
         processImages: [
           "/images/Asaki-Fit_2.png",
           "/images/Asaki-Fit_3.png",
@@ -64,13 +67,13 @@ export function getStaticPaths() {
     { 
       params: { id: 'iamsterdam' },
       props: {
+        type: 'design',
         title: "Diseño de Marca I Amsterdam",
         category: "Diseño Gráfico",
         fullDesc: "Diseño de logo para marca dedicada a fumadores en la ciudad de Medellín.",
         challenge: "Se requiere una marca que refleje la identidad de la ciudad y resalte la calidad del producto.",
         solution: "Se toma la idea del cliente para plasmar su logo de manera ilustrada adaptada a un público juvenil en la ciudad.",
         imgppl: "/images/IAmsterdam_4.png",
-        // No tiene imgppl de manera intencional
         processImages: [
           "/images/IAmsterdam_0__.png",
           "/images/IAmsterdam_1__.png",
@@ -79,16 +82,16 @@ export function getStaticPaths() {
         ]
       }
     },
-      { 
+    { 
       params: { id: 'otros-logos' },
       props: {
+        type: 'design',
         title: "Logos Ilustrados",
         category: "Diseño Gráfico",
-        fullDesc: "Diseño de logos para marca diversas marcas y grupos sin ánimo de lucro.",
+        fullDesc: "Diseño de logos para diversas marcas y grupos sin ánimo de lucro.",
         challenge: "En el transcurso de mi profesión han resultado algunas solicitudes de privados en plasmar mis habilidades como ilustrador en diversas piezas.",
         solution: "Como resultado, se han construido algunas propuestas interesantes en las que los usuarios se han sentido identificados con el resultado esperado, logrando reflejar el arte callejero y las tendencias urbanas en cada una de estas piezas.",
         imgppl: "/images/Rabbit_0.png",
-        // No tiene imgppl de manera intencional
         processImages: [
           "/images/MachadoIndigente_3.png",
           "/images/MachadoIndigente_4.png",
@@ -102,133 +105,220 @@ export function getStaticPaths() {
     { 
       params: { id: 'web' },
       props: {
+        type: 'design',
         title: "Construcción de Página Web X",
         category: "Bitácora / Desarrollo Web",
         fullDesc: "Maquetación de portafolio avanzado utilizando componentes limpios y transiciones fluidas de interfaz.",
         challenge: "Se requería un diseño scannable y modular sin sacrificar los tiempos de carga en dispositivos móviles.",
         solution: "Configuración de enrutamiento dinámico en Astro controlando de manera nativa los estados de las vistas.",
         imgppl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
-        processImages: [], // Lista vacía para probar flexibilidad
-        processImages2: [] // Lista vacía para probar flexibilidad
+        processImages: [],
+        processImages2: []
+      }
+    },
+
+    // ==========================================
+    // PROYECTOS DE CIBERSEGURIDAD (DARK MODE)
+    // ==========================================
+    { 
+      params: { id: 'auditoriaportfolio' },
+      props: {
+        type: 'security',
+        title: "Auditoría de Seguridad Portafolio Anterior",
+        category: "AppSec / Pentesting",
+        fullDesc: "Auditoría de seguridad integral realizada a la versión previa del portafolio web. Se ejecutaron pruebas de caja negra y caja gris para detectar vulnerabilidades en la configuración de cabeceras, vectores de inyección y exposición de metadatos.",
+        challenge: "Identificar brechas potenciales en la infraestructura anterior y evaluar la superficie de ataque expuesta en componentes cliente y servidor sin afectar la disponibilidad.",
+        solution: "Análisis y escaneo con OWASP ZAP y nmap, remediación estructural mediante sanitización de entradas, implementación de políticas CSP estrictas y migración a un stack estático inmune a inyecciones en servidor.",
+        tools: ["Kali Linux", "nmap", "OWASP ZAP", "Burp Suite"],
+        vulnerabilities: [
+          "Falta de cabeceras de seguridad (HSTS, Content-Security-Policy)",
+          "Exposición innecesaria de metadatos del servidor en respuestas HTTP",
+          "Recursos de JavaScript obsoletos con vulnerabilidades conocidas (CVEs)"
+        ],
+        processImages: []
       }
     },
   ];
 }
 
-const { title, category, fullDesc, challenge, solution, processImages = [], processImages2 = [], imgppl } = Astro.props;
+const { 
+  type = 'design', 
+  title, 
+  category, 
+  fullDesc, 
+  challenge, 
+  solution, 
+  tools = [],
+  vulnerabilities = [],
+  processImages = [], 
+  processImages2 = [], 
+  imgppl 
+} = Astro.props;
+
+// Variables de Estilo Dinámicas según el tipo de proyecto
+const isSecurity = type === 'security';
+
+const styles = {
+  bgOuter: isSecurity ? 'bg-slate-950' : 'bg-slate-50/50',
+  cardBg: isSecurity ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-white border-slate-200/80 text-slate-900',
+  categoryTag: isSecurity ? 'text-emerald-400 bg-emerald-950/40 border-emerald-900/60' : 'text-indigo-600 bg-indigo-50 border-indigo-100',
+  closeBtn: isSecurity ? 'text-slate-400 hover:text-white bg-slate-950 hover:bg-slate-800 border-slate-800' : 'text-slate-400 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border-slate-200/60',
+  descText: isSecurity ? 'text-slate-300' : 'text-slate-600',
+  challengeBox: isSecurity ? 'bg-slate-950/60 border-slate-800/80' : 'bg-slate-50/50 border-slate-100',
+  challengeTitle: isSecurity ? 'text-slate-400' : 'text-slate-400',
+  solutionBox: isSecurity ? 'bg-emerald-950/20 border-emerald-900/40' : 'bg-indigo-50/30 border-indigo-50/80',
+  solutionTitle: isSecurity ? 'text-emerald-400' : 'text-indigo-500',
+  borderDivider: isSecurity ? 'border-slate-800' : 'border-slate-100',
+};
 ---
 
 <BaseLayout title={title} description={fullDesc}>
-  <div 
-    transition:animate={miSlidePersonalizado}
-    class="min-h-screen w-full bg-slate-50/50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-  >
-    <div class="max-w-8xl w-full bg-white rounded-4xl border border-slate-200/80 shadow-xl p-8 md:p-12 space-y-10">
-      
-      <!-- Encabezado -->
-      <div class="flex items-center justify-between border-b border-slate-100 pb-6">
-        <span class="text-[11px] font-mono uppercase tracking-widest text-indigo-600 font-bold">
-          // {category}
-        </span>
-        <button 
-          onclick="history.back()" 
-          class="text-xs font-mono font-bold text-slate-400 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 px-4 py-2 rounded-xl border border-slate-200/60 transition-all"
-        >
-          // CERRAR [X]
-        </button>
-      </div>
-
-      <!-- Título y Descripción -->
-      <div class="space-y-6">
-        <h1 class="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
-          {title}
-        </h1>
-        <p class="text-base text-slate-600 font-light leading-relaxed max-w-2xl">
-          {fullDesc}
-        </p>
-      </div>
-
-      <!-- Tarjetas de Desafío y Resolución (Condicionales por si acaso) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-        {challenge && (
-          <div class="space-y-3 p-6 rounded-2xl bg-slate-50/50 border border-slate-100">
-            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">// EL DESAFÍO</h3>
-            <p class="text-sm text-slate-600 font-light leading-relaxed">{challenge}</p>
-          </div>
-        )}
+  <main data-theme={isSecurity ? "dark" : "light"} class={`min-h-screen w-full ${styles.bgOuter} transition-colors duration-500`}>
+    <div 
+      transition:animate={miSlidePersonalizado}
+      class="w-full min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div class={`max-w-8xl w-full ${styles.cardBg} rounded-4xl border shadow-2xl p-8 md:p-12 space-y-10`}>
         
-        {solution && (
-          <div class="space-y-3 p-6 rounded-2xl bg-indigo-50/30 border border-indigo-50/80">
-            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-indigo-500">// RESOLUCIÓN APLICADA</h3>
-            <p class="text-sm text-slate-600 font-light leading-relaxed">{solution}</p>
+        <!-- Encabezado con Categoría y Botón de Cierre -->
+        <div class={`flex items-center justify-between border-b ${styles.borderDivider} pb-6`}>
+          <span class={`text-[11px] font-mono uppercase tracking-widest px-3 py-1 rounded-md border font-bold ${styles.categoryTag}`}>
+            // {category}
+          </span>
+          <button 
+            onclick="history.back()" 
+            class={`text-xs font-mono font-bold px-4 py-2 rounded-xl border transition-all ${styles.closeBtn}`}
+          >
+            // CERRAR [X]
+          </button>
+        </div>
+
+        <!-- Título y Descripción General -->
+        <div class="space-y-6">
+          <h1 class="text-3xl md:text-5xl font-black tracking-tight uppercase">
+            {title}
+          </h1>
+          <p class={`text-base font-light leading-relaxed max-w-3xl ${styles.descText}`}>
+            {fullDesc}
+          </p>
+        </div>
+
+        <!-- Bloque de Herramientas / Tools (Específico para Seguridad) -->
+        {tools.length > 0 && (
+          <div class="space-y-3 pt-2">
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">// STACK_&_HERRAMIENTAS</h3>
+            <div class="flex flex-wrap gap-2">
+              {tools.map((tool) => (
+                <span class="text-xs font-mono px-3 py-1 rounded-lg bg-slate-950 text-emerald-400 border border-emerald-900/50 font-semibold">
+                  {tool}
+                </span>
+              ))}
+            </div>
           </div>
         )}
+
+        <!-- Tarjetas de Desafío y Resolución -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-2">
+          {challenge && (
+            <div class={`space-y-3 p-6 rounded-2xl border ${styles.challengeBox}`}>
+              <h3 class={`font-mono text-xs font-bold uppercase tracking-wider ${styles.challengeTitle}`}>
+                // {isSecurity ? 'OBJETIVO_Y_SUPERFICIE_DE_ATAQUE' : 'EL DESAFÍO'}
+              </h3>
+              <p class={`text-sm font-light leading-relaxed ${styles.descText}`}>{challenge}</p>
+            </div>
+          )}
+          
+          {solution && (
+            <div class={`space-y-3 p-6 rounded-2xl border ${styles.solutionBox}`}>
+              <h3 class={`font-mono text-xs font-bold uppercase tracking-wider ${styles.solutionTitle}`}>
+                // {isSecurity ? 'MITIGACIÓN_Y_REMEDIACIÓN' : 'RESOLUCIÓN APLICADA'}
+              </h3>
+              <p class={`text-sm font-light leading-relaxed ${styles.descText}`}>{solution}</p>
+            </div>
+          )}
+        </div>
+
+        <!-- Hallazgos / Vulnerabilidades (Específico de Seguridad) -->
+        {vulnerabilities.length > 0 && (
+          <div class={`space-y-4 pt-6 border-t ${styles.borderDivider}`}>
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">// VULNERABILIDADES_EVALUADAS</h3>
+            <ul class="space-y-2 font-mono text-xs text-slate-300">
+              {vulnerabilities.map((vuln) => (
+                <li class="flex items-start gap-2 bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                  <span class="text-emerald-400 font-bold">[!]</span>
+                  <span>{vuln}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <!-- Imagen principal (Opcional) -->
+        {imgppl && (
+          <div class="grid grid-cols-1 gap-6 pt-2">
+            <img 
+              src={imgppl} 
+              alt={`Imagen destacada del proyecto ${title}`} 
+              class="w-full h-auto object-cover rounded-2xl border border-slate-800 shadow-md" 
+            />
+          </div>
+        )}
+
+        <!-- Galería de evidencias 1 -->
+        {processImages && processImages.length > 0 && (
+          <div class={`space-y-4 pt-6 border-t ${styles.borderDivider}`}>
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 text-center">
+              EVIDENCIAS TÉCNICAS DEL PROCESO
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+              {processImages.map((img, idx) => (
+                <div class="group space-y-2">
+                  <div class="rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 shadow-sm transition-transform duration-500 group-hover:scale-[1.01]">
+                    <img 
+                      src={img} 
+                      alt={`Validación Estructural ${idx + 1}`} 
+                      class="w-full h-auto object-cover aspect-4/3"
+                      loading="lazy" 
+                    />
+                  </div>
+                  <span class="text-[10px] font-mono text-slate-400 block text-center">
+                    Fase de Validación Estructural {idx + 1}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Galería de evidencias 2 -->
+        {processImages2 && processImages2.length > 0 && (
+          <div class={`space-y-4 pt-6 border-t ${styles.borderDivider}`}>
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 text-center">
+              PIEZAS FINALIZADAS Y REGISTROS
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+              {processImages2.map((img, idx) => (
+                <div class="group space-y-2">
+                  <div class="overflow-hidden bg-transparent transition-transform duration-500 group-hover:scale-[1.01]">
+                    <img 
+                      src={img} 
+                      alt={`Muestra ${idx + 1}`} 
+                      class="m-auto w-auto h-auto object-cover rounded-xl"
+                      loading="lazy" 
+                    />
+                  </div>
+                  <span class="text-[10px] font-mono text-slate-400 block text-center">
+                    Pieza / Registro {idx + 1}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
-
-      <!-- 1. CAMBIO IMPLEMENTADO: Imagen principal 100% Opcional -->
-      {imgppl && (
-        <div class=" grid grid-cols-1 sm:grid-cols-1 gap-6 pt-2">
-          <img 
-            src={imgppl} 
-            alt={`Imagen destacada del proyecto ${title}`} 
-            class="w-full h-auto object-cover rounded-2xl border border-slate-200/80 shadow-sm" 
-          />
-        </div>
-      )}
-
-      <!-- 2. CAMBIO IMPLEMENTADO: Galería de evidencias flexible -->
-      {processImages && processImages.length > 0 && (
-        <div class="space-y-4 pt-6 border-t border-slate-100">
-          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 text-center">
-            EVIDENCIAS TÉCNICAS DEL PROCESO
-          </h3>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-            {processImages.map((img, idx) => (
-              <div class="group space-y-2">
-                <div class="rounded-2xl overflow-hidden border border-slate-200/80 bg-white shadow-sm transition-transform duration-500 group-hover:scale-[1.01]">
-                  <img 
-                    src={img} 
-                    alt={`Validación Estructural ${idx + 1}`} 
-                    class="w-full h-auto object-cover aspect-4/3"
-                    loading="lazy" 
-                  />
-                </div>
-                <span class="text-[10px] font-mono text-slate-400 block text-center">
-                  Fase de Validación Estructural {idx + 1}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {processImages2 && processImages2.length > 0 && (
-        <div class="space-y-4 pt-6 border-t border-slate-100">
-          <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400 text-center">
-            EVIDENCIAS TÉCNICAS DEL PROCESO
-          </h3>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-            {processImages2.map((img, idx) => (
-              <div class="group space-y-2">
-                <div class=" overflow-hidden bg-white shadow-sm transition-transform duration-500 group-hover:scale-[1.01]">
-                  <img 
-                    src={img} 
-                    alt={`Ejemplo de piezas diseñadas y finalizadas ${idx + 1}`} 
-                    class="m-auto w-auto h-auto object-cover "
-                    loading="lazy" 
-                  />
-                </div>
-                <span class="text-[10px] font-mono text-slate-400 block text-center">
-                  Ejemplo de piezas diseñadas y finalizadas {idx + 1}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
     </div>
-  </div>
+  </main>
 </BaseLayout>
