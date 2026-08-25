@@ -1,0 +1,96 @@
+---
+import { promise } from "astro:schema";
+
+
+const { limit } = Astro.props;
+
+
+// id: "appsec-owasp",
+//     title: "Auditoría de Vulnerabilidades Web (OWASP Top 10)",
+//     category: "AppSec / Pentesting",
+//     shortDesc: "",
+//     badge: "OWASP A03:2021",
+//     
+//     scenario: "Se desplegó un entorno controlado local con formularios interactivos propensos a fallos de sanitización en el cliente para simular vectores de inyección críticos.",
+//     recon: "Utilizando OWASP ZAP y mapeo manual, se identificaron puntos de entrada donde los datos del usuario se renderizaban directamente en el DOM sin codificación previa. Con Burp Suite Proxy se interceptaron las peticiones HTTP salientes.",
+//     pocCommand: "$ burp-suite --intercept --target https://laboratorio.local/api/v1/update",
+//     pocText: "Al manipular el parámetro 'username' e inyectar un payload de Cross-Site Scripting (XSS) reflejado, se logró evadir la validación básica de frontend de Adobe Acrobat / JavaScript e inyectar scripts arbitrarios en la sesión.",
+//     solution: "Migración hacia un paradigma defensivo mediante escape contextual completo de entidades HTML y tipado estricto en el procesamiento de datos del lado del servidor.",
+//     mitigationCode: `// ANTES (Vulnerable): el elemento procesaba el string crudo
+
+const projects = [
+  {
+    id: "appsec-owasp",
+    title: "Auditoría de Vulnerabilidades Web (OWASP Top 10)",
+    category: "AppSec / Pentesting",
+    shortDesc: "Detección y mitigación de fallos XSS y manipulación de parámetros mediante análisis interceptivo.",
+    tags: ["Acrobat", "JavaScript", "Industrial Printing"],
+    tools: ["Burp Suite", "OWASP ZAP", "Kali Linux", "Regex"],
+  },
+];
+
+const securityProjects = limit ? projects.slice(0, limit) : projects;
+
+// const { title, description, tags, link = "#", category } = Astro.props;
+
+// const isDesign = category === 'design';
+
+// const cardStyles = isDesign
+//     ? "bg-slate-50 border-slate-200 hover:shadow-xl hover:border-indigo-500/30"
+//     : "bg-slate-900 border-slate-800 hover:shadow-2xl hover:shadow-emerald-500/5 hover:border-emerald-500/40";
+
+// const titleStyles = isDesign ? "text-slate-900" : "text-slate-100";
+// const textStyles = isDesign ? "text-slate-600" : "text-slate-400";
+
+// // CORREGIDO: "text-esmerald-400" cambiado por "text-emerald-400"
+// const tagStyles = isDesign
+//     ? "bg-indigo-50 text-indigo-700 border-indigo-100"
+//     : "bg-emerald-950/40 text-emerald-400 border-emerald-900/50";
+---
+
+<section class="py-16 px-6 md:px-16 lg:px-24 w-full max-w-none relative z-10">
+  <div id="labs-container" data-labs={JSON.stringify(securityProjects)} class="grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
+    {securityProjects.map((projects) => (
+      <a 
+        href={`/projects/${projects.id}`}
+        
+      >
+        <div 
+          data-lab-id={projects.id}
+          class="bg-slate-900/40 border border-slate-900 rounded-2xl p-8 hover:border-emerald-500/30 transition-all duration-300 flex flex-col justify-between h-full group cursor-pointer shadow-xl backdrop-blur-sm"
+        >
+          <div class="space-y-5">
+            <div class="flex items-center justify-between gap-4 flex-wrap">
+              <span class="text-[10px] font-mono px-2.5 py-1 rounded-md bg-emerald-950/30 text-emerald-400 border border-emerald-900/50 uppercase tracking-wider font-bold">
+                {projects.category}
+              </span>
+              <span class="text-[10px] font-mono text-slate-500 font-bold bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                <div class="pt-2 font-mono text-[11px] text-emerald-400 font-bold flex items-center gap-1">
+                  EXEC_AUDIT_LOG_ANALYSIS →
+                </div>
+              </span>
+            </div>
+
+            <h3 class="text-2xl font-bold tracking-tight text-slate-100 group-hover:text-emerald-400 transition-colors">
+              {projects.title}
+            </h3>
+            <p class="text-sm leading-relaxed font-light text-slate-400">
+              {projects.shortDesc}
+            </p>
+          </div>
+
+          <div class="mt-8 space-y-6">
+            <div class="flex flex-wrap gap-1.5">
+              {projects.tools.map((tool) => (
+                <span class="text-[10px] font-mono bg-slate-950 border border-slate-800 text-slate-400 px-2.5 py-0.5 rounded-md">
+                  {tool}
+                </span>
+              ))}
+            </div>
+            
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

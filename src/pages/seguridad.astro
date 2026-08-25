@@ -1,7 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SecurityGallery from '../components/SecurityGallery.astro';
 import Footer from '../components/Footer.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+
+const securityLabs = [
+  {
+    id: "appsec-owasp",
+    title: "Auditoría de Vulnerabilidades Web (OWASP Top 10)",
+    category: "AppSec / Pentesting",
+    shortDesc: "Detección y mitigación de fallos XSS y manipulación de parámetros mediante análisis interceptivo.",
+    badge: "OWASP A03:2021",
+    tools: ["Burp Suite", "OWASP ZAP", "Kali Linux", "Regex"],
+    scenario: "Se desplegó un entorno controlado local con formularios interactivos propensos a fallos de sanitización en el cliente para simular vectores de inyección críticos.",
+    recon: "Utilizando OWASP ZAP y mapeo manual, se identificaron puntos de entrada donde los datos del usuario se renderizaban directamente en el DOM sin codificación previa. Con Burp Suite Proxy se interceptaron las peticiones HTTP salientes.",
+    pocCommand: "$ burp-suite --intercept --target https://laboratorio.local/api/v1/update",
+    pocText: "Al manipular el parámetro 'username' e inyectar un payload de Cross-Site Scripting (XSS) reflejado, se logró evadir la validación básica de frontend de Adobe Acrobat / JavaScript e inyectar scripts arbitrarios en la sesión.",
+    solution: "Migración hacia un paradigma defensivo mediante escape contextual completo de entidades HTML y tipado estricto en el procesamiento de datos del lado del servidor.",
+    mitigationCode: `// ANTES (Vulnerable): el elemento procesaba el string crudo
+// el.innerHTML = input;
+
+// DESPUÉS (Seguro): Sanitización rigurosa mediante codificación textual
+function secureRender(input) {
+  const el = document.createElement('div');
+  el.textContent = input; // Fuerza al navegador a interpretarlo exclusivamente como texto plano
+  return el.innerHTML;
+}`
+  }
+];
 ---
 
 <BaseLayout 
@@ -13,7 +38,7 @@ import ProjectCard from '../components/ProjectCard.astro';
     <header class="py-24 px-6 md:px-16 lg:px-24 max-w-none border-b border-slate-900 w-full bg-slate-950/60 backdrop-blur-md relative z-10">
       <div class="space-y-4">
         <a href="/" class="text-xs font-mono text-emerald-400 hover:text-emerald-300 transition-colors inline-flex items-center gap-1 font-bold">
-          ← Volver al Nodo Principal
+          ← Regresar al Nodo Principal
         </a>
         <h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-100 uppercase">
           Laboratorio <br class="hidden sm:inline" /> de Ciberseguridad
@@ -24,18 +49,7 @@ import ProjectCard from '../components/ProjectCard.astro';
       </div>
     </header>
 
-    <section class="py-16 px-6 md:px-16 lg:px-24 w-full max-w-none">
-      <div class="space-y-8">
-        <div class="bg-slate-900 rounded-3xl border border-slate-800 p-8 shadow-sm space-y-4 mb-12 max-w-3xl">
-          <h3 class="font-bold text-lg text-emerald-500 tracking-tight font-mono">// MANIFIESTO_TÉCNICO_DE_PRODUCCIÓN</h3>
-          <p class="text-sm text-white font-light leading-relaxed">
-            Cada pieza producida en este laboratorio responde a especificaciones mecánicas rigurosas. No se trata solo de estética superficial, sino de la resolución estructural de variables físicas y digitales: optimización matricial industrial, cálculo predictivo de cobertura de tintas para sistemas pre-prensa y control atómico de interfaces de alta fidelidad.
-          </p>
-        </div>
-
-        <ProjectCard />
-      </div>
-    </section>
+    <SecurityGallery />
 
     <Footer />
 
@@ -51,4 +65,4 @@ import ProjectCard from '../components/ProjectCard.astro';
     </div>
 
   </main>
-</BaseLayout>
+</Layout>

@@ -1,6 +1,13 @@
 ---
-const { limit } = Astro.props;
+interface Props {
+    title: string;
+    description: string;
+    tags: string[];
+    link?: string;
+    category: 'design' | 'security';
+}
 
+<<<<<<< HEAD
 const projects = [
     {
         id: "auditoriaportfolio",
@@ -10,15 +17,53 @@ const projects = [
         tool: "Kali Linux, nmap, OWASP ZAP",        
         tags: ["OWASP", "Kali Linux", "nmap"]
     }
+=======
+const { title, description, tags, link = "#", category } = Astro.props;
+>>>>>>> 95dbb9a (Voy avanzando corrigiendo los archivos id de seguridad y about me)
 
-];
+const isDesign = category === 'design';
 
-const securityProjects = limit ? projects.slice(0, limit) : projects;
+const cardStyles = isDesign
+    ? "bg-slate-50 border-slate-200 hover:shadow-xl hover:border-indigo-500/30"
+    : "bg-slate-900 border-slate-800 hover:shadow-2xl hover:shadow-emerald-500/5 hover:border-emerald-500/40";
+
+const titleStyles = isDesign ? "text-slate-900" : "text-slate-100";
+const textStyles = isDesign ? "text-slate-600" : "text-slate-400";
+
+// CORREGIDO: "text-esmerald-400" cambiado por "text-emerald-400"
+const tagStyles = isDesign
+    ? "bg-indigo-50 text-indigo-700 border-indigo-100"
+    : "bg-emerald-950/40 text-emerald-400 border-emerald-900/50";
 ---
-<div class="w-full space-y-12">
-    <div class="grid gride-cols-1 md:grid-cols-2 gap-8 items-start">
-        {securityProjects.map((project) => (
+
+<div class={`p-8 rounded-2xl border transition-all duration-300 flex flex-col justify-between ${cardStyles}`}>
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <span class={`text-xs font-mono px-2.5 py-1 rounded-md border uppercase tracking-wider font-bold ${tagStyles}`}>
+                {category}
+            </span>
+        </div>
+
+        <h3 class={`text-2xl font-bold tracking-tight transition-colors ${titleStyles}`}>
+            {title}
+        </h3>
+        <p class={`text-sm leading-relaxed font-light ${textStyles}`}>
+            {description}
+        </p>
+    </div>
+
+    <div class="mt-8 space-y-6">
+        <div class="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+                <span class={`text-xs font-mono px-2 py-0.5 rounded ${isDesign ? 'bg-slate-200/60 text-slate-700' : 'bg-slate-800 text-slate-300'}`}>
+                    {tag}
+                </span>            
+            ))}
+        </div>
+
+        <div class="pt-2">
             <a
+<<<<<<< HEAD
                 href={`/projects/${project.id}`}
                 class="group bg-slate-900 rounded-3xl border border-slate-900 overflow-hidden transition-all duration-500 ease-in-out hover:shadow-md hover:border-emerald-500/30 flex flex-col p-8 space-y-6 select-none"
             >
@@ -54,8 +99,17 @@ const securityProjects = limit ? projects.slice(0, limit) : projects;
                     ))}
                 </div>
 
+=======
+                href={link}
+                class={`text-xs font-mono font-bold uppercase tracking-wider border-b pb-0.5 transition-colors ${
+                    isDesign 
+                    ? 'text-indigo-600 border-indigo-200 hover:text-indigo-800 hover:border-indigo-500' 
+                    : 'text-emerald-400 border-emerald-900 hover:text-emerald-300 hover:border-emerald-500'
+                }`}
+            >
+                Ver Proyecto →
+>>>>>>> 95dbb9a (Voy avanzando corrigiendo los archivos id de seguridad y about me)
             </a>
-
-        ))
-        }
+        </div>
     </div>
+</div>

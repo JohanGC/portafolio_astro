@@ -131,22 +131,35 @@ const { id } = Astro.props;
         const payload = Object.fromEntries(formData.entries());
 
         try {
-          // Simulación controlada de respuesta asíncrona de red (1.2s delay)
-          await new Promise(resolve => setTimeout(resolve, 1200));
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const resultado = await response.json();
+
+          if (!response.ok || !resultado.success) {
+            throw new Error(resultado.message || 'Error al enviar el formulario.');
+          }
 
           // 3. Cambio de Estado a Éxito Completo
           statusMsg.className = "font-mono text-[11px] text-emerald-400 font-bold bg-emerald-950/30 border border-emerald-900/50 px-3 py-1 rounded";
           statusMsg.textContent = "[✔] TRANSMISIÓN EXITOSA: Payload recibido.";
           contactForm.reset();
-          
-          setTimeout(() => { 
-            statusMsg.textContent = ""; 
-            statusMsg.className = ""; 
-          }, 5000);
 
-        } catch (error) {
+          setTimeout(() => {
+            statusMsg.className = "";
+            statusMsg.textContent = "";
+          }, 5000);
+        
+        } catch (error: any) {
+          // El manejo de error ahora captura fallas dentro del bloque catch
           statusMsg.className = "font-mono text-[11px] text-red-400 bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
-          statusMsg.textContent = "[❌] FATAL ERROR: Falla de enlace en el nodo.";
+          statusMsg.textContent = `[❌] FATAL ERROR: ${error.message || 'Falla de enlace en el nodo.'}`;
         }
       });
     }

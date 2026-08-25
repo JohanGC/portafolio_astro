@@ -34,9 +34,9 @@
         </button>
         <button
           id="btn-experience"
-          class="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 shadow-sm bg-white text-indigo-600"
+          class="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800"
         >
-          Trayectoria / Certificaciones
+          Experiencia / Certificaciones
         </button>
       </div>
     </div>
@@ -99,60 +99,35 @@
 </section>
 
 <script>
-  const initAboutToggle = () => {
-    const btnDesigner = document.getElementById('btn-designer');
-    const btnEngineer = document.getElementById('btn-engineer');
-    const btnExperience = document.getElementById('btn-experience');
-    const aboutSection = document.getElementById('about-section');
-    const aboutHeaderBorder = document.getElementById('about-header-border');
-    const toggleContainer = document.getElementById('perspective-toggle-container');
-    const aboutTitle = document.getElementById('about-title');
-    const aboutSubtitle = document.getElementById('about-subtitle');
-    const aboutBioText = document.getElementById('about-bio-text');
-    const techSpecBox = document.getElementById('tech-spec-box');
-    const specBoxTitle = document.getElementById('spec-box-title');
-    const specBoxSubtitle = document.getElementById('spec-box-subtitle');
-    const skillsGrid = document.getElementById('skills-grid');
-
-    if (!btnDesigner || !btnEngineer || !btnExperience || !aboutSection || !skillsGrid) return;
-
-    // Mutación al Modo Diseñador (Light)
-    btnDesigner.addEventListener('click', () => {
-      btnEngineer.className = 'px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-slate-500 hover:text-slate-800';
-      btnDesigner.className = 'px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 shadow-sm bg-white text-indigo-600';
-
-      aboutSection.setAttribute('data-theme', 'light');
-      aboutSection.className = "min-h-screen py-32 w-full max-w-none px-6 md:px-16 lg:px-24 flex flex-col justify-center transition-colors duration-700 bg-white text-slate-900";
-      
-      if (aboutHeaderBorder) aboutHeaderBorder.className = "flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 transition-colors duration-500";
-      if (toggleContainer) toggleContainer.className = "inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 shadow-inner transition-colors duration-500";
-      if (aboutTitle) aboutTitle.className = "text-4xl md:text-6xl font-black tracking-tight text-slate-900 transition-colors duration-500";
-      if (aboutSubtitle) {
-        aboutSubtitle.textContent = "[ El Humano Detrás del Código ]";
-        aboutSubtitle.className = "text-xs font-mono uppercase tracking-widest text-slate-500 font-bold";
-      }
-      if (aboutBioText) {
-        aboutBioText.className = "lg:col-span-7 space-y-6 text-[20px] font-light leading-relaxed text-slate-600 transition-colors duration-500";
-        aboutBioText.innerHTML = `
-          <p>Mi enfoque profesional no se limita a la estética superficial; responde a la resolución estructural de variables físicas y digitales. Como Tecnólogo en Diseño y Gestión de Imagen con más de 8 años de trayectoria, controlo flujos de trabajo del píxel a la tinta, donde la precisión técnica es innegociable. Me especializo en el diseño de interfaces (UI/UX), la optimización matricial industrial y la automatización avanzada mediante lógica condicional incrustada en sistemas interactivos y formularios dinámicos, garantizando salidas estandarizadas sin margen de error humano.</p>
-          <p>Mi experiencia consolidada en publicaciones digitales y preprensa me permite abordar proyectos desde la conceptualización visual pura hasta la implementación funcional en entornos de producción multidisciplinares.</p>
-          <div class="space-y-2">
+  // 1. DICCIONARIO DE DATOS
+  const profiles = {
+    designer: {
+      theme: 'light',
+      btnActive: 'shadow-sm bg-white text-indigo-600',
+      btnInactive: 'text-slate-500 hover:text-slate-800',
+      sectionClass: "min-h-screen py-32 w-full max-w-none px-6 md:px-16 lg:px-24 flex flex-col justify-center transition-colors duration-700 bg-white text-slate-900",
+      headerBorder: "flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8 transition-colors duration-500",
+      toggleBg: "inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 shadow-inner transition-colors duration-500",
+      titleClass: "text-4xl md:text-6xl font-black tracking-tight text-slate-900 transition-colors duration-500",
+      subtitleText: "[ El Humano Detrás del Código ]",
+      subtitleClass: "text-xs font-mono uppercase tracking-widest text-slate-500 font-bold",
+      bioClass: "lg:col-span-7 space-y-6 text-[20px] font-light leading-relaxed text-slate-600 transition-colors duration-500",
+      bioHtml: `
+        <p>Mi enfoque profesional no se limita a la estética superficial; responde a la resolución estructural de variables físicas y digitales. Como Tecnólogo en Diseño y Gestión de Imagen con más de 8 años de trayectoria, controlo flujos de trabajo del píxel a la tinta, donde la precisión técnica es innegociable. Me especializo en el diseño de interfaces (UI/UX), la optimización matricial industrial y la automatización avanzada mediante lógica condicional incrustada en sistemas interactivos y formularios dinámicos, garantizando salidas estandarizadas sin margen de error humano.</p>
+        <p>Mi experiencia consolidada en publicaciones digitales y preprensa me permite abordar proyectos desde la conceptualización visual pura hasta la implementación funcional en entornos de producción multidisciplinares.</p>
+        <div class="space-y-2">
           <div class="flex justify-between font-bold border-b border-slate-200 pb-1">
             <span>Herramientas de Diseño Gráfico y Web</span>
-            </div>
-            <p class="text-[18px] text-slate-500 font-light">[ Illustrator, Photoshop, InDesign, Acrobat Pro, Adobe XD, After Effects, Figma, HTML, CSS, Tailwind CSS, Bootstrap ].</p>
+          </div>
+          <p class="text-[18px] text-slate-500 font-light">[ Illustrator, Photoshop, InDesign, Acrobat Pro, Adobe XD, After Effects, Figma, HTML, CSS, Tailwind CSS, Bootstrap ].</p>
         </div>
-        `;
-      }
-      if (techSpecBox) techSpecBox.className = "lg:col-span-5 p-8 rounded-2xl border border-slate-200 bg-slate-50 transition-all duration-500 space-y-6";
-      if (specBoxTitle) {
-        specBoxTitle.textContent = "// CORE_COMPETENCIES_DESIGN";
-        specBoxTitle.className = "font-mono text-xs font-bold uppercase tracking-wider text-indigo-600 transition-colors duration-500";
-      }
-      if (specBoxSubtitle) specBoxSubtitle.className = "text-[11px] text-slate-400 font-mono font-light";
-
-      skillsGrid.className = "grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 font-mono text-xs text-slate-600 transition-colors duration-500";
-      skillsGrid.innerHTML = `
+      `,
+      boxClass: "lg:col-span-5 p-8 rounded-2xl border border-slate-200 bg-slate-50 transition-all duration-500 space-y-6",
+      boxTitleText: "// CORE_COMPETENCIES_DESIGN",
+      boxTitleClass: "font-mono text-xs font-bold uppercase tracking-wider text-indigo-600 transition-colors duration-500",
+      boxSubClass: "text-[11px] text-slate-400 font-mono font-light",
+      gridClass: "grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 font-mono text-xs text-slate-600 transition-colors duration-500",
+      gridHtml: `
         <div class="space-y-2">
           <div class="flex justify-between font-bold border-b border-slate-200 pb-1"><span>Automatización Acrobat</span> <span>[95%]</span></div>
           <p class="text-[11px] text-slate-500 font-light">Incrustación de scripts nativos y lógica condicional compleja en formularios interactivos industriales.</p>
@@ -169,47 +144,35 @@
           <div class="flex justify-between font-bold border-b border-slate-200 pb-1"><span>Control del Píxel</span> <span>[90%]</span></div>
           <p class="text-[11px] text-slate-500 font-light">Producción gráfica con simetría matemática y rigurosidad en formatos de exportación.</p>
         </div>
-        
-      `;
-    });
-
-    // Mutación al Modo Ingeniero (Dark)
-    btnEngineer.addEventListener('click', () => {
-      btnDesigner.className = 'px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 text-slate-400 hover:text-slate-200';
-      btnEngineer.className = 'px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300 shadow-sm bg-slate-800 text-emerald-400';
-
-      aboutSection.setAttribute('data-theme', 'dark');
-      aboutSection.className = "min-h-screen py-32 w-full max-w-none px-6 md:px-16 lg:px-24 flex flex-col justify-center transition-colors duration-700 bg-slate-950 text-slate-100";
-      
-      if (aboutHeaderBorder) aboutHeaderBorder.className = "flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-8 transition-colors duration-500";
-      if (toggleContainer) toggleContainer.className = "inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-inner transition-colors duration-500";
-      if (aboutTitle) aboutTitle.className = "text-4xl md:text-6xl font-black tracking-tight text-slate-100 transition-colors duration-500";
-      if (aboutSubtitle) {
-        aboutSubtitle.textContent = "[ // STACK_CORE_ANALYSIS ]";
-        aboutSubtitle.className = "text-xs font-mono uppercase tracking-widest text-emerald-500 font-bold";
-      }
-      if (aboutBioText) {
-        aboutBioText.className = "lg:col-span-7 space-y-6 text-[20px] font-light leading-relaxed text-slate-400 transition-colors duration-500";
-        aboutBioText.innerHTML = `
-          <p>Como estudiante de noveno semestre de Ingeniería de Software y profesional híbrido, enfoco la programación desde una perspectiva determinista y de alta resistencia. Con una sólida base en diseño y gestión de imagen, integro la creatividad visual con el desarrollo de software robusto, especializándome en lógica backend, gestión avanzada de bases de datos y arquitecturas cliente seguras. Audito activamente interfaces mediante análisis interceptivo y mitigación de fallas críticas (OWASP Top 10), combinando la rigurosidad matemática de los métodos numéricos computacionales con parches seguros a nivel de infraestructura.</p>
-          <p>Me encuentro en una transición estratégica hacia el sector tecnológico, con un fuerte enfoque en el desarrollo web front-end/back-end y una alta motivación por expandir mis competencias en la auditoría de ciberseguridad.</p>
-          <div class="space-y-2">
-            <div class="flex justify-between font-bold border-b border-slate-200 pb-1">
-              <span>Herramientas Seguridad y Desarrollo</span>
-            </div>
-            <p class="text-[18px] text-slate-500 font-light">[ Kali Linux, OWASP, Burp Suite, Wireshark, Fortinet, AWS, SQL, My SQL, Mongo DB, JavaScript, Astro Framework, React, Next.js, Vue, Python, PHP, Git, Github ].</p>
+      `
+    },
+    engineer: {
+      theme: 'dark',
+      btnActive: 'shadow-sm bg-slate-800 text-emerald-400',
+      btnInactive: 'text-slate-400 hover:text-slate-200',
+      sectionClass: "min-h-screen py-32 w-full max-w-none px-6 md:px-16 lg:px-24 flex flex-col justify-center transition-colors duration-700 bg-slate-950 text-slate-100",
+      headerBorder: "flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-8 transition-colors duration-500",
+      toggleBg: "inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-inner transition-colors duration-500",
+      titleClass: "text-4xl md:text-6xl font-black tracking-tight text-slate-100 transition-colors duration-500",
+      subtitleText: "[ // STACK_CORE_ANALYSIS ]",
+      subtitleClass: "text-xs font-mono uppercase tracking-widest text-emerald-500 font-bold",
+      bioClass: "lg:col-span-7 space-y-6 text-[20px] font-light leading-relaxed text-slate-400 transition-colors duration-500",
+      bioHtml: `
+        <p>Como estudiante de noveno semestre de Ingeniería de Software y profesional híbrido, enfoco la programación desde una perspectiva determinista y de alta resistencia. Con una sólida base en diseño y gestión de imagen, integro la creatividad visual con el desarrollo de software robusto, especializándome en lógica backend, gestión avanzada de bases de datos y arquitecturas cliente seguras. Audito activamente interfaces mediante análisis interceptivo y mitigación de fallas críticas (OWASP Top 10), combinando la rigurosidad matemática de los métodos numéricos computacionales con parches seguros a nivel de infraestructura.</p>
+        <p>Me encuentro en una transición estratégica hacia el sector tecnológico, con un fuerte enfoque en el desarrollo web front-end/back-end y una alta motivación por expandir mis competencias en la auditoría de ciberseguridad.</p>
+        <div class="space-y-2">
+          <div class="flex justify-between font-bold border-b border-slate-200 pb-1">
+            <span>Herramientas Seguridad y Desarrollo</span>
+          </div>
+          <p class="text-[18px] text-slate-500 font-light">[ Kali Linux, OWASP, Burp Suite, Wireshark, Fortinet, AWS, SQL, MySQL, MongoDB, JavaScript, Astro Framework, React, Next.js, Vue, Python, PHP, Git, GitHub ].</p>
         </div>
-        `;
-      }
-      if (techSpecBox) techSpecBox.className = "lg:col-span-5 p-8 rounded-2xl border border-slate-800 bg-slate-900/50 shadow-2xl shadow-emerald-500/5 transition-all duration-500 space-y-6";
-      if (specBoxTitle) {
-        specBoxTitle.textContent = "// RUNTIME_SKILLS_SYSTEM";
-        specBoxTitle.className = "font-mono text-xs font-bold uppercase tracking-wider text-emerald-400 transition-colors duration-500";
-      }
-      if (specBoxSubtitle) specBoxSubtitle.className = "text-[11px] text-slate-600 font-mono font-light";
-
-      skillsGrid.className = "grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 font-mono text-xs text-slate-400 transition-colors duration-500";
-      skillsGrid.innerHTML = `
+      `,
+      boxClass: "lg:col-span-5 p-8 rounded-2xl border border-slate-800 bg-slate-900/50 shadow-2xl shadow-emerald-500/5 transition-all duration-500 space-y-6",
+      boxTitleText: "// RUNTIME_SKILLS_SYSTEM",
+      boxTitleClass: "font-mono text-xs font-bold uppercase tracking-wider text-emerald-400 transition-colors duration-500",
+      boxSubClass: "text-[11px] text-slate-600 font-mono font-light",
+      gridClass: "grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 font-mono text-xs text-slate-400 transition-colors duration-500",
+      gridHtml: `
         <div class="space-y-2">
           <div class="flex justify-between font-bold text-slate-200 border-b border-slate-800 pb-1"><span>Fullstack Web Dev</span> <span>[85%]</span></div>
           <p class="text-[11px] font-light">Ecosistemas interactivos escalables con Astro, Tailwind y TypeScript bajo tipado estricto.</p>
@@ -226,10 +189,112 @@
           <div class="flex justify-between font-bold text-slate-200 border-b border-slate-800 pb-1"><span>Linux Hardening</span> <span>[80%]</span></div>
           <p class="text-[11px] font-light">Configuración de entornos Unix seguros y auditorías básicas automatizadas mediante scripts.</p>
         </div>
-      `;
-    });
+      `
+    },
+    experience: {
+      theme: 'dark',
+      btnActive: 'shadow-sm bg-slate-800 text-sky-400',
+      btnInactive: 'text-slate-400 hover:text-slate-200',
+      sectionClass: "min-h-screen py-32 w-full max-w-none px-6 md:px-16 lg:px-24 flex flex-col justify-center transition-colors duration-700 bg-slate-950 text-slate-100",
+      headerBorder: "flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-8 transition-colors duration-500",
+      toggleBg: "inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 shadow-inner transition-colors duration-500",
+      titleClass: "text-4xl md:text-6xl font-black tracking-tight text-slate-100 transition-colors duration-500",
+      subtitleText: "[ // TRAYECTORIA_Y_CREDENTIALS ]",
+      subtitleClass: "text-xs font-mono uppercase tracking-widest text-sky-400 font-bold",
+      bioClass: "lg:col-span-7 space-y-6 text-[20px] font-light leading-relaxed text-slate-400 transition-colors duration-500",
+      bioHtml: `
+        <p>Trayectoria profesional híbrida orientada a la ingeniería de software, la automatización de procesos y la gestión de tecnologías gráficas. Combino más de 8 años de experiencia técnica en entornos de producción con una sólida formación en desarrollo y ciberseguridad.</p>
+        <p>Especializado en la construcción de interfaces estructuradas, optimización de workflows industriales y auditorías de seguridad en aplicaciones web modernas.</p>
+      `,
+      boxClass: "lg:col-span-5 p-8 rounded-2xl border border-slate-800 bg-slate-900/50 shadow-2xl shadow-sky-500/5 transition-all duration-500 space-y-6",
+      boxTitleText: "// ACADEMIC_&_CERTIFICATIONS",
+      boxTitleClass: "font-mono text-xs font-bold uppercase tracking-wider text-sky-400 transition-colors duration-500",
+      boxSubClass: "text-[11px] text-slate-600 font-mono font-light",
+      gridClass: "grid grid-cols-1 gap-4 pt-2 font-mono text-xs text-slate-400 transition-colors duration-500",
+      gridHtml: `
+        <div class="space-y-1 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="flex justify-between font-bold text-slate-200"><span>Ingeniería de Software</span> <span class="text-sky-400">[9no Semestre]</span></div>
+          <p class="text-[11px] text-slate-500">Formación avanzada en desarrollo web, métodos numéricos y arquitectura de software.</p>
+        </div>
+        <div class="space-y-1 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="flex justify-between font-bold text-slate-200"><span>Certificación Ciberseguridad</span> <span class="text-sky-400">[Talento Tech]</span></div>
+          <p class="text-[11px] text-slate-500">Fundamentos de seguridad de la información, análisis de vulnerabilidades y buenas prácticas.</p>
+        </div>
+        <div class="space-y-1 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="flex justify-between font-bold text-slate-200"><span>Fortinet Security Associate</span> <span class="text-sky-400">[NSE 1 & NSE 2]</span></div>
+          <p class="text-[11px] text-slate-500">Conocimientos en seguridad de redes, vectores de ataque y concientización sobre amenazas.</p>
+        </div>
+        <div class="space-y-1 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+          <div class="flex justify-between font-bold text-slate-200"><span>AWS Certified</span> <span class="text-sky-400">[Cloud Practitioner]</span></div>
+          <p class="text-[11px] text-slate-500">Servicios esenciales en la nube, modelo de responsabilidad compartida e infraestructura.</p>
+        </div>
+      `
+    }
+  } as const;
+
+  // Declaración explícita del tipo de clave
+  type ProfileKey = keyof typeof profiles;
+
+  // 2. FUNCIÓN DE INICIALIZACIÓN
+  const initAboutToggle = () => {
+    const btnDesigner = document.getElementById('btn-designer');
+    const btnEngineer = document.getElementById('btn-engineer');
+    const btnExperience = document.getElementById('btn-experience');
+
+    const aboutSection = document.getElementById('about-section');
+    const aboutHeaderBorder = document.getElementById('about-header-border');
+    const toggleContainer = document.getElementById('perspective-toggle-container');
+    const aboutTitle = document.getElementById('about-title');
+    const aboutSubtitle = document.getElementById('about-subtitle');
+    const aboutBioText = document.getElementById('about-bio-text');
+    const techSpecBox = document.getElementById('tech-spec-box');
+    const specBoxTitle = document.getElementById('spec-box-title');
+    const specBoxSubtitle = document.getElementById('spec-box-subtitle');
+    const skillsGrid = document.getElementById('skills-grid');
+
+    if (!btnDesigner || !btnEngineer || !btnExperience || !aboutSection || !skillsGrid) return;
+
+    // 3. FUNCIÓN UNIFICADA Y TIPADA
+    const updateView = (activeKey: ProfileKey) => {
+      const data = profiles[activeKey];
+      const baseBtnStyle = "px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-lg transition-all duration-300";
+
+      btnDesigner.className = `${baseBtnStyle} ${activeKey === 'designer' ? data.btnActive : data.btnInactive}`;
+      btnEngineer.className = `${baseBtnStyle} ${activeKey === 'engineer' ? data.btnActive : data.btnInactive}`;
+      btnExperience.className = `${baseBtnStyle} ${activeKey === 'experience' ? data.btnActive : data.btnInactive}`;
+
+      aboutSection.setAttribute('data-theme', data.theme);
+      aboutSection.className = data.sectionClass;
+      if (aboutHeaderBorder) aboutHeaderBorder.className = data.headerBorder;
+      if (toggleContainer) toggleContainer.className = data.toggleBg;
+
+      if (aboutTitle) aboutTitle.className = data.titleClass;
+      if (aboutSubtitle) {
+        aboutSubtitle.textContent = data.subtitleText;
+        aboutSubtitle.className = data.subtitleClass;
+      }
+
+      if (aboutBioText) {
+        aboutBioText.className = data.bioClass;
+        aboutBioText.innerHTML = data.bioHtml;
+      }
+
+      if (techSpecBox) techSpecBox.className = data.boxClass;
+      if (specBoxTitle) {
+        specBoxTitle.textContent = data.boxTitleText;
+        specBoxTitle.className = data.boxTitleClass;
+      }
+      if (specBoxSubtitle) specBoxSubtitle.className = data.boxSubClass;
+
+      skillsGrid.className = data.gridClass;
+      skillsGrid.innerHTML = data.gridHtml;
+    };
+
+    // 4. LISTENERS
+    btnDesigner.addEventListener('click', () => updateView('designer'));
+    btnEngineer.addEventListener('click', () => updateView('engineer'));
+    btnExperience.addEventListener('click', () => updateView('experience'));
   };
 
-  // Orquestación segura para cargas tradicionales y transiciones de Astro
   document.addEventListener('astro:page-load', initAboutToggle);
 </script>
