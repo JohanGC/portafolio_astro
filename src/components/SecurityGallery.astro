@@ -1,36 +1,18 @@
 ---
-import { promise } from "astro:schema";
-
-
 const { limit } = Astro.props;
-
-
-// id: "appsec-owasp",
-//     title: "Auditoría de Vulnerabilidades Web (OWASP Top 10)",
-//     category: "AppSec / Pentesting",
-//     shortDesc: "",
-//     badge: "OWASP A03:2021",
-//     
-//     scenario: "Se desplegó un entorno controlado local con formularios interactivos propensos a fallos de sanitización en el cliente para simular vectores de inyección críticos.",
-//     recon: "Utilizando OWASP ZAP y mapeo manual, se identificaron puntos de entrada donde los datos del usuario se renderizaban directamente en el DOM sin codificación previa. Con Burp Suite Proxy se interceptaron las peticiones HTTP salientes.",
-//     pocCommand: "$ burp-suite --intercept --target https://laboratorio.local/api/v1/update",
-//     pocText: "Al manipular el parámetro 'username' e inyectar un payload de Cross-Site Scripting (XSS) reflejado, se logró evadir la validación básica de frontend de Adobe Acrobat / JavaScript e inyectar scripts arbitrarios en la sesión.",
-//     solution: "Migración hacia un paradigma defensivo mediante escape contextual completo de entidades HTML y tipado estricto en el procesamiento de datos del lado del servidor.",
-//     mitigationCode: `// ANTES (Vulnerable): el elemento procesaba el string crudo
 
 const projects = [
   {
-    id: "appsec-owasp",
-    title: "Auditoría de Vulnerabilidades Web (OWASP Top 10)",
-    category: "AppSec / Pentesting",
-    shortDesc: "Detección y mitigación de fallos XSS y manipulación de parámetros mediante análisis interceptivo.",
-    tags: ["Acrobat", "JavaScript", "Industrial Printing"],
-    tools: ["Burp Suite", "OWASP ZAP", "Kali Linux", "Regex"],
+    id: "recon-externo-web",
+    title: "Auditoría de Reconocimiento Externo (Black-Box)",
+    category: "Network Security / Pentesting",
+    shortDesc: "Reconocimiento externo completo de un dominio productivo: WHOIS, DNS, puertos, tecnologías web y configuración TLS, con hallazgos priorizados por severidad.",
+    tags: ["Black-Box", "Recon", "TLS"],
+    tools: ["Kali Linux", "nmap", "nikto", "testssl.sh"],
   },
 ];
 
 const securityProjects = limit ? projects.slice(0, limit) : projects;
-
 ---
 
 <div class="w-full space-y-12">

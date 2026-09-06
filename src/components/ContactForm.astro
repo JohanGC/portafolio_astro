@@ -94,7 +94,8 @@ const { id } = Astro.props;
           
           <button 
             type="submit" 
-            class="w-full sm:w-auto font-mono text-xs uppercase tracking-widest font-bold bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3.5 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/20 active:scale-[0.98]"
+            id="submit-btn"
+            class="w-full sm:w-auto font-mono text-xs uppercase tracking-widest font-bold bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3.5 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/20 active:scale-[0.98] disabled:opacity-50"
           >
             Transmitir Payload →
           </button>
@@ -110,8 +111,9 @@ const { id } = Astro.props;
   const initContactForm = () => {
     const contactForm = document.getElementById('secure-contact-form') as HTMLFormElement;
     const statusMsg = document.getElementById('form-status-msg');
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
 
-    if (contactForm && statusMsg) {
+    if (contactForm && statusMsg && submitBtn) {
       contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -123,7 +125,8 @@ const { id } = Astro.props;
           return;
         }
 
-        // 2. Cambio de Estado a Procesando
+        // 2. Cambio de Estado
+        submitBtn.disabled = true;
         statusMsg.className = "font-mono text-[11px] text-indigo-400 bg-indigo-950/30 border border-indigo-900/50 px-3 py-1 rounded animate-pulse";
         statusMsg.textContent = "[*] SANITIZING & SENDING...";
 
@@ -146,7 +149,7 @@ const { id } = Astro.props;
             throw new Error(resultado.message || 'Error al enviar el formulario.');
           }
 
-          // 3. Cambio de Estado a Éxito Completo
+          // 3. Confirmación de Éxito
           statusMsg.className = "font-mono text-[11px] text-emerald-400 font-bold bg-emerald-950/30 border border-emerald-900/50 px-3 py-1 rounded";
           statusMsg.textContent = "[✔] TRANSMISIÓN EXITOSA: Payload recibido.";
           contactForm.reset();
@@ -157,9 +160,10 @@ const { id } = Astro.props;
           }, 5000);
         
         } catch (error: any) {
-          // El manejo de error ahora captura fallas dentro del bloque catch
           statusMsg.className = "font-mono text-[11px] text-red-400 bg-red-950/30 border border-red-900/50 px-3 py-1 rounded";
           statusMsg.textContent = `[❌] FATAL ERROR: ${error.message || 'Falla de enlace en el nodo.'}`;
+        } finally {
+          submitBtn.disabled = false;
         }
       });
     }

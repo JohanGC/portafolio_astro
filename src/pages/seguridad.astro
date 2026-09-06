@@ -2,31 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SecurityGallery from '../components/SecurityGallery.astro';
 import Footer from '../components/Footer.astro';
-
-const securityLabs = [
-  {
-    id: "appsec-owasp",
-    title: "Auditoría de Vulnerabilidades Web (OWASP Top 10)",
-    category: "AppSec / Pentesting",
-    shortDesc: "Detección y mitigación de fallos XSS y manipulación de parámetros mediante análisis interceptivo.",
-    badge: "OWASP A03:2021",
-    tools: ["Burp Suite", "OWASP ZAP", "Kali Linux", "Regex"],
-    scenario: "Se desplegó un entorno controlado local con formularios interactivos propensos a fallos de sanitización en el cliente para simular vectores de inyección críticos.",
-    recon: "Utilizando OWASP ZAP y mapeo manual, se identificaron puntos de entrada donde los datos del usuario se renderizaban directamente en el DOM sin codificación previa. Con Burp Suite Proxy se interceptaron las peticiones HTTP salientes.",
-    pocCommand: "$ burp-suite --intercept --target https://laboratorio.local/api/v1/update",
-    pocText: "Al manipular el parámetro 'username' e inyectar un payload de Cross-Site Scripting (XSS) reflejado, se logró evadir la validación básica de frontend de Adobe Acrobat / JavaScript e inyectar scripts arbitrarios en la sesión.",
-    solution: "Migración hacia un paradigma defensivo mediante escape contextual completo de entidades HTML y tipado estricto en el procesamiento de datos del lado del servidor.",
-    mitigationCode: `// ANTES (Vulnerable): el elemento procesaba el string crudo
-// el.innerHTML = input;
-
-// DESPUÉS (Seguro): Sanitización rigurosa mediante codificación textual
-function secureRender(input) {
-  const el = document.createElement('div');
-  el.textContent = input; // Fuerza al navegador a interpretarlo exclusivamente como texto plano
-  return el.innerHTML;
-}`
-  }
-];
 ---
 
 <BaseLayout 
@@ -63,19 +38,7 @@ function secureRender(input) {
       </div>
     </section>
 
-
     <Footer />
 
-    <div id="security-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-400">
-      <div id="security-modal-card" class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-5xl max-h-[85vh] overflow-y-auto shadow-2xl p-6 md:p-10 space-y-8 scale-95 opacity-0 transition-all duration-400 relative text-sm text-slate-300">
-        
-        <button id="close-security-modal" class="absolute top-6 right-6 font-mono text-xs font-bold uppercase bg-slate-950 text-slate-500 hover:text-slate-300 border border-slate-800 px-3 py-1.5 rounded-xl transition-all">
-          // TERMINAR_SESION [X]
-        </button>
-
-        <div id="security-dynamic-content" class="space-y-8"></div>
-      </div>
-    </div>
-
   </main>
-</Layout>
+</BaseLayout>

@@ -120,21 +120,32 @@ export function getStaticPaths() {
     // ==========================================
     // PROYECTOS DE CIBERSEGURIDAD (DARK MODE)
     // ==========================================
-    { 
-      params: { id: 'appsec-owasp' },
+    {
+      params: { id: 'recon-externo-web' },
       props: {
         type: 'security',
-        title: "Auditoría de Seguridad Portafolio Anterior",
-        category: "AppSec / Pentesting",
-        fullDesc: "Auditoría de seguridad integral realizada a la versión previa del portafolio web. Se ejecutaron pruebas de caja negra y caja gris para detectar vulnerabilidades en la configuración de cabeceras, vectores de inyección y exposición de metadatos.",
-        challenge: "Identificar brechas potenciales en la infraestructura anterior y evaluar la superficie de ataque expuesta en componentes cliente y servidor sin afectar la disponibilidad.",
-        solution: "Análisis y escaneo con OWASP ZAP y nmap, remediación estructural mediante sanitización de entradas, implementación de políticas CSP estrictas y migración a un stack estático inmune a inyecciones en servidor.",
-        tools: ["Kali Linux", "nmap", "OWASP ZAP", "Burp Suite"],
-        vulnerabilities: [
-          "Falta de cabeceras de seguridad (HSTS, Content-Security-Policy)",
-          "Exposición innecesaria de metadatos del servidor en respuestas HTTP",
-          "Recursos de JavaScript obsoletos con vulnerabilidades conocidas (CVEs)"
+        title: "Auditoría de Reconocimiento Externo (Black-Box)",
+        category: "Network Security / Pentesting",
+        fullDesc: "Auditoría de caja negra sobre un dominio web productivo protegido por CDN/WAF. Se realizó reconocimiento externo completo: recolección de información pública, enumeración DNS, escaneo de puertos, fingerprinting de tecnologías web y evaluación de la configuración TLS, con el fin de mapear la superficie de ataque expuesta a Internet.",
+        challenge: "Evaluar qué información y servicios son visibles públicamente para un atacante externo, sin realizar explotación activa ni afectar la disponibilidad del servicio, y determinar si la infraestructura detrás del proxy/CDN estaba adecuadamente protegida.",
+        solution: "Ejecución de una batería de herramientas de reconocimiento (WHOIS, DNS, escaneo de puertos, análisis de cabeceras y de la configuración TLS), clasificación de hallazgos por severidad e impacto, y elaboración de un informe con recomendaciones priorizadas: deshabilitar protocolos TLS obsoletos, incorporar cabeceras de seguridad HTTP faltantes y restringir el acceso a puertos administrativos no necesarios públicamente.",
+        scope: "Prueba de reconocimiento externo autorizada, sin explotación activa ni pruebas de intrusión. Los hallazgos corresponden a un momento puntual del análisis y no representan necesariamente el estado actual del objetivo. Datos identificativos anonimizados por confidencialidad.",
+        methodology: [
+          "OSINT / WHOIS",
+          "Enumeración DNS",
+          "Escaneo de puertos",
+          "Fingerprinting web",
+          "Evaluación TLS/SSL"
         ],
+        tools: ["Kali Linux", "nmap", "nikto", "testssl.sh", "dnsrecon", "gobuster", "whatweb"],
+        vulnerabilities: [
+          { text: "Inconsistencias de disponibilidad del origen detectadas durante la ventana de pruebas", severity: "high" },
+          { text: "Soporte activo de protocolos TLS obsoletos (TLS 1.0/1.1) junto a versiones seguras", severity: "medium" },
+          { text: "Ausencia de cabeceras de seguridad HTTP recomendadas (CSP, HSTS, X-Content-Type-Options)", severity: "medium" },
+          { text: "Puertos administrativos de panel de hosting expuestos innecesariamente a Internet", severity: "medium" },
+          { text: "SSH y base de datos correctamente filtrados ante el escaneo externo", severity: "positive" }
+        ],
+        reportUrl: "/docs/informe-recon-externo-web.pdf",
         processImages: []
       }
     },
@@ -147,9 +158,12 @@ const {
   category, 
   fullDesc, 
   challenge, 
-  solution, 
+  solution,
+  scope,
+  methodology = [],
   tools = [],
   vulnerabilities = [],
+  reportUrl,
   processImages = [], 
   processImages2 = [], 
   imgppl 
@@ -170,6 +184,38 @@ const styles = {
   solutionTitle: isSecurity ? 'text-emerald-400' : 'text-indigo-500',
   borderDivider: isSecurity ? 'border-slate-800' : 'border-slate-100',
 };
+
+// Normaliza vulnerabilidades: admite string[] (formato antiguo) u objetos {text, severity}
+const normalizedVulns = vulnerabilities.map((v) =>
+  typeof v === 'string' ? { text: v, severity: 'info' } : v
+);
+
+// Estilos y etiquetas por nivel de severidad
+type SeverityKey = 'high' | 'medium' | 'low' | 'info' | 'positive';
+type SeverityStyle = { label: string; dot: string; badge: string };
+
+const severityMeta: Record<SeverityKey, SeverityStyle> = {
+  high:     { label: 'ALTO',   dot: 'text-red-400',     badge: 'bg-red-950/40 text-red-400 border-red-900/60' },
+  medium:   { label: 'MEDIO',  dot: 'text-amber-400',   badge: 'bg-amber-950/30 text-amber-400 border-amber-900/50' },
+  low:      { label: 'BAJO',   dot: 'text-blue-400',    badge: 'bg-blue-950/30 text-blue-400 border-blue-900/50' },
+  info:     { label: 'INFO',   dot: 'text-slate-400',   badge: 'bg-slate-900 text-slate-400 border-slate-800' },
+  positive: { label: 'OK',     dot: 'text-emerald-400', badge: 'bg-emerald-950/30 text-emerald-400 border-emerald-900/50' },
+};
+
+const defaultSeverity = severityMeta.info;
+
+function getSeverityMeta(sev: string): SeverityStyle {
+  return severityMeta[sev as SeverityKey] ?? defaultSeverity;
+}
+
+// Métricas rápidas para el encabezado (solo tiene sentido para hallazgos de seguridad)
+const severityCounts: Record<string, number> = normalizedVulns.reduce(
+  (acc: Record<string, number>, v: { severity: string }) => {
+    acc[v.severity] = (acc[v.severity] || 0) + 1;
+    return acc;
+  },
+  {} as Record<string, number>
+);
 ---
 
 <BaseLayout title={title} description={fullDesc}>
@@ -201,7 +247,51 @@ const styles = {
           <p class={`text-base font-light leading-relaxed max-w-3xl ${styles.descText}`}>
             {fullDesc}
           </p>
+
+          <!-- Métricas rápidas de hallazgos (solo seguridad) -->
+          {isSecurity && normalizedVulns.length > 0 && (
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+              <span class="text-[10px] font-mono px-2.5 py-1 rounded-md border border-slate-800 bg-slate-950 text-slate-300 font-bold">
+                {normalizedVulns.length} HALLAZGOS
+              </span>
+              {Object.entries(severityCounts).map(([sev, count]) => (
+                <span class={`text-[10px] font-mono px-2.5 py-1 rounded-md border font-bold ${getSeverityMeta(sev).badge}`}>
+                  {count} {getSeverityMeta(sev).label}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
+
+        <!-- Alcance y limitaciones (Específico de Seguridad) -->
+        {scope && (
+          <div class="rounded-2xl border border-slate-800 bg-slate-950/60 p-5">
+            <h3 class="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2">// ALCANCE_Y_LIMITACIONES</h3>
+            <p class="text-xs font-light leading-relaxed text-slate-400">{scope}</p>
+          </div>
+        )}
+
+        <!-- Línea de tiempo de metodología (Específico de Seguridad) -->
+        {methodology.length > 0 && (
+          <div class="space-y-3 pt-2">
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">// METODOLOGÍA</h3>
+            <div class="flex flex-wrap items-center gap-2">
+              {methodology.map((step, idx) => (
+                <>
+                  <div class="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2">
+                    <span class="text-emerald-400 font-mono text-[10px] font-bold">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <span class="font-mono text-[11px] text-slate-300 font-semibold">{step}</span>
+                  </div>
+                  {idx < methodology.length - 1 && (
+                    <span class="text-slate-700 font-mono text-xs">→</span>
+                  )}
+                </>
+              ))}
+            </div>
+          </div>
+        )}
 
         <!-- Bloque de Herramientas / Tools (Específico para Seguridad) -->
         {tools.length > 0 && (
@@ -238,18 +328,36 @@ const styles = {
           )}
         </div>
 
-        <!-- Hallazgos / Vulnerabilidades (Específico de Seguridad) -->
-        {vulnerabilities.length > 0 && (
+        <!-- Hallazgos / Vulnerabilidades con severidad (Específico de Seguridad) -->
+        {normalizedVulns.length > 0 && (
           <div class={`space-y-4 pt-6 border-t ${styles.borderDivider}`}>
-            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">// VULNERABILIDADES_EVALUADAS</h3>
+            <h3 class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">// HALLAZGOS_EVALUADOS</h3>
             <ul class="space-y-2 font-mono text-xs text-slate-300">
-              {vulnerabilities.map((vuln) => (
-                <li class="flex items-start gap-2 bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-                  <span class="text-emerald-400 font-bold">[!]</span>
-                  <span>{vuln}</span>
-                </li>
-              ))}
+              {normalizedVulns.map((vuln) => {
+                const meta = getSeverityMeta(vuln.severity);
+                return (
+                  <li class="flex items-start gap-3 bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                    <span class={`shrink-0 text-[9px] font-bold px-2 py-0.5 rounded border ${meta.badge}`}>
+                      {meta.label}
+                    </span>
+                    <span>{vuln.text}</span>
+                  </li>
+                );
+              })}
             </ul>
+          </div>
+        )}
+
+        <!-- Enlace a informe descargable (Específico de Seguridad) -->
+        {reportUrl && (
+          <div class="pt-2">
+            <a 
+              href={reportUrl} 
+              download
+              class="inline-flex items-center gap-2 text-xs font-mono font-bold px-4 py-2.5 rounded-xl border border-emerald-900/60 bg-emerald-950/30 text-emerald-400 hover:bg-emerald-950/50 transition-all"
+            >
+              // DESCARGAR_INFORME_COMPLETO (PDF) ↓
+            </a>
           </div>
         )}
 
