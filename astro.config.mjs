@@ -5,14 +5,14 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
+  output: 'static',
   adapter: cloudflare({
-    imageService: 'passthrough'
+     imageService: 'passthrough'
   }),
   vite: {
     plugins: [tailwindcss()],
-    ssr: {
-      external: ['cloudflare:workers']
-    }    
+    // ssr: {
+    //   external: ['cloudflare:workers']
+    // }    
   }
 });
